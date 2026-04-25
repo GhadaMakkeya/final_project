@@ -1,0 +1,11 @@
+flutter_native_splash:
+
+  color: "#000D1C" 
+  image: assets/images/app_logo.png
+  #branding_mode: bottom                # default bottom
+  #branding_bottom_padding: 24          # default 0
+  #branding_bottom_padding_android: 24  # default 0
+  #branding_bottom_padding_ios: 24      # default 0
+  android_12:
+    image: assets/images/app_logo.png
+    color: "#000D1C"
