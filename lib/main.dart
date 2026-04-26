@@ -3,6 +3,7 @@ import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 import 'package:veloura/features/onboarding/presentation/shopping_cart_screen.dart';
 
 void main() {
