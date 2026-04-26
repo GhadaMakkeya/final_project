@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:veloura/features/onboarding/presentation/shopping_cart_screen.dart';
+import 'package:veloura/features/products/presntation/screens/products_screen.dart';
+
+void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
 
 import 'features/cart/presentation/screens/shopping_cart_screen.dart';
