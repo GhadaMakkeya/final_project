@@ -5,6 +5,7 @@ import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page
 import 'package:veloura/features/onboarding/presentation/widgets/onboarding_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:veloura/core/routing/main_navigation.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -111,11 +112,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _handleGetStarted() {
-    // TODO: navigation
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Welcome to VELOURA!'),
-        backgroundColor: Color(0xFF1A2233),
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const MainNavigation(),
       ),
     );
   }
