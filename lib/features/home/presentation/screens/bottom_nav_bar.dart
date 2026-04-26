@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
+import 'package:veloura/features/profile/presentation/screens/profile_screen.dart';
+
+import '../../../cart/presentation/screens/shopping_cart_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -12,9 +15,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int currentIndex = 0;
   List<Widget> screens = [
     HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
+    ShoppingCartScreen(),
+    ShoppingCartScreen(),
+    ProfileScreen(),
   ];
 
   @override

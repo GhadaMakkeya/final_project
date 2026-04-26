@@ -37,19 +37,19 @@ class _HomeScreenState extends State<HomeScreen> {
     List<OffersData> offers = [
       OffersData(
         imagePath:
-            "https://i.pinimg.com/736x/ef/5d/19/ef5d19d66d9fafecd3ff4d1c85f82c3c.jpg",
+        "https://i.pinimg.com/736x/ef/5d/19/ef5d19d66d9fafecd3ff4d1c85f82c3c.jpg",
         offerTitle: "Winter Collection",
         offerDesc: "Exclusive 20% off for the next 24 hours",
       ),
       OffersData(
         imagePath:
-            "https://i.pinimg.com/control1/1200x/2e/fd/67/2efd6797c8ef797666ffaa7cd9d473b8.jpg",
+        "https://i.pinimg.com/control1/1200x/2e/fd/67/2efd6797c8ef797666ffaa7cd9d473b8.jpg",
         offerTitle: "Winter Collection",
         offerDesc: "Exclusive 20% off for the next 24 hours",
       ),
       OffersData(
         imagePath:
-            "https://i.pinimg.com/736x/ef/5d/19/ef5d19d66d9fafecd3ff4d1c85f82c3c.jpg",
+        "https://i.pinimg.com/736x/ef/5d/19/ef5d19d66d9fafecd3ff4d1c85f82c3c.jpg",
         offerTitle: "Winter Collection",
         offerDesc: "Exclusive 20% off for the next 24 hours",
       ),
@@ -57,61 +57,61 @@ class _HomeScreenState extends State<HomeScreen> {
     List<ProductDataModel> products = [
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/736x/a7/42/24/a7422429694f5e1426ebaf85b5160d89.jpg",
+        "https://i.pinimg.com/736x/a7/42/24/a7422429694f5e1426ebaf85b5160d89.jpg",
         productName: "Signature Chrono",
         price: "\$1,250.00",
       ),
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/control1/736x/7d/d9/ed/7dd9edd6992dec26196227c59688ad24.jpg",
+        "https://i.pinimg.com/control1/736x/7d/d9/ed/7dd9edd6992dec26196227c59688ad24.jpg",
         productName: "Essence No. 5",
         price: "\$280.00",
       ),
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/736x/04/3e/d4/043ed498d9e5d1d3cddd2587283805b3.jpg",
+        "https://i.pinimg.com/736x/04/3e/d4/043ed498d9e5d1d3cddd2587283805b3.jpg",
         productName: "Aviator Gilt",
         price: "\$890.00",
       ),
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/736x/36/ce/79/36ce79b6407b7fc75cdfaaee1668a916.jpg",
+        "https://i.pinimg.com/736x/36/ce/79/36ce79b6407b7fc75cdfaaee1668a916.jpg",
         productName: "Noir Envelope Bag",
         price: "\$420.00",
       ),
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
+        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
         productName: "Noir Envelope Bag",
         price: "\$420.00",
       ),
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
+        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
         productName: "Noir Envelope Bag",
         price: "\$420.00",
       ),
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
+        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
         productName: "Noir Envelope Bag",
         price: "\$420.00",
       ),
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
+        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
         productName: "Noir Envelope Bag",
         price: "\$420.00",
       ),
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
+        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
         productName: "Noir Envelope Bag",
         price: "\$420.00",
       ),
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
+        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
         productName: "Noir Envelope Bag",
         price: "\$420.00",
       ),
