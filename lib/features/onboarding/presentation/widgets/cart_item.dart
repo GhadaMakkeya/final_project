@@ -22,49 +22,61 @@ class CartItem extends StatelessWidget {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: Image.asset(
-              image,
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.cover,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: Image.asset(
+                image,
+                width: double.infinity,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Row(
-            children: [
-              Text(
-                name,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-              Text(
-                '\$${price.toStringAsFixed(2)}',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-            ],
-          ),
-          Text(subtitle, style: TextStyle(fontSize: 13, color: Colors.grey)),
-          Row(
-            children: [
-              Row(
-                children: [
-                  _qtyButton(Icons.remove, onDecrement),
-                  Text('$quantity', style: TextStyle(fontSize: 15)),
-                  _qtyButton(Icons.add, onIncrement),
-                ],
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  "REMOVE",
-                  style: TextStyle(color: Colors.black, fontSize: 12),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  name,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
-              ),
-            ],
-          ),
-        ],
+                Text(
+                  '\$${price.toStringAsFixed(2)}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ],
+            ),
+            SizedBox(height: 4),
+            Text(subtitle, style: TextStyle(fontSize: 13, color: Colors.grey)),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    _qtyButton(Icons.remove, onDecrement),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Text('$quantity', style: TextStyle(fontSize: 15)),
+                    ),
+                    _qtyButton(Icons.add, onIncrement),
+                  ],
+                ),
+                TextButton(
+                  onPressed: onRemove,
+                  child: Text(
+                    "REMOVE",
+                    style: TextStyle(color: Colors.black, fontSize: 12),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
