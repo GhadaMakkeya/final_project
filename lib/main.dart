@@ -1,3 +1,4 @@
+import 'package:veloura/features/home/presentation/screens/bottom_nav_bar.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: ShoppingCartScreen(),
+      home: OnboardingScreen(),
     );
   }
 }
