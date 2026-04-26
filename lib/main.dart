@@ -4,8 +4,8 @@ import 'package:veloura/features/auth/forget_password/presentation/screens/forge
 import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
 
 void main() {
-  //WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
- // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+ FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: ForgetPassword()
+      home: OnboardingScreen()
     );
   }
 }
