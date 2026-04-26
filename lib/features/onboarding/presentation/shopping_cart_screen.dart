@@ -69,8 +69,8 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
               child: Text(
-                "Your Bag",
-                style: TextStyle(fontSize: 48, fontWeight: FontWeight.w400),
+                "Your Cart",
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w400),
               ),
             ),
             Padding(

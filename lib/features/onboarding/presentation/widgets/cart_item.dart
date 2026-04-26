@@ -20,63 +20,76 @@ class CartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Color(0xffF5F3F3),
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: Image.asset(
-                image,
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: Image.asset(
+              image,
+              width: double.infinity,
+              height: 200,
+              fit: BoxFit.fitWidth,
             ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  name,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                Text(
-                  '\$${price.toStringAsFixed(2)}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ],
-            ),
-            SizedBox(height: 4),
-            Text(subtitle, style: TextStyle(fontSize: 13, color: Colors.grey)),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _qtyButton(Icons.remove, onDecrement),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text('$quantity', style: TextStyle(fontSize: 15)),
+                    Text(
+                      name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
-                    _qtyButton(Icons.add, onIncrement),
+                    Text(
+                      '\$${price.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
                   ],
                 ),
-                TextButton(
-                  onPressed: onRemove,
-                  child: Text(
-                    "REMOVE",
-                    style: TextStyle(color: Colors.black, fontSize: 12),
-                  ),
+                SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: TextStyle(fontSize: 13, color: Colors.grey),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        _qtyButton(Icons.remove, onDecrement),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Text(
+                            '$quantity',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                        _qtyButton(Icons.add, onIncrement),
+                      ],
+                    ),
+                    IconButton(onPressed: onRemove, icon: Icon(Icons.delete)),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
