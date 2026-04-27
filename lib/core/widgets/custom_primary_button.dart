@@ -40,16 +40,14 @@ class CustomPrimaryButton extends StatelessWidget {
           elevation: 4,
           shadowColor: Colors.black26,
           side: BorderSide(color: Colors.black, width: 1),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        ),     
         child: Text(
           label,
           style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: buttonTextColor,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 3,
           ),
         ),
       ),
