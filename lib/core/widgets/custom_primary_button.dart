@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class CustomPrimaryButton extends StatelessWidget {
   final String label;
@@ -19,7 +20,7 @@ class CustomPrimaryButton extends StatelessWidget {
     required this.onPressed,
     this.width = double.infinity,
     this.height = 58,
-    this.color = const Color(0xFF1B2A4A),
+    this.color = AppColors.primaryColor,
     this.buttonTextColor = Colors.white,
     this.borderColor = Colors.transparent,
     this.trailingIcon,
@@ -41,7 +42,7 @@ class CustomPrimaryButton extends StatelessWidget {
           shadowColor: Colors.black26,
           side: BorderSide(color: Colors.black, width: 1),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-        ),     
+        ),
         child: Text(
           label,
           style: TextStyle(

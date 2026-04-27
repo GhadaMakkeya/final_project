@@ -28,7 +28,7 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
         children: [
           Row(
             children: [
-              Icon(Icons.wb_sunny_outlined, size: 18, color: AppColors.primary),
+              Icon(Icons.wb_sunny_outlined, size: 18, color: AppColors.primaryColor),
               const SizedBox(width: 8),
               const Text(
                 "Theme",
@@ -72,7 +72,7 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
         duration: const Duration(milliseconds: 250),
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : Colors.transparent,
+          color: isSelected ? AppColors.primaryColor : Colors.transparent,
           borderRadius: BorderRadius.circular(25),
         ),
         child: Text(

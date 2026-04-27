@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 
 class ImageUploadSection extends StatefulWidget {
   const ImageUploadSection({super.key});
@@ -8,14 +9,13 @@ class ImageUploadSection extends StatefulWidget {
 }
 
 class _ImageUploadSectionState extends State<ImageUploadSection> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: (){},
+          onTap: () {},
           child: Container(
             width: double.infinity,
             height: 200,
@@ -43,22 +43,13 @@ class _ImageUploadSectionState extends State<ImageUploadSection> {
                 const SizedBox(height: 12),
                 const Text(
                   'UPLOAD PRIMARY IMAGE',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.8,
-                    color: Colors.black87,
-                  ),
+                  style: AppTextStyles.uploadLabel,
                 ),
                 const SizedBox(height: 6),
                 const Text(
                   'High-resolution JPG or PNG.\nRecommended ratio 4:5.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Color.fromARGB(255, 176, 170, 170),
-                    height: 1.5,
-                  ),
+                  style: AppTextStyles.uploadHint,
                 ),
               ],
             ),
@@ -68,7 +59,7 @@ class _ImageUploadSectionState extends State<ImageUploadSection> {
         Row(
           children: [
             GestureDetector(
-              onTap: (){},
+              onTap: () {},
               child: Container(
                 width: 56,
                 height: 56,
@@ -77,7 +68,11 @@ class _ImageUploadSectionState extends State<ImageUploadSection> {
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: Color.fromARGB(255, 121, 95, 68)),
                 ),
-                child: const Icon(Icons.add, color: Color.fromARGB(255, 121, 95, 68), size: 20),
+                child: const Icon(
+                  Icons.add,
+                  color: Color.fromARGB(255, 121, 95, 68),
+                  size: 20,
+                ),
               ),
             ),
           ],

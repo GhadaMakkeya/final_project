@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/managment/presentation/widgets/basic_info_section.dart';
 import 'package:veloura/features/managment/presentation/widgets/bottom_action_buttons.dart';
 import 'package:veloura/features/managment/presentation/widgets/image_upload_scteion.dart';
@@ -40,22 +42,17 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 251, 248, 245),
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 251, 248, 245),
+        backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
+        title: Text(
           'Add New Product',
-          style: TextStyle(
-            fontFamily: AppFontFamilies.georgia,
-            color: Color(0xFF4E4639),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          style: AppTextStyles.addNewProductTextStyle,
         ),
         centerTitle: true,
       ),
@@ -100,7 +97,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                   ],
                 ),
               ),
-            ),          
+            ),
           ],
         ),
       ),

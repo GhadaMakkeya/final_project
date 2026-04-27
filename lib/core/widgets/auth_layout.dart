@@ -15,7 +15,7 @@ class AuthLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDFCFB), // Very light background
+      backgroundColor: const Color(0xFFFDFCFB), 
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -23,7 +23,7 @@ class AuthLayout extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight - 80, // Adjust for padding
+                  minHeight: constraints.maxHeight - 80, 
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +35,7 @@ class AuthLayout extends StatelessWidget {
                         fontFamily: AppFontFamilies.georgia,
                         fontSize: 48,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
+                        color: AppColors.primaryColor,
                         letterSpacing: -1,
                       ),
                     ),

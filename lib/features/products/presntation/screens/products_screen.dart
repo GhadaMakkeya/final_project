@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:veloura/features/products/presntation/widgets/categoey_list.dart';
 import 'package:veloura/features/products/presntation/widgets/custom_product_item.dart';
@@ -12,24 +14,15 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF2EDE8),
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         toolbarHeight: 65,
         elevation: 0,
         leading: const Icon(Icons.menu, color: Colors.black),
         centerTitle: true,
-        backgroundColor: Color(0xffF2EDE8),
+        backgroundColor: AppColors.backgroundColor,
         leadingWidth: 64,
-        title: Text(
-          AppStrings.appName,
-          style: const TextStyle(
-            fontFamily: AppFontFamilies.georgia,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 4,
-            color: Color(0xFF1A1A1A),
-          ),
-        ),
+        title: Text(AppStrings.appName, style: AppTextStyles.appNameTextStyle),
         actions: const [
           Icon(Icons.search, color: Colors.black),
           SizedBox(width: 15),

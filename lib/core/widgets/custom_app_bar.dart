@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -24,12 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Text(
         title,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 22,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 2,
-        ),
+        style: AppTextStyles.appNameTextStyle
       ),
       actions: [
         IconButton(

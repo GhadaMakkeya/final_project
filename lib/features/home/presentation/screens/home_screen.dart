@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/home/data/category_data.dart';
 import 'package:veloura/features/home/data/offers_data.dart';
 import 'package:veloura/features/home/data/product_data_model.dart';
@@ -118,24 +120,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ];
     return Scaffold(
-      backgroundColor: Color(0xffF2EDE8),
+      backgroundColor: AppColors.backgroundColor,
       //-------------AppBar------------
       appBar: AppBar(
         toolbarHeight: 65,
-        backgroundColor: Color(0xffF2EDE8),
+        backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         centerTitle: true,
         leadingWidth: 64,
-        title: Text(
-          AppStrings.appName,
-          style: const TextStyle(
-            fontFamily: AppFontFamilies.georgia,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 4,
-            color: Color(0xFF1A1A1A),
-          ),
-        ),
+        title: Text(AppStrings.appName, style: AppTextStyles.appNameTextStyle),
         leading: Padding(
           padding: const EdgeInsets.only(left: 24),
           child: IconButton(
@@ -154,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20,),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -164,25 +157,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     "Featured Offers",
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontFamily: AppFontFamilies.georgia,
-                      color: Color(0xFF1A1A1A),
-                      fontWeight: FontWeight.w500                      ),
+                    style: AppTextStyles.featuredOffersTitle,
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: Text(
-                      "SEE ALL",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
+                    child: Text("SEE ALL", style: AppTextStyles.seeAllButton),
                   ),
                 ],
               ),
-              SizedBox(height: 8,),
+              SizedBox(height: 8),
               SizedBox(
                 height: 180,
                 child: PageView.builder(
