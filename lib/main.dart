@@ -14,14 +14,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
+      designSize: const Size(360, 884),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context , child) {
+      builder: (context, child) {
+        double screenWidth = ScreenUtil().screenWidth;
+        double screenHeight = ScreenUtil().screenHeight;
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
-          home:  OnboardingScreen(),
+          home: ForgetPassword(),
         );
       },
     );

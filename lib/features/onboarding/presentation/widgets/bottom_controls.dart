@@ -31,12 +31,12 @@ class BottomControls extends StatelessWidget {
               pageCount,
               (index) => AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                margin: const EdgeInsets.symmetric(horizontal: 6),
+                margin:  EdgeInsets.symmetric(horizontal: 6.w),
                 height: 8,
                 width: currentPage == index ? 20.w : 8.w,
                 decoration: BoxDecoration(
                   color: currentPage == index
-                      ? Color(0xFF1B2A4A)
+                      ? AppColors.primaryColor
                       : Colors.grey.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(4.r),
                 ),
@@ -48,7 +48,6 @@ class BottomControls extends StatelessWidget {
           CustomPrimaryButton(
             label: isLast ? 'GET STARTED' : 'NEXT',
             onPressed: isLast ? onGetStarted : onNext,
-            height: 54.h,
             width: 350.w,
           ),
         ],

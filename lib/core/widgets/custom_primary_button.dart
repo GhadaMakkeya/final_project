@@ -7,7 +7,6 @@ class CustomPrimaryButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final double? width;
-  final double height;
   final Color color;
   final Color buttonTextColor;
   final Color borderColor;
@@ -20,7 +19,6 @@ class CustomPrimaryButton extends StatelessWidget {
     this.label = 'NEXT',
     required this.onPressed,
     this.width = double.infinity,
-    this.height = 58,
     this.color = AppColors.primaryColor,
     this.buttonTextColor = Colors.white,
     this.borderColor = Colors.transparent,
@@ -33,7 +31,7 @@ class CustomPrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: height,
+      height: 60.h,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -42,7 +40,7 @@ class CustomPrimaryButton extends StatelessWidget {
           elevation: 4,
           shadowColor: Colors.black26,
           side: BorderSide(color: Colors.black, width: 1.w),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
         ),
         child: Text(
           label,
@@ -50,7 +48,7 @@ class CustomPrimaryButton extends StatelessWidget {
             color: buttonTextColor,
             fontSize: 13.sp,
             fontWeight: FontWeight.w600,
-            letterSpacing: 2,
+            letterSpacing: letterSpacing,
           ),
         ),
       ),

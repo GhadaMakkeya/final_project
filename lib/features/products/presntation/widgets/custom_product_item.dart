@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/features/products/presntation/widgets/product_model.dart';
 
 class CustomProductItem extends StatelessWidget {
@@ -8,7 +9,7 @@ class CustomProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color(0xffF2EDE8),
+      color: AppColors.productCardColor,
       elevation: 0.1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: Column(

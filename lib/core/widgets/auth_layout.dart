@@ -12,7 +12,7 @@ class AuthLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDFCFB),
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -33,10 +33,10 @@ class AuthLayout extends StatelessWidget {
                       'Veloura',
                       style: TextStyle(
                         fontFamily: AppFontFamilies.georgia,
-                        fontSize: 48.h,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 55.sp,
                         color: AppColors.primaryColor,
-                        letterSpacing: -1,
+                        letterSpacing: -2,
                       ),
                     ),
                     SizedBox(height: 40.h),
@@ -49,7 +49,7 @@ class AuthLayout extends StatelessWidget {
                         vertical: 48.0.h,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 253, 250, 250),
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(

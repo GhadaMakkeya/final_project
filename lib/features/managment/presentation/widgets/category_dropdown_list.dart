@@ -24,7 +24,7 @@ class CategoryDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         color: Color.fromARGB(255, 251, 248, 245),
         border: Border.all(
           color: Color.fromARGB(255, 121, 95, 68),
@@ -37,14 +37,14 @@ class CategoryDropdown extends StatelessWidget {
           value: value,
           isExpanded: true,
           dropdownColor: Color.fromARGB(255, 251, 248, 245),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           elevation: 3,
           menuMaxHeight: 260.h,
           hint: Row(
             children: [
               Icon(
                 Icons.grid_view_rounded,
-                size: 16,
+                size: 16.sp,
                 color: Color.fromARGB(255, 121, 95, 68),
               ),
               SizedBox(width: 8),
@@ -59,10 +59,10 @@ class CategoryDropdown extends StatelessWidget {
             ],
           ),
           icon: Container(
-            padding: const EdgeInsets.all(4),
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
             decoration: BoxDecoration(
               color: Colors.transparent,
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(6.r),
             ),
             child: Icon(
               Icons.keyboard_arrow_down_rounded,
