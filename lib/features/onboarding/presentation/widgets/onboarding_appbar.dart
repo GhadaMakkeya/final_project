@@ -12,7 +12,7 @@ class OnboardingAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: 80,
+      toolbarHeight: 65,
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,

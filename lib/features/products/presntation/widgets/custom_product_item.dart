@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
-
 import 'package:veloura/features/products/presntation/widgets/product_model.dart';
 
 class CustomProductItem extends StatelessWidget {
@@ -56,7 +54,7 @@ class CustomProductItem extends StatelessWidget {
                 const SizedBox(),
                 Positioned(
                   bottom: 8,
-                  right: 8,
+                  right: 16,
                   child: Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
@@ -65,7 +63,7 @@ class CustomProductItem extends StatelessWidget {
                     ),
                     child: const Icon(
                       Icons.favorite_border,
-                      size: 14,
+                      size: 16,
                       color: Colors.white,
                     ),
                   ),

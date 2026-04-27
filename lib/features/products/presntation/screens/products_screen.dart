@@ -3,7 +3,7 @@ import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:veloura/features/products/presntation/widgets/categoey_list.dart';
-import 'package:veloura/features/products/presntation/widgets/coustem_product_item.dart';
+import 'package:veloura/features/products/presntation/widgets/custom_product_item.dart';
 import 'package:veloura/features/products/presntation/widgets/product_model.dart';
 
 class ProductScreen extends StatelessWidget {

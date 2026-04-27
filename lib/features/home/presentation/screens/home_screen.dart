@@ -165,9 +165,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     "Featured Offers",
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 26,
                       fontFamily: AppFontFamilies.georgia,
-                    ),
+                      color: Color.fromARGB(255, 73, 56, 39),
+                      fontWeight: FontWeight.w500                      ),
                   ),
                   TextButton(
                     onPressed: () {},
@@ -181,6 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+              SizedBox(height: 8,),
               SizedBox(
                 height: 180,
                 child: PageView.builder(

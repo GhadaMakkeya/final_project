@@ -63,22 +63,22 @@ class BottomNavBar extends StatelessWidget {
           ),
         ],
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
       ),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
         child: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: onTap,
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(0xffF2EDE8),
           type: BottomNavigationBarType.fixed,
           selectedItemColor: primaryColor,
-          unselectedItemColor: Colors.grey[600],
+          unselectedItemColor: Color.fromARGB(255, 135, 130, 125),
           selectedFontSize: 12,
           unselectedFontSize: 12,
           elevation: 0,
