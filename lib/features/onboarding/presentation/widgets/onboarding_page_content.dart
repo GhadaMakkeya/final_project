@@ -15,7 +15,7 @@ class OnboardingPageContent extends StatelessWidget {
   });
 
   Widget _buildImage() {
-    return Image.asset(page.imageUrl, fit: BoxFit.cover);
+    return Image.asset(page.imageUrl, fit: BoxFit.cover, );
   }
 
   @override
@@ -25,17 +25,7 @@ class OnboardingPageContent extends StatelessWidget {
       child: Column(
         children: [
           Expanded(flex: 1, child: SizedBox()),
-          Expanded(
-            flex: 5,
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: const Color(0xFFEEEBE6),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: _buildImage(),
-            ),
-          ),
+          _buildImage(),
           const SizedBox(height: 36),
           Expanded(
             flex: 3,
