@@ -15,7 +15,11 @@ class OnboardingPageContent extends StatelessWidget {
   });
 
   Widget _buildImage() {
-    return Image.asset(page.imageUrl, fit: BoxFit.cover, );
+    return SizedBox(
+      height: 300,
+      width: double.infinity,
+      child: Image.asset(page.imageUrl, fit: BoxFit.cover),
+    );
   }
 
   @override
@@ -25,7 +29,11 @@ class OnboardingPageContent extends StatelessWidget {
       child: Column(
         children: [
           Expanded(flex: 1, child: SizedBox()),
-          _buildImage(),
+          SizedBox(
+            height: 300,
+            width: double.infinity,
+            child: Image.asset(page.imageUrl, fit: BoxFit.cover),
+          ),
           const SizedBox(height: 36),
           Expanded(
             flex: 3,
