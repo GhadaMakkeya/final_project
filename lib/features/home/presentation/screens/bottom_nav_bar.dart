@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/profile/presentation/screens/profile_screen.dart';
-
 import '../../../cart/presentation/screens/shopping_cart_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -15,7 +14,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int currentIndex = 0;
   List<Widget> screens = [
     HomeScreen(),
-    ShoppingCartScreen(),
     ShoppingCartScreen(),
     ProfileScreen(),
   ];
@@ -45,12 +43,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.local_mall), label: "SHOP"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
-            label: "DISCOVER",
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
             label: "SAVED",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.card_travel_outlined),
+            label: "MY CART",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),

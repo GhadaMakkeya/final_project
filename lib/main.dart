@@ -1,5 +1,5 @@
+import 'package:veloura/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
 
 void main() {
   runApp(const MyApp());
