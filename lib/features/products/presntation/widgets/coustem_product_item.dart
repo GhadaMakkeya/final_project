@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/constants/app_font_families.dart';
 
 import 'package:veloura/features/products/presntation/widgets/product_model.dart';
 
@@ -8,26 +9,27 @@ class CustomProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: const Color(0xffFCFAF7),
-        borderRadius: BorderRadius.circular(8),
-      ),
+    return Card(
+      color: Color(0xffF2EDE8),
+      elevation: 0.1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           AspectRatio(
-            aspectRatio: 1 / 1.3,
+            aspectRatio: 1 / 1.05,
             child: Stack(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    image: DecorationImage(
-                      image: NetworkImage(productModel.imageUrl),
-                      fit: BoxFit.cover,
+                Padding(
+                  padding: const EdgeInsets.only(right: 8, left: 8, top: 8),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      image: DecorationImage(
+                        image: NetworkImage(productModel.imageUrl),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -41,10 +43,8 @@ class CustomProductItem extends StatelessWidget {
                         vertical: 3,
                       ),
                       color: _getLabelColor(productModel.label!),
-
                       child: Text(
                         productModel.label!,
-
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 8,
@@ -54,7 +54,6 @@ class CustomProductItem extends StatelessWidget {
                     ),
                   ),
                 const SizedBox(),
-
                 Positioned(
                   bottom: 8,
                   right: 8,
@@ -74,83 +73,94 @@ class CustomProductItem extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 5),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Expanded(
-                  child: Text(
-                    productModel.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontFamily: 'Serif',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.only(right: 12, left: 12, bottom: 12),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Expanded(
+                        child: Text(
+                          productModel.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontFamily: 'Serif',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    const Text(
+                      "4.8",
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey,
+                        fontFamily: 'Sans Serif',
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const Text(
-                "4.8",
-                style: TextStyle(fontSize: 10, color: Colors.grey),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-
-          Row(
-            children: [
-              Text(
-                productModel.price,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    Text(
+                      productModel.price,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      productModel.originalPrice ?? "",
+                      style: const TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                productModel.originalPrice ?? "",
-                style: const TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey,
-                  decoration: TextDecoration.lineThrough,
+                const SizedBox(height: 12),
+                const Divider(
+                  height: 1,
+                  thickness: 0.5,
+                  color: Color(0xffEEEEEE),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          const Divider(height: 1, thickness: 0.5, color: Color(0xffEEEEEE)),
-          const SizedBox(height: 10),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("MIDNIGHT", style: _subTextStyle()),
-                  Text("BLUE", style: _subTextStyle()),
-                ],
-              ),
-
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "LIMITED",
-                    style: _subTextStyle(color: const Color(0xffD9534F)),
-                  ),
-                  Text(
-                    "STOCK",
-                    style: _subTextStyle(color: const Color(0xffD9534F)),
-                  ),
-                ],
-              ),
-            ],
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("MIDNIGHT", style: _subTextStyle()),
+                        Text("BLUE", style: _subTextStyle()),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "LIMITED",
+                          style: _subTextStyle(color: const Color(0xffD9534F)),
+                        ),
+                        Text(
+                          "STOCK",
+                          style: _subTextStyle(color: const Color(0xffD9534F)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -12,7 +12,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
+      backgroundColor: Color(0xffF2EDE8),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -22,7 +22,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 Stack(
                   children: [
                     Image.asset(
-                      'assets/images/scarf.png', 
+                      'assets/images/scarf.png',
                       height: 400.h,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -30,8 +30,8 @@ class ProductDetailsScreen extends StatelessWidget {
                     SafeArea(
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 20.w, 
-                          vertical: 8.h
+                          horizontal: 20.w,
+                          vertical: 8.h,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,9 +50,12 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                
+
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 24.h,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -88,14 +91,18 @@ class ProductDetailsScreen extends StatelessWidget {
                           Row(
                             children: List.generate(
                               5,
-                              (index) => Icon(Icons.star, color: const Color(0xFF061F3D), size: 14.sp), 
+                              (index) => Icon(
+                                Icons.star,
+                                color: const Color(0xFF061F3D),
+                                size: 14.sp,
+                              ),
                             ),
                           ),
                           SizedBox(width: 8.w),
                           Text(
-                            '(24 Reviews)', 
+                            '(24 Reviews)',
                             style: AppTextStyles.font16InterRegular.copyWith(
-                              color: const Color(0xFF7F7667), 
+                              color: const Color(0xFF7F7667),
                               fontSize: 13.sp,
                             ),
                           ),
@@ -107,7 +114,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         style: AppTextStyles.font16InterRegular.copyWith(
                           height: 1.6,
                           fontSize: 14.sp,
-                          color: const Color(0xFF4E4639), 
+                          color: const Color(0xFF4E4639),
                         ),
                       ),
                       SizedBox(height: 20.h),
@@ -118,8 +125,8 @@ class ProductDetailsScreen extends StatelessWidget {
                       Text(
                         'Reviews',
                         style: AppTextStyles.font32NotoSerifRegular.copyWith(
-                          fontSize: 24.sp, 
-                          color: const Color(0xFF061F3D) 
+                          fontSize: 24.sp,
+                          color: const Color(0xFF061F3D),
                         ),
                       ),
                       SizedBox(height: 20.h),
@@ -127,70 +134,35 @@ class ProductDetailsScreen extends StatelessWidget {
                         name: 'Eleanor V.',
                         date: 'Oct 12, 2023',
                         rating: 5,
-                        comment: 'Absolutely exquisite. The silk has a substantial weight to it that drapes beautifully, and the colors are even richer in person than in the photos.',
+                        comment:
+                            'Absolutely exquisite. The silk has a substantial weight to it that drapes beautifully, and the colors are even richer in person than in the photos.',
                       ),
                       const ReviewCard(
                         name: 'Sophia L.',
                         date: 'Sep 28, 2023',
                         rating: 4,
-                        comment: 'A lovely piece, though slightly smaller than I anticipated. The hand-rolled edges are a testament to the craftsmanship.',
+                        comment:
+                            'A lovely piece, though slightly smaller than I anticipated. The hand-rolled edges are a testament to the craftsmanship.',
                       ),
                       SizedBox(height: 16.h),
-                      _buildReadReviewsButton(),
+                      CustomPrimaryButton(
+                        onPressed: () {},
+                        label: "Read All Reviews",
+                        color: Color(0xffF2EDE8),
+                        buttonTextColor: AppColors.primary,
+                      ),
                       SizedBox(height: 100.h),
+                      CustomPrimaryButton(
+                        onPressed: () {},
+                        label: "ADD TO CART",
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFFFFF),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF1B1C1C).withOpacity(0.04),
-                    offset: const Offset(0, -4), 
-                    blurRadius: 16
-                  )
-                ],
-              ),
-              child: SafeArea(
-                child: CustomPrimaryButton(
-                  label: 'ADD TO CART',
-                  onPressed: () {},
-                ),
-              ),
-            ),
-          ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildReadReviewsButton() {
-    return SizedBox(
-      width: double.infinity,
-      height: 48.h,
-      child: OutlinedButton(
-        onPressed: () {},
-        style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: Color(0xFFE4E2E2), width: 1),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
-        ),
-        child: Text(
-          'READ ALL REVIEWS',
-          style: AppTextStyles.font16InterRegular.copyWith(
-            color: const Color(0xFF061F3D),
-            fontWeight: FontWeight.w700,
-            fontSize: 13.sp,
-            letterSpacing: 1.2,
-          ),
-        ),
       ),
     );
   }
@@ -199,10 +171,10 @@ class ProductDetailsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(8.w),
       decoration: const BoxDecoration(
-        color: Color(0xFFFFFFFF), 
-        shape: BoxShape.circle
+        color: Color(0xFFFFFFFF),
+        shape: BoxShape.circle,
       ),
-      child: Icon(icon, size: 20.sp, color: const Color(0xFF061F3D)), 
+      child: Icon(icon, size: 20.sp, color: const Color(0xFF061F3D)),
     );
   }
 }

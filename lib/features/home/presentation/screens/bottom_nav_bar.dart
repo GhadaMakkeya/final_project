@@ -1,60 +1,110 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
+import 'package:veloura/features/products/presntation/screens/products_screen.dart';
 import 'package:veloura/features/profile/presentation/screens/profile_screen.dart';
-import '../../../cart/presentation/screens/shopping_cart_screen.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+class MainNavigation extends StatefulWidget {
+  const MainNavigation({super.key});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
+  State<MainNavigation> createState() => MainNavigationState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
-  int currentIndex = 0;
-  List<Widget> screens = [
+class MainNavigationState extends State<MainNavigation> {
+  int _currentIndex = 0;
+  final List<Widget> _screens = [
     HomeScreen(),
+    ProductScreen(),
     ShoppingCartScreen(),
     ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    const Color primaryColor = Color(0xFF1B2A4A);
     return Scaffold(
-      body: screens[currentIndex],
-
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xffFBF9F8),
-        currentIndex: currentIndex,
+      body: IndexedStack(index: _currentIndex, children: _screens),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
-            currentIndex = index;
+            _currentIndex = index;
           });
         },
+        primaryColor: primaryColor,
+      ),
+    );
+  }
+}
 
-        selectedItemColor: Color(0xff061F3D),
-        unselectedItemColor: Color(0xffA8A29E),
+class BottomNavBar extends StatelessWidget {
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+  final Color primaryColor;
 
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+  const BottomNavBar({
+    super.key,
+    required this.currentIndex,
+    required this.onTap,
+    required this.primaryColor,
+  });
 
-        type: BottomNavigationBarType.fixed,
-
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.local_mall), label: "SHOP"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: "SAVED",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.card_travel_outlined),
-            label: "MY CART",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: "PROFILE",
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, -5),
           ),
         ],
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: onTap,
+          backgroundColor: Colors.white,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: primaryColor,
+          unselectedItemColor: Colors.grey[600],
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          elevation: 0,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search_outlined),
+              activeIcon: Icon(Icons.search),
+              label: 'Discover',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart_outlined),
+              activeIcon: Icon(Icons.shopping_cart),
+              label: 'Cart',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              activeIcon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
   }

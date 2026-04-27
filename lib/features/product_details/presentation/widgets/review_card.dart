@@ -23,9 +23,9 @@ class ReviewCard extends StatelessWidget {
       padding: EdgeInsets.all(16.w),
       margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:  const Color.fromARGB(255, 251, 247, 247),
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: const Color(0xFFE5E5E5), width: 1), 
+        border: Border.all(color: Color.fromARGB(255, 121, 95, 68), width: 1), 
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

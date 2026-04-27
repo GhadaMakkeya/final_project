@@ -17,10 +17,10 @@ class ProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color.fromARGB(255, 253, 252, 252),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Colors.grey.shade200,
+          color: Color.fromARGB(255, 253, 252, 252),
           width: 1,
         ),
       ),

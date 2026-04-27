@@ -45,9 +45,10 @@ class CustomPrimaryButton extends StatelessWidget {
         child: Text(
           label,
           style: TextStyle(
+            color: buttonTextColor,
             fontSize: 13,
             fontWeight: FontWeight.w600,
-            letterSpacing: 3,
+            letterSpacing: 2,
           ),
         ),
       ),

@@ -50,7 +50,7 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _item("Light"),
-                _item("Mark"),
+                _item("D-ark"),
               ],
             ),
           ),

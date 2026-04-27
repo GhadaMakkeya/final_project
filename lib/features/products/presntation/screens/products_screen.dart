@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:veloura/features/products/presntation/widgets/categoey_list.dart';
 import 'package:veloura/features/products/presntation/widgets/coustem_product_item.dart';
 import 'package:veloura/features/products/presntation/widgets/product_model.dart';
@@ -9,19 +12,22 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFCFAF7),
+      backgroundColor: Color(0xffF2EDE8),
       appBar: AppBar(
-        backgroundColor: const Color(0xffFCFAF7),
+        toolbarHeight: 65,
         elevation: 0,
         leading: const Icon(Icons.menu, color: Colors.black),
         centerTitle: true,
-        title: const Text(
-          "VELOURA",
-          style: TextStyle(
-            color: Color(0xff061F3D),
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2,
-            fontFamily: 'Serif',
+        backgroundColor: Color(0xffF2EDE8),
+        leadingWidth: 64,
+        title: Text(
+          AppStrings.appName,
+          style: const TextStyle(
+            fontFamily: AppFontFamilies.georgia,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 4,
+            color: Color(0xFF1A1A1A),
           ),
         ),
         actions: const [
@@ -31,33 +37,40 @@ class ProductScreen extends StatelessWidget {
           SizedBox(width: 15),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const CategoryList(),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(6, 2, 6, 6),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: myProducts.length,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
+      body: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProductDetailsScreen()),
+          );
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const CategoryList(),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(6, 2, 6, 6),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: myProducts.length,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.53,
+                    crossAxisSpacing: 6,
+                    mainAxisSpacing: 6,
+                  ),
+                  itemBuilder: (context, index) {
+                    return CustomProductItem(productModel: myProducts[index]);
+                  },
                 ),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.53,
-                  crossAxisSpacing: 6,
-                  mainAxisSpacing: 6,
-                ),
-                itemBuilder: (context, index) {
-                  return CustomProductItem(productModel: myProducts[index]);
-                },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       // Bottom Navigation

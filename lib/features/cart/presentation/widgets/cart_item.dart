@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/constants/app_font_families.dart';
 
 class CartItem extends StatelessWidget {
   final String name, subtitle, image;
@@ -20,25 +21,29 @@ class CartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color(0xffF5F3F3),
+      color: Color(0xffF2EDE8),
+      elevation: 0.1,
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: Image.asset(
-              image,
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.fitWidth,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: Image.asset(
+                image,
+                width: double.infinity,
+                height: 200,
+                fit: BoxFit.fitWidth,
+              ),
             ),
           ),
           SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.only(bottom: 24, left: 24, right: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,6 +55,8 @@ class CartItem extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
+                        fontFamily: AppFontFamilies.georgia,
+                        color: Color(0xFF4E4639),
                       ),
                     ),
                     Text(
@@ -57,6 +64,8 @@ class CartItem extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
+                        fontFamily: AppFontFamilies.georgia,
+                        color: Color(0xFF4E4639),
                       ),
                     ),
                   ],
@@ -64,26 +73,44 @@ class CartItem extends StatelessWidget {
                 SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 13, color: Colors.grey),
+                  style: TextStyle(fontSize: 13, color: Color.fromARGB(255, 160, 149, 133),),
                 ),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        _qtyButton(Icons.remove, onDecrement),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            '$quantity',
-                            style: TextStyle(fontSize: 15),
-                          ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color.fromARGB(255, 225, 221, 216),
                         ),
-                        _qtyButton(Icons.add, onIncrement),
-                      ],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          _qtyButton(Icons.remove, onDecrement),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              '$quantity',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                          _qtyButton(Icons.add, onIncrement),
+                        ],
+                      ),
                     ),
-                    IconButton(onPressed: onRemove, icon: Icon(Icons.delete)),
+                    InkWell(
+                      onTap: onRemove,
+                      child: Text(
+                        "REMOVE",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -97,12 +124,7 @@ class CartItem extends StatelessWidget {
   Widget _qtyButton(IconData icon, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: 28,
-        height: 28,
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-        child: Icon(icon, size: 16),
-      ),
+      child: Container(width: 28, height: 28, child: Icon(icon, size: 16)),
     );
   }
 }
