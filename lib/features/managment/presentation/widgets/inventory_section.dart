@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
-import 'package:veloura/features/products/presentation/widgets/add_product_form_field.dart';
+import 'package:veloura/features/managment/presentation/widgets/add_product_form_field.dart';
 
 class InventorySection extends StatelessWidget {
   final TextEditingController skuController;

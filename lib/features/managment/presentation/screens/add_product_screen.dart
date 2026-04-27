@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
-import 'package:veloura/features/products/presentation/widgets/basic_info_section.dart';
-import 'package:veloura/features/products/presentation/widgets/bottom_action_buttons.dart';
-import 'package:veloura/features/products/presentation/widgets/image_upload_scteion.dart';
-import 'package:veloura/features/products/presentation/widgets/inventory_section.dart';
+import 'package:veloura/features/managment/presentation/widgets/basic_info_section.dart';
+import 'package:veloura/features/managment/presentation/widgets/bottom_action_buttons.dart';
+import 'package:veloura/features/managment/presentation/widgets/image_upload_scteion.dart';
+import 'package:veloura/features/managment/presentation/widgets/inventory_section.dart';
 
 class AddNewProductScreen extends StatefulWidget {
   const AddNewProductScreen({super.key});
