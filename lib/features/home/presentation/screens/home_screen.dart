@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 20,),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                       fontSize: 26,
                       fontFamily: AppFontFamilies.georgia,
-                      color: Color.fromARGB(255, 73, 56, 39),
+                      color: Color(0xFF1A1A1A),
                       fontWeight: FontWeight.w500                      ),
                   ),
                   TextButton(
