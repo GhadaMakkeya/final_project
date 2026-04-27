@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
-import 'package:veloura/features/products/presentation/widgets/add_product_form_field.dart';
-import 'package:veloura/features/products/presentation/widgets/category_dropdown_list.dart';
+import 'package:veloura/features/add_product/presentation/widgets/add_product_form_field.dart';
+import 'package:veloura/features/add_product/presentation/widgets/category_dropdown_list.dart';
 
 class BasicInformationSection extends StatelessWidget {
   final TextEditingController productNameController;
