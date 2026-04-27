@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
+import 'package:veloura/features/onboarding/presentation/shopping_cart_screen.dart';
+import 'package:veloura/features/products/presntation/screens/products_screen.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
+
+import 'features/cart/presentation/screens/shopping_cart_screen.dart';
+void main() {
+ // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  
+ // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -14,20 +22,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        FlutterNativeSplash.remove();
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            scaffoldBackgroundColor: Colors.white,
-          ),
-          home: const ProductDetailsScreen(),
-        );
-      },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(),
+      home:  OnboardingScreen(),
     );
   }
 }
