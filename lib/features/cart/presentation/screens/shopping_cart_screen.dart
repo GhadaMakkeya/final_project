@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:veloura/features/onboarding/domain/models/cart_item_model.dart';
-import 'package:veloura/features/onboarding/presentation/widgets/cart_item.dart';
+import 'package:veloura/features/cart/data/models/cart_item_model.dart';
+import 'package:veloura/features/cart/presentation/widgets/cart_item.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/summary_row.dart';
 
 class ShoppingCartScreen extends StatefulWidget {
