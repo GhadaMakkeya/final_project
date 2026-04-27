@@ -23,7 +23,6 @@ class ProfileHeader extends StatelessWidget {
           height: 130.h,
           child: Stack(
             children: [
-              // Main avatar
               CircleAvatar(
                 radius: 65.r,
                 backgroundColor: Colors.black26,
@@ -31,7 +30,6 @@ class ProfileHeader extends StatelessWidget {
                   "https://i.pravatar.cc/150?img=3",
                 ),
               ),
-              // Edit badge
               Positioned(
                 bottom: 4.h,
                 right: 4.w,

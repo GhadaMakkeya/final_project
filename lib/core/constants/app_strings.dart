@@ -40,5 +40,11 @@ class AppStrings {
   static const logoutTitle = "Logout";
   static const logoutMessage = "Are you sure you want to logout?";
   static const cancel = "Cancel";
+  static const String collection = "COLLECTION";
+  static const String jewelry = "Jewelry";
+  static const String filter = "FILTER";
+  static const String sort = "SORT";
+
+  static String itemsCount(int count) => "$count Items";
 
 }
