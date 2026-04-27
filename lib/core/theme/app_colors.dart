@@ -9,14 +9,10 @@ class AppColors {
   static const Color textHelper= Color(0xffD1C5B4);
   static const Color red = Color(0xffFF0000);
 
-
-
-}
-
   static const Color primaryDark = Color(0xFF061F3D);
 
   static const Color imageBackground = Color(0xFFFBF9F8);
-  static const Color white = Color(0xFFFFFFFF); 
+  static const Color white_ = Color(0xFFFFFFFF); 
 
   static const Color textPrimary = Color(0xFF1B1C1C);
   static const Color textSecondary = Color(0xFF565E77);
