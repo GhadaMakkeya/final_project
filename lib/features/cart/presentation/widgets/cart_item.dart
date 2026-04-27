@@ -23,14 +23,13 @@ class CartItem extends StatelessWidget {
     return Card(
       color: Color(0xffF2EDE8),
       elevation: 0.1,
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.only(left: 8, right: 8),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(24),
               child: Image.asset(
