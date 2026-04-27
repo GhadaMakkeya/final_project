@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/products/presntation/screens/products_screen.dart';
 import 'package:veloura/features/profile/presentation/screens/profile_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -58,29 +60,29 @@ class BottomNavBar extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
+            blurRadius: 10.r,
             offset: const Offset(0, -5),
           ),
         ],
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30.r),
+          topRight: Radius.circular(30.r),
         ),
       ),
       child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+        borderRadius:  BorderRadius.only(
+          topLeft: Radius.circular(30.r),
+          topRight: Radius.circular(30.r),
         ),
         child: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: onTap,
-          backgroundColor: const Color(0xffF2EDE8),
+          backgroundColor: AppColors.backgroundColor,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: primaryColor,
           unselectedItemColor: Color.fromARGB(255, 135, 130, 125),
-          selectedFontSize: 12,
-          unselectedFontSize: 12,
+          selectedFontSize: 12.sp,
+          unselectedFontSize: 12.sp,
           elevation: 0,
           items: const [
             BottomNavigationBarItem(

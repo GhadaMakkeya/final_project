@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String name;
@@ -18,13 +19,13 @@ class ProfileHeader extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          width: 130,
-          height: 130,
+          width: 130.w,
+          height: 130.h,
           child: Stack(
             children: [
               // Main avatar
               CircleAvatar(
-                radius: 65,
+                radius: 65.r,
                 backgroundColor: Colors.black26,
                 backgroundImage: const NetworkImage(
                   "https://i.pravatar.cc/150?img=3",
@@ -32,24 +33,24 @@ class ProfileHeader extends StatelessWidget {
               ),
               // Edit badge
               Positioned(
-                bottom: 4,
-                right: 4,
+                bottom: 4.h,
+                right: 4.w,
                 child: GestureDetector(
                   onTap: onEdit,
                   child: Container(
-                    width: 34,
-                    height: 34,
+                    width: 34.w,
+                    height: 34.h,
                     decoration: BoxDecoration(
                       color: AppColors.primaryColor,
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: AppColors.white,
-                        width: 2,
+                        width: 2.w,
                       ),
                     ),
-                    child: const Icon(
+                    child:  Icon(
                       Icons.edit,
-                      size: 16,
+                      size: 16.sp,
                       color: Colors.white,
                     ),
                   ),
@@ -58,22 +59,22 @@ class ProfileHeader extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 14),
+         SizedBox(height: 14.h),
         Text(
           name,
-          style: const TextStyle(
-            fontSize: 26,
+          style:  TextStyle(
+            fontSize: 26.sp,
             fontWeight: FontWeight.w400,
             color: Colors.black87,
             letterSpacing: 0.5,
           ),
         ),
-        const SizedBox(height: 4),
+         SizedBox(height: 4.h),
         Text(
           email,
           style: TextStyle(
             color: AppColors.grey,
-            fontSize: 14,
+            fontSize: 14.sp,
           ),
         ),
       ],

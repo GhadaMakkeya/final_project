@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
@@ -8,6 +7,7 @@ import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 import 'package:veloura/features/cart/presentation/widgets/cart_item.dart';
 import 'package:veloura/features/cart/presentation/widgets/summary_row.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShoppingCartScreen extends StatefulWidget {
   const ShoppingCartScreen({super.key});
@@ -17,13 +17,6 @@ class ShoppingCartScreen extends StatefulWidget {
 }
 
 class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    FlutterNativeSplash.remove();
-  }
-
   final List<CartItemModel> cartItems = [
     CartItemModel(
       name: 'Cashmere & Silk Scarf',
@@ -53,11 +46,11 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-        toolbarHeight: 65,
+        toolbarHeight: 65.h,
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         centerTitle: true,
-        leadingWidth: 64,
+        leadingWidth: 64.w,
         title: Text(AppStrings.appName, style: AppTextStyles.appNameTextStyle),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.shopping_bag_outlined)),
@@ -65,34 +58,34 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding:  EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+                padding:  EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 4.h),
                 child: Text(
                   "Your Cart",
                   style: TextStyle(
                     color: Color(0xFF4E4639),
-                    fontSize: 40,
+                    fontSize: 40.sp,
                     fontWeight: FontWeight.w400,
                     fontFamily: AppFontFamilies.georgia,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding:  EdgeInsets.symmetric(horizontal: 16.w),
                 child: Text(
                   "${cartItems.length} items ready for checkout.",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w400,
                     color: Color(0xFF4E4639),
                   ),
                 ),
               ),
-              SizedBox(height: 48),
+              SizedBox(height: 48.h),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -113,16 +106,16 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                   );
                 },
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 40.h),
               Padding(
-                padding: const EdgeInsets.only(bottom: 50),
+                padding:  EdgeInsets.only(bottom: 50.h),
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  margin: EdgeInsets.symmetric(horizontal: 16.w),
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(20, 24, 20, 32),
+                  padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 32.h),
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 251, 247, 247),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,54 +125,54 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                         style: TextStyle(
                           fontFamily: AppFontFamilies.georgia,
                           fontWeight: FontWeight.w400,
-                          fontSize: 32,
+                          fontSize: 32.sp,
                           color: Color(0xFF4E4639),
                         ),
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       Divider(
-                        height: 24,
+                        height: 24.h,
                         color: Color.fromARGB(255, 201, 192, 178),
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       SummaryRow(label: "Subtotal", value: "\$1,985.00"),
-                      SizedBox(height: 8),
+                      SizedBox(height: 8.h),
                       SummaryRow(label: "Shipping", value: "Complimentary"),
-                      SizedBox(height: 8),
+                      SizedBox(height: 8.h),
                       SummaryRow(label: "Estimated Tax", value: "\$158.80"),
-                      SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       Divider(
-                        height: 24,
+                        height: 24.h,
                         color: Color.fromARGB(255, 201, 192, 178),
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       SummaryRow(
                         label: "Total",
                         value: "\$2,143.80",
                         isBold: true,
-                        labelFontSize: 24,
-                        valueFontSize: 32,
+                        labelFontSize: 24.sp,
+                        valueFontSize: 32.sp,
                         fontFamily: AppFontFamilies.georgia,
                       ),
-                      SizedBox(height: 24),
+                      SizedBox(height: 24.h),
                       CustomPrimaryButton(
                         onPressed: () {},
                         label: "PROCEED TO CHECKOUT",
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: 12.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.lock_outline,
-                            size: 14,
+                            size: 14.sp,
                             color: Color(0xFF4E4639),
                           ),
                           SizedBox(width: 4),
                           Text(
                             "SECURE CHECKOUT",
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 12.sp,
                               color: Color(0xFF4E4639),
                               fontWeight: FontWeight.w600,
                             ),

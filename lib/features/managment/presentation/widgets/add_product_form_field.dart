@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -27,7 +28,7 @@ class ProductFormField extends StatelessWidget {
       keyboardType: keyboardType,
       validator: validator,
       cursorColor: AppColors.brownLight,
-      style: const TextStyle(fontSize: 13, color: Colors.black87),
+      style: TextStyle(fontSize: 13.sp, color: Colors.black87),
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon,

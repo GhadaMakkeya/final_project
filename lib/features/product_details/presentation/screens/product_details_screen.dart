@@ -73,8 +73,8 @@ class ProductDetailsScreen extends StatelessWidget {
                         'Midnight Bloom Silk\nScarf',
                         style: AppTextStyles.font32NotoSerifRegular.copyWith(
                           fontSize: 28.sp,
-                          height: 1.2,
-                          color: const Color(0xFF061F3D),
+                          height: 1.2.h,
+                          color: AppColors.primaryColor
                         ),
                       ),
                       SizedBox(height: 12.h),
@@ -126,7 +126,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         'Reviews',
                         style: AppTextStyles.font32NotoSerifRegular.copyWith(
                           fontSize: 24.sp,
-                          color: const Color(0xFF061F3D),
+                          color: AppColors.primaryColor
                         ),
                       ),
                       SizedBox(height: 20.h),

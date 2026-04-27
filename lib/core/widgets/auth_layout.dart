@@ -1,74 +1,76 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../constants/app_font_families.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AuthLayout extends StatelessWidget {
   final Widget child;
   final Widget? bottomLink;
 
-  const AuthLayout({
-    super.key,
-    required this.child,
-    this.bottomLink,
-  });
+  const AuthLayout({super.key, required this.child, this.bottomLink});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDFCFB), 
+      backgroundColor: const Color(0xFFFDFCFB),
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 40.0,
+              ),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight - 80, 
+                  minHeight: constraints.maxHeight - 80,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Logo
-                    const Text(
+                    Text(
                       'Veloura',
                       style: TextStyle(
                         fontFamily: AppFontFamilies.georgia,
-                        fontSize: 48,
+                        fontSize: 48.h,
                         fontWeight: FontWeight.bold,
                         color: AppColors.primaryColor,
                         letterSpacing: -1,
                       ),
                     ),
-                    const SizedBox(height: 40),
-                    
+                    SizedBox(height: 40.h),
+
                     // Main Card
                     Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 48.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 32.0.w,
+                        vertical: 48.0.h,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.03),
-                            blurRadius: 20,
+                            blurRadius: 20.r,
                             offset: const Offset(0, 10),
                           ),
                         ],
                         border: Border.all(
                           color: Colors.grey.shade100,
-                          width: 1,
-                        )
+                          width: 1.w,
+                        ),
                       ),
                       child: child,
                     ),
-                    
+
                     // Optional bottom link
                     if (bottomLink != null) ...[
-                      const SizedBox(height: 40),
+                      SizedBox(height: 40.h),
                       bottomLink!,
-                    ]
+                    ],
                   ],
                 ),
               ),

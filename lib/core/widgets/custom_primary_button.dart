@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomPrimaryButton extends StatelessWidget {
   final String label;
@@ -40,14 +41,14 @@ class CustomPrimaryButton extends StatelessWidget {
           foregroundColor: Colors.white,
           elevation: 4,
           shadowColor: Colors.black26,
-          side: BorderSide(color: Colors.black, width: 1),
+          side: BorderSide(color: Colors.black, width: 1.w),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         ),
         child: Text(
           label,
           style: TextStyle(
             color: buttonTextColor,
-            fontSize: 13,
+            fontSize: 13.sp,
             fontWeight: FontWeight.w600,
             letterSpacing: 2,
           ),

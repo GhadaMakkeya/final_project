@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileTile extends StatelessWidget {
   final String title;
@@ -21,15 +22,15 @@ class ProfileTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: Color.fromARGB(255, 253, 252, 252),
-          width: 1,
+          width: 1.w,
         ),
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+        contentPadding:  EdgeInsets.symmetric(horizontal: 20.w),
         title: Text(
           title,
-          style: const TextStyle(
-            fontSize: 15,
+          style:  TextStyle(
+            fontSize: 15.sp,
             fontWeight: FontWeight.w400,
             color: Colors.black87,
           ),
@@ -37,7 +38,7 @@ class ProfileTile extends StatelessWidget {
         trailing: showArrow
             ? Icon(
                 Icons.arrow_forward_ios,
-                size: 14,
+                size: 14.sp,
                 color: AppColors.grey,
               )
             : null,

@@ -78,11 +78,4 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
     color: Color(0xFF4E4639),
   );
-
-  static const TextStyle fieldLabelDark = TextStyle(
-    fontFamily: "Sans Serif",
-    fontSize: 14,
-    fontWeight: FontWeight.w600,
-    color: Color(0xFF333333),
-  );
 }

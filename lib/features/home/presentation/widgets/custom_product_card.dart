@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/features/home/data/product_data_model.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomProductCard extends StatelessWidget {
   const CustomProductCard({super.key, required this.productDataModel});

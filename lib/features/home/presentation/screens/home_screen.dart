@@ -9,6 +9,7 @@ import 'package:veloura/features/home/data/product_data_model.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_category_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_offer_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_product_card.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -123,14 +124,14 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.backgroundColor,
       //-------------AppBar------------
       appBar: AppBar(
-        toolbarHeight: 65,
+        toolbarHeight: 65.h,
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         centerTitle: true,
-        leadingWidth: 64,
+        leadingWidth: 64.w,
         title: Text(AppStrings.appName, style: AppTextStyles.appNameTextStyle),
         leading: Padding(
-          padding: const EdgeInsets.only(left: 24),
+          padding:  EdgeInsets.only(left: 24.w),
           child: IconButton(
             onPressed: () {},
             icon: Icon(Icons.search, color: Color(0xff1C1917)),
@@ -167,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SizedBox(height: 8),
               SizedBox(
-                height: 180,
+                height: 180.h,
                 child: PageView.builder(
                   onPageChanged: (index) {
                     setState(() {
@@ -180,27 +181,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 15.h),
               //----------offers section---------
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(offers.length, (index) {
                   return AnimatedContainer(
                     duration: Duration(milliseconds: 300),
-                    margin: EdgeInsets.symmetric(horizontal: 4),
-                    width: currentPage == index ? 10 : 6,
-                    height: 6,
+                    margin: EdgeInsets.symmetric(horizontal: 4.w),
+                    width: currentPage == index ? 10.w : 6.w,
+                    height: 6.h,
                     decoration: BoxDecoration(
                       color: currentPage == index ? Colors.black : Colors.grey,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                   );
                 }),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 30.h),
               //----------category---------
               SizedBox(
-                height: 40,
+                height: 40.h,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: categories.length,
@@ -214,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 15.h),
               //----------products--------
               GridView.builder(
                 shrinkWrap: true,

@@ -7,6 +7,7 @@ import 'package:veloura/features/product_details/presentation/screens/product_de
 import 'package:veloura/features/products/presntation/widgets/categoey_list.dart';
 import 'package:veloura/features/products/presntation/widgets/custom_product_item.dart';
 import 'package:veloura/features/products/presntation/widgets/product_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key});
@@ -16,18 +17,18 @@ class ProductScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        toolbarHeight: 65,
+        toolbarHeight: 65.h,
         elevation: 0,
         leading: const Icon(Icons.menu, color: Colors.black),
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor,
-        leadingWidth: 64,
+        leadingWidth: 64.w,
         title: Text(AppStrings.appName, style: AppTextStyles.appNameTextStyle),
-        actions: const [
+        actions: [
           Icon(Icons.search, color: Colors.black),
-          SizedBox(width: 15),
+          SizedBox(width: 15.w),
           Icon(Icons.shopping_bag_outlined, color: Colors.black),
-          SizedBox(width: 15),
+          SizedBox(width: 15.w),
         ],
       ),
       body: InkWell(
@@ -42,14 +43,14 @@ class ProductScreen extends StatelessWidget {
             children: [
               const CategoryList(),
               Padding(
-                padding: const EdgeInsets.fromLTRB(6, 2, 6, 6),
+                padding: EdgeInsets.fromLTRB(6.w, 2.h, 6.w, 6.h),
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: myProducts.length,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 10,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 10.h,
                   ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
