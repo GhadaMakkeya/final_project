@@ -121,70 +121,74 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                 },
               ),
               SizedBox(height: 40,),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16),
-                width: double.infinity,
-                padding: EdgeInsets.fromLTRB(20, 24, 20, 32),
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 251, 247, 247),
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Summary",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 32,
-                        color: Color(0xFF4E4639),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    Divider(height: 24, color: Color(0xFF4E4639)),
-                    SizedBox(height: 16),
-                    SummaryRow(label: "Subtotal", value: "\$1,985.00"),
-                    SizedBox(height: 8),
-                    SummaryRow(label: "Shipping", value: "Complimentary"),
-                    SizedBox(height: 8),
-                    SummaryRow(label: "Estimated Tax", value: "\$158.80"),
-                    SizedBox(height: 16),
-                    Divider(height: 24, color: Color(0xFF4E4639)),
-                    SizedBox(height: 16),
-                    SummaryRow(
-                      label: "Total",
-                      value: "\$2,143.80",
-                      isBold: true,
-                      labelFontSize: 24,
-                      valueFontSize: 32,
-                      fontFamily: AppFontFamilies.georgia,
-                    ),
-                    SizedBox(height: 24),
-                    CustomPrimaryButton(
-                      onPressed: () {},
-                      label: "PROCEED TO CHECKOUT",
-                    ),
-                    SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.lock_outline,
-                          size: 14,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 50),
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  width: double.infinity,
+                  padding: EdgeInsets.fromLTRB(20, 24, 20, 32),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 251, 247, 247),
+                    borderRadius: BorderRadius.circular(8)
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Summary",
+                        style: TextStyle(
+                          fontFamily: AppFontFamilies.georgia,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 32,
                           color: Color(0xFF4E4639),
                         ),
-                        SizedBox(width: 4),
-                        Text(
-                          "SECURE CHECKOUT",
-                          style: TextStyle(
-                            fontSize: 12,
+                      ),
+                      SizedBox(height: 16),
+                      Divider(height: 24, color: Color.fromARGB(255, 201, 192, 178)),
+                      SizedBox(height: 16),
+                      SummaryRow(label: "Subtotal", value: "\$1,985.00"),
+                      SizedBox(height: 8),
+                      SummaryRow(label: "Shipping", value: "Complimentary"),
+                      SizedBox(height: 8),
+                      SummaryRow(label: "Estimated Tax", value: "\$158.80"),
+                      SizedBox(height: 16),
+                      Divider(height: 24, color: Color.fromARGB(255, 201, 192, 178)),
+                      SizedBox(height: 16),
+                      SummaryRow(
+                        label: "Total",
+                        value: "\$2,143.80",
+                        isBold: true,
+                        labelFontSize: 24,
+                        valueFontSize: 32,
+                        fontFamily: AppFontFamilies.georgia,
+                      ),
+                      SizedBox(height: 24),
+                      CustomPrimaryButton(
+                        onPressed: () {},
+                        label: "PROCEED TO CHECKOUT",
+                      ),
+                      SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.lock_outline,
+                            size: 14,
                             color: Color(0xFF4E4639),
-                            fontWeight: FontWeight.w600
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          SizedBox(width: 4),
+                          Text(
+                            "SECURE CHECKOUT",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF4E4639),
+                              fontWeight: FontWeight.w600
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

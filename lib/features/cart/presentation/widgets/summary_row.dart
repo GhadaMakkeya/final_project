@@ -11,8 +11,8 @@ class SummaryRow extends StatelessWidget {
     required this.label,
     required this.value,
     this.isBold = false,
-    this.labelFontSize,
-    this.valueFontSize,
+    this.labelFontSize = 16,
+    this.valueFontSize = 16,
     this.fontFamily,
   });
 
