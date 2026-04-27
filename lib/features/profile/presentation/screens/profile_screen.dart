@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -16,32 +17,26 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).size.width * 0.05;
     return Scaffold(
-      backgroundColor: Color(0xffF2EDE8),
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         toolbarHeight: 65,
-        backgroundColor: Color(0xffF2EDE8),
+        backgroundColor: AppColors.backgroundColor,
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
         leadingWidth: 64,
-        title: Text(
-          AppStrings.appName,
-          style: const TextStyle(
-            fontFamily: AppFontFamilies.georgia,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 4,
-            color: Color(0xFF1A1A1A),
-          ),
-        ),
+        title: Text(AppStrings.appName, style: AppTextStyles.appNameTextStyle),
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.menu, color: AppColors.primary),
+          icon: Icon(Icons.menu, color: AppColors.primaryColor),
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.shopping_bag_outlined, color: AppColors.primary),
+            icon: Icon(
+              Icons.shopping_bag_outlined,
+              color: AppColors.primaryColor,
+            ),
           ),
         ],
       ),

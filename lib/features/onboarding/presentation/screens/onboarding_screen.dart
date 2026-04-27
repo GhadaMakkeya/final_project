@@ -66,7 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: OnboardingAppBar(onSkip: _handleGetStarted),
-      backgroundColor: const Color(0xffF2EDE8),
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Column(
           children: [

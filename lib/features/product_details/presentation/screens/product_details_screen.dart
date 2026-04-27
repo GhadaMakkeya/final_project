@@ -12,7 +12,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF2EDE8),
+      backgroundColor: AppColors.backgroundColor,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -149,7 +149,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         onPressed: () {},
                         label: "Read All Reviews",
                         color: Color(0xffF2EDE8),
-                        buttonTextColor: AppColors.primary,
+                        buttonTextColor: AppColors.primaryColor,
                       ),
                       SizedBox(height: 100.h),
                       CustomPrimaryButton(

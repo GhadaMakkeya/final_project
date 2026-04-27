@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 import 'package:veloura/features/cart/presentation/widgets/cart_item.dart';
@@ -48,24 +50,15 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF2EDE8),
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
         toolbarHeight: 65,
-        backgroundColor: Color(0xffF2EDE8),
+        backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         centerTitle: true,
         leadingWidth: 64,
-        title: Text(
-          AppStrings.appName,
-          style: const TextStyle(
-            fontFamily: AppFontFamilies.georgia,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 4,
-            color: Color(0xFF1A1A1A),
-          ),
-        ),
+        title: Text(AppStrings.appName, style: AppTextStyles.appNameTextStyle),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.shopping_bag_outlined)),
         ],
@@ -120,7 +113,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                   );
                 },
               ),
-              SizedBox(height: 40,),
+              SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.only(bottom: 50),
                 child: Container(
@@ -129,7 +122,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                   padding: EdgeInsets.fromLTRB(20, 24, 20, 32),
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 251, 247, 247),
-                    borderRadius: BorderRadius.circular(8)
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +137,10 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                         ),
                       ),
                       SizedBox(height: 16),
-                      Divider(height: 24, color: Color.fromARGB(255, 201, 192, 178)),
+                      Divider(
+                        height: 24,
+                        color: Color.fromARGB(255, 201, 192, 178),
+                      ),
                       SizedBox(height: 16),
                       SummaryRow(label: "Subtotal", value: "\$1,985.00"),
                       SizedBox(height: 8),
@@ -152,7 +148,10 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                       SizedBox(height: 8),
                       SummaryRow(label: "Estimated Tax", value: "\$158.80"),
                       SizedBox(height: 16),
-                      Divider(height: 24, color: Color.fromARGB(255, 201, 192, 178)),
+                      Divider(
+                        height: 24,
+                        color: Color.fromARGB(255, 201, 192, 178),
+                      ),
                       SizedBox(height: 16),
                       SummaryRow(
                         label: "Total",
@@ -182,7 +181,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                             style: TextStyle(
                               fontSize: 12,
                               color: Color(0xFF4E4639),
-                              fontWeight: FontWeight.w600
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
