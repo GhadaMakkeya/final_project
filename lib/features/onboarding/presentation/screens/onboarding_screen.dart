@@ -1,4 +1,6 @@
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/features/home/presentation/screens/bottom_nav_bar.dart';
+import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page_content.dart';
@@ -111,6 +113,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _handleGetStarted() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return BottomNavBar();
+        },
+      ),
+    );
     // TODO: navigation
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(

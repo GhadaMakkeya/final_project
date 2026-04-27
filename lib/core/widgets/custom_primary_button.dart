@@ -9,6 +9,9 @@ class CustomPrimaryButton extends StatelessWidget {
   final Color color;
   final Color buttonTextColor;
   final Color borderColor;
+  final IconData? trailingIcon;
+  final double borderRadius;
+  final double letterSpacing;
 
   const CustomPrimaryButton({
     Key? key,
@@ -19,6 +22,9 @@ class CustomPrimaryButton extends StatelessWidget {
     this.color = const Color(0xFF1B2A4A),
     this.buttonTextColor = Colors.white,
     this.borderColor = Colors.transparent,
+    this.trailingIcon,
+    this.borderRadius = 4,
+    this.letterSpacing = 3.5,
   });
 
   @override
