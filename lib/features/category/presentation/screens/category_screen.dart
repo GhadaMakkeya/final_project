@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
+import 'package:veloura/core/utils/responsive.dart';
+import 'package:veloura/features/category/presentation/widgets/custom_text.dart';
 import 'package:veloura/main.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -13,6 +15,10 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = Responsive.width(context);
+    final height = Responsive.height(context);
+
+    final crossAxisCount = width > 600 ? 2 : 1;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: CustomAppBar(
@@ -29,74 +35,89 @@ class CategoryScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 16.h),
-                    Text(
-                      AppStrings.collection.toUpperCase(),
-                      style: AppTextStyles.productCollectionLabel,
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      AppStrings.jewelry,
-                      style: AppTextStyles.sectionHeading.copyWith(
-                        fontSize: 40.sp,
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
-                    Divider(thickness: 0.5, color: AppColors.divider),
-                    SizedBox(height: 12.h),
-                    Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.tune, size: 16.sp, color: AppColors.brown),
-                          SizedBox(width: 6.w),
-                          Text(
-                            AppStrings.filter,
-                            style: AppTextStyles.settingsSectionLabel,
-                          ),
-                          SizedBox(width: 24.w),
-                          Icon(
-                            Icons.swap_vert,
-                            size: 16.sp,
-                            color: AppColors.brown,
-                          ),
-                          SizedBox(width: 6.w),
-                          Text(
-                            AppStrings.sort,
-                            style: AppTextStyles.settingsSectionLabel,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      AppStrings.itemsCount(categoryList.length),
-                      style: AppTextStyles.reviewerMeta,
-                    ),
-                    SizedBox(height: 12.h),
-                    Divider(thickness: 0.5, color: AppColors.divider),
-                    SizedBox(height: 8.h),
-                  ],
-                ),
+          padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+          child: Column(
+            children: [
+              SizedBox(height: height * 0.02),
+              CustomText(
+                text: AppStrings.collection,
+                fontSize: width * 0.03,
+                color: AppColors.secondaryColor,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 2,
               ),
-              SliverGrid(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) =>
-                      ProductCard(category: categoryList[index]),
-                  childCount: categoryList.length,
-                ),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  crossAxisSpacing: 16.w,
-                  mainAxisSpacing: 16.h,
-                  childAspectRatio: screenWidth > 600 ? 0.8 : 1.2,
+
+              SizedBox(height: height * 0.01),
+              CustomText(
+                text: AppStrings.jewelry,
+                fontSize: width * 0.08,
+                fontWeight: FontWeight.w300,
+                color: AppColors.primaryColor,
+                letterSpacing: 2,
+              ),
+
+              SizedBox(height: height * 0.015),
+
+              Divider(thickness: 0.2),
+
+              SizedBox(height: height * 0.01),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.tune, size: width * 0.045, color: AppColors.brown),
+                  SizedBox(width: width * 0.02),
+
+                  CustomText(
+                    text: AppStrings.filter,
+                    fontSize: width * 0.03,
+                    color: AppColors.brown,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                  ),
+
+                  SizedBox(width: width * 0.08),
+
+                  Icon(
+                    Icons.swap_vert,
+                    size: width * 0.045,
+                    color: AppColors.brown,
+                  ),
+                  SizedBox(width: width * 0.02),
+
+                  CustomText(
+                    text: AppStrings.sort,
+                    fontSize: width * 0.03,
+                    color: AppColors.brown,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                  ),
+                ],
+              ),
+
+              SizedBox(height: height * 0.01),
+              CustomText(
+                text: AppStrings.itemsCount(categoryList.length),
+                fontSize: width * 0.03,
+                color: AppColors.secondaryColor,
+              ),
+
+              SizedBox(height: height * 0.01),
+
+              Divider(thickness: 0.2),
+              SizedBox(height: height * 0.015),
+              Expanded(
+                child: GridView.builder(
+                  padding: EdgeInsets.only(bottom: height * 0.02),
+                  itemCount: categoryList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: width * 0.04,
+                    mainAxisSpacing: height * 0.02,
+                    childAspectRatio: width > 600 ? 0.8 : 0.75,
+                  ),
+                  itemBuilder: (context, index) {
+                    return ProductCard(category: categoryList[index]);
+                  },
                 ),
               ),
             ],
