@@ -95,7 +95,7 @@ class ResetPasswordScreen extends StatelessWidget {
                                 onPressed: () {},
                                 label: "Reset Password",
                                 letterSpacing: 0,
-                                borderRadius: 12,
+                                borderRadius: 16,
                               ),
                             ],
                           ),

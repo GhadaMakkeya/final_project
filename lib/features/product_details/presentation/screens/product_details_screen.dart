@@ -36,7 +36,23 @@ class ProductDetailsScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _buildCircleIcon(Icons.arrow_back),
+                            //_buildCircleIcon(Icons.arrow_back),
+                            Container(
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFFFFFFF),
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  Icons.arrow_back,
+                                  size: 20.sp,
+                                  color: const Color(0xFF061F3D),
+                                ),
+                              ),
+                            ),
                             Row(
                               children: [
                                 _buildCircleIcon(Icons.favorite_border),
