@@ -43,7 +43,7 @@ class ReviewCard extends StatelessWidget {
                     SizedBox(height: 4.h),
                     Text(
                       'Verified Buyer • $date',
-                      style: AppTextStyles.reviewerMeta,
+                      style: AppTextStyles.captionText,
                     ),
                   ],
                 ),
@@ -54,7 +54,7 @@ class ReviewCard extends StatelessWidget {
                       index < rating ? Icons.star : Icons.star_border,
                       color: index < rating
                           ? AppColors.primaryColor
-                          : AppColors.priceDiscounted,
+                          : AppColors.textMuted,
                       size: 14.sp,
                     ),
                   ),

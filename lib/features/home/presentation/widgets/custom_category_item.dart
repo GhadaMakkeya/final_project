@@ -24,14 +24,14 @@ class CustomCategoryItem extends StatelessWidget {
           color: categoryData.isSelected
               ? AppColors.chipSelected
               : AppColors.transparent,
-          border: Border.all(color: AppColors.chipBorder),
+          border: Border.all(color: AppColors.divider),
           borderRadius: BorderRadius.circular(20.r),
         ),
         child: Text(
           categoryData.categoryName,
           style: categoryData.isSelected
-              ? AppTextStyles.categoryChipSelected
-              : AppTextStyles.categoryChipUnselected,
+              ? AppTextStyles.chipLabelSelected
+              : AppTextStyles.chipLabelUnselected,
         ),
       ),
     );

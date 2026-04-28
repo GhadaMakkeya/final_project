@@ -20,7 +20,7 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
       decoration: BoxDecoration(
         color: AppColors.settingsTileBackground,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColors.grey200, width: 1.w),
+        border: Border.all(color: AppColors.themeToggleBackground, width: 1.w),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

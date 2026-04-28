@@ -33,9 +33,9 @@ class CustomProductCard extends StatelessWidget {
               SizedBox(height: 8.h),
               Text(
                 productDataModel.productName,
-                style: AppTextStyles.productName,
+                style: AppTextStyles.cardTitle,
               ),
-              Text(productDataModel.price, style: AppTextStyles.productPrice),
+              Text(productDataModel.price, style: AppTextStyles.cardPrice),
             ],
           ),
         ),

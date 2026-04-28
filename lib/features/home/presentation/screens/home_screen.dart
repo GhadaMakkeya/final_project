@@ -137,7 +137,10 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.only(right: 24.w),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.notifications_none, color: AppColors.primaryColor),
+              icon: Icon(
+                Icons.notifications_none,
+                color: AppColors.primaryColor,
+              ),
             ),
           ),
         ],
@@ -151,13 +154,11 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Featured Offers",
-                    style: AppTextStyles.homeSectionTitle,
-                  ),
+                  Text("Featured Offers", style: AppTextStyles.sectionHeading),
+
                   TextButton(
                     onPressed: () {},
-                    child: Text("SEE ALL", style: AppTextStyles.seeAllButton),
+                    child: Text("SEE ALL", style: AppTextStyles.seeAllLabel),
                   ),
                 ],
               ),

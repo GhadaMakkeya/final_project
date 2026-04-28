@@ -14,10 +14,7 @@ class SectionTitle extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: Padding(
         padding: EdgeInsets.only(left: 4.w),
-        child: Text(
-          title,
-          style: AppTextStyles.settingsSectionLabel
-        ),
+        child: Text(title, style: AppTextStyles.labelUppercase),
       ),
     );
   }

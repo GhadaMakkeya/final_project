@@ -71,7 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         actions: [
           TextButton(
             onPressed: () {},
-            child: Text("SKIP", style: AppTextStyles.seeAllButton),
+            child: Text("SKIP", style: AppTextStyles.seeAllLabel),
           ),
         ],
       ),

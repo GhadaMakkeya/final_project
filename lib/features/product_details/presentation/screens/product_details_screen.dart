@@ -61,18 +61,12 @@ class ProductDetailsScreen extends StatelessWidget {
                     children: [
                       Text(
                         'HERITAGE COLLECTION',
-                        style: AppTextStyles.productCollectionLabel
+                        style: AppTextStyles.captionText,
                       ),
                       SizedBox(height: 8.h),
-                      Text(
-                        'Midnight Bloom Silk\nScarf',
-                        style: AppTextStyles.productDetailName
-                      ),
+                      Text('(24 Reviews)', style: AppTextStyles.reviewsCount),
                       SizedBox(height: 12.h),
-                      Text(
-                        '\$345.00',
-                        style: AppTextStyles.productDetailPrice
-                      ),
+                      Text('\$345.00', style: AppTextStyles.productDetailPrice),
                       SizedBox(height: 16.h),
                       Row(
                         children: [
@@ -89,24 +83,21 @@ class ProductDetailsScreen extends StatelessWidget {
                           SizedBox(width: 8.w),
                           Text(
                             '(24 Reviews)',
-                            style: AppTextStyles.productSpecItem
+                            style: AppTextStyles.productSpecItem,
                           ),
                         ],
                       ),
                       SizedBox(height: 24.h),
                       Text(
                         'Woven from the finest mulberry silk, the Midnight Bloom scarf features a meticulously hand-rolled hem and an exclusive archival floral print. Its generous proportions allow for versatile styling, offering an effortless touch of evening elegance to any ensemble.',
-                        style: AppTextStyles.productDescription
+                        style: AppTextStyles.productDescription,
                       ),
                       SizedBox(height: 20.h),
                       const ProductFeaturesList(),
                       SizedBox(height: 32.h),
                       const Divider(color: AppColors.divider, thickness: 1),
                       SizedBox(height: 32.h),
-                      Text(
-                        'Reviews',
-                        style: AppTextStyles.sectionHeading 
-                      ),
+                      Text('Reviews', style: AppTextStyles.sectionHeading),
                       SizedBox(height: 20.h),
                       const ReviewCard(
                         name: 'Eleanor V.',

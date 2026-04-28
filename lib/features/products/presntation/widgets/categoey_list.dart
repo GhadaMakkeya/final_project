@@ -18,10 +18,10 @@ class CategoryList extends StatelessWidget {
     ];
 
     return Padding(
-      padding:  EdgeInsets.symmetric(vertical: 15.h),
+      padding: EdgeInsets.symmetric(vertical: 15.h),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding:  EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Row(
           children: categories.map((name) {
             return _buildCategoryChip(name, isSelected: name == "COLLECTIONS");
@@ -38,13 +38,13 @@ class CategoryList extends StatelessWidget {
       decoration: BoxDecoration(
         color: isSelected ? AppColors.chipSelected : Colors.transparent,
         borderRadius: BorderRadius.circular(25.r),
-        border: Border.all(
-          color: isSelected ? AppColors.chipBorder : AppColors.grey200,
-        ),
+        border: Border.all(color: AppColors.divider),
       ),
       child: Text(
         label,
-        style: isSelected ? AppTextStyles.categoryChipSelected : AppTextStyles.categoryChipUnselected
+        style: isSelected
+            ? AppTextStyles.chipLabelSelected
+            : AppTextStyles.chipLabelUnselected,
       ),
     );
   }

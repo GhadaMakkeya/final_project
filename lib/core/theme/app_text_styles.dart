@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 
 class AppTextStyles {
   AppTextStyles._();
+
   // ── App Bar ──────────────────────────────────────────
   static TextStyle appName = TextStyle(
     fontFamily: AppFontFamilies.georgia,
@@ -14,17 +14,16 @@ class AppTextStyles {
     letterSpacing: 4,
     color: AppColors.primaryColor,
   );
-  // -- Home Screen --
 
-  // ── Section Header ───────────────────────────────────
-  static TextStyle homeSectionTitle = TextStyle(
+  // ── Section ──────────────────────────────────────────
+  static TextStyle sectionHeading = TextStyle(
     fontFamily: AppFontFamilies.georgia,
-    fontSize: 26.sp,
-    fontWeight: FontWeight.w500,
-    color: Color(0xFF1A1A1A),
+    fontSize: 28.sp,
+    fontWeight: FontWeight.w400,
+    color: Color(0xFF1B2A4A),
   );
 
-  static TextStyle seeAll = TextStyle(
+  static TextStyle seeAllLabel = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeight.w300,
     letterSpacing: 1,
@@ -46,133 +45,54 @@ class AppTextStyles {
     height: 1.5,
   );
 
-  // ── Category Chip ────────────────────────────────────
-  static TextStyle categoryChipSelected = TextStyle(
+  // ── Chips / Tabs ─────────────────────────────────────
+  static TextStyle chipLabelSelected = TextStyle(
     fontSize: 11.sp,
     fontWeight: FontWeight.bold,
     letterSpacing: 1,
     color: Colors.white,
   );
 
-  static TextStyle categoryChipUnselected = TextStyle(
+  static TextStyle chipLabelUnselected = TextStyle(
     fontSize: 11.sp,
     fontWeight: FontWeight.bold,
     color: AppColors.brown,
     letterSpacing: 1,
   );
 
-  // ── Product Card ─────────────────────────────────────
-  static TextStyle productName = TextStyle(
-    fontFamily: AppFontFamilies.georgia,
-    fontSize: 16.sp,
-    fontWeight: FontWeight.w500,
-    color: Color(0xFF1A1A1A),
-  );
-
-  static TextStyle productPrice = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w400,
-    color: Color(0xFF4E4639),
-  );
-  //--------------------------------------------
-
-  static TextStyle addNewProductTextStyle = TextStyle(
-    fontFamily: AppFontFamilies.georgia,
-    color: Color(0xFF4E4639),
-    fontSize: 16.sp,
-    fontWeight: FontWeight.w600,
-  );
-
-  static TextStyle seeAllButton = TextStyle(
-    fontSize: 12.sp,
-    fontWeight: FontWeight.w300,
-  );
-
-  // --- Add product Section ---
-
-  static TextStyle uploadLabel = TextStyle(
-    fontSize: 11.sp,
-    fontWeight: FontWeight.w600,
-    letterSpacing: 0.8,
-    color: Colors.black87,
-  );
-
-  static TextStyle uploadHint = TextStyle(
-    fontSize: 11.sp,
-    color: Color.fromARGB(255, 176, 170, 170),
-    height: 1.5,
-  );
-
-  static TextStyle sectionTitle = TextStyle(
-    fontFamily: AppFontFamilies.georgia,
-    fontSize: 24.sp,
-    fontWeight: FontWeight.w500,
-    color: Color(0xFF4E4639),
-  );
-
-  static TextStyle fieldLabel = TextStyle(
-    fontFamily: "Sans Serif",
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w600,
-    color: Color(0xFF4E4639),
-  );
-
-  // ── Products Discover / Category Tabs ─────────────────────────
-  static TextStyle discoverTabSelected = TextStyle(
-    fontSize: 13.sp,
-    fontWeight: FontWeight.w700,
-    letterSpacing: 1.5,
-    color: Colors.white,
-  );
-
-  static TextStyle discoverTabUnselected = TextStyle(
-    fontSize: 13.sp,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 1.5,
-    color: Color(0xFF1A1A1A),
-  );
-
-  // ── Product Card Badge ───────────────────────────────
-  static TextStyle productBadgeLabel = TextStyle(
-    fontSize: 8.sp,
-    fontWeight: FontWeight.w700,
-    letterSpacing: 1,
-    color: Colors.white,
-  );
-
-  // ── Product Card Info ────────────────────────────────
-  static TextStyle discoverProductName = TextStyle(
+  // ── Card ─────────────────────────────────────────────
+  static TextStyle cardTitle = TextStyle(
     fontFamily: AppFontFamilies.georgia,
     fontSize: 15.sp,
     fontWeight: FontWeight.w400,
     color: Color(0xFF1A1A1A),
-    height: 1.3.h,
+    height: 1.3,
   );
 
-  static TextStyle discoverProductRating = TextStyle(
-    fontSize: 12.sp,
+  static TextStyle cardPrice = TextStyle(
+    fontSize: 14.sp,
     fontWeight: FontWeight.w400,
-    color: Color(0xFFAAAAAA),
+    color: Color(0xFF4E4639),
   );
 
-  static TextStyle discoverProductPrice = TextStyle(
-    fontSize: 15.sp,
-    fontWeight: FontWeight.w700,
-    color: Color(0xFF1A1A1A),
-  );
-
-  static TextStyle discoverProductOriginalPrice = TextStyle(
+  static TextStyle cardOriginalPrice = TextStyle(
     fontSize: 10.sp,
     fontWeight: FontWeight.w400,
     color: Color(0xFFAAAAAA),
     decoration: TextDecoration.lineThrough,
   );
 
-  static TextStyle productColorVariant = TextStyle(
-    fontSize: 10.sp,
+  static TextStyle cardRating = TextStyle(
+    fontSize: 12.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: 0.5,
-    color: Color(0xFF9E8E7E),
+    color: Color(0xFFAAAAAA),
+  );
+
+  static TextStyle productBadgeLabel = TextStyle(
+    fontSize: 8.sp,
+    fontWeight: FontWeight.w700,
+    letterSpacing: 1,
+    color: Colors.white,
   );
 
   static TextStyle limitedStockLabel = TextStyle(
@@ -182,14 +102,23 @@ class AppTextStyles {
     color: Color(0xFFB94040),
   );
 
-  // ── Product Detail ───────────────────────────────────
-  static TextStyle productCollectionLabel = TextStyle(
+  // ── Caption ──────────────────────────────────────────
+  static TextStyle captionText = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: 1.5,
+    letterSpacing: 0.5,
     color: Color(0xFF9E8E7E),
   );
 
+  // ── Label Uppercase ──────────────────────────────────
+  static TextStyle labelUppercase = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 1.5,
+    color: AppColors.profileSectionLabel,
+  );
+
+  // ── Product Detail ───────────────────────────────────
   static TextStyle productDetailName = TextStyle(
     fontFamily: AppFontFamilies.georgia,
     fontSize: 32.sp,
@@ -205,12 +134,6 @@ class AppTextStyles {
     color: Color(0xFF1A1A1A),
   );
 
-  static TextStyle reviewsCount = TextStyle(
-    fontSize: 13.sp,
-    fontWeight: FontWeight.w400,
-    color: Color(0xFF6B6B6B),
-  );
-
   static TextStyle productDescription = TextStyle(
     fontSize: 15.sp,
     fontWeight: FontWeight.w400,
@@ -224,24 +147,17 @@ class AppTextStyles {
     color: Color(0xFF1A1A1A),
   );
 
-  // ── Reviews Section ──────────────────────────────────
-  static TextStyle sectionHeading = TextStyle(
-    fontFamily: AppFontFamilies.georgia,
-    fontSize: 28.sp,
+  static TextStyle reviewsCount = TextStyle(
+    fontSize: 13.sp,
     fontWeight: FontWeight.w400,
-    color: Color(0xFF1B2A4A),
+    color: Color(0xFF6B6B6B),
   );
 
+  // ── Reviews ──────────────────────────────────────────
   static TextStyle reviewerName = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w700,
     color: Color(0xFF1B2A4A),
-  );
-
-  static TextStyle reviewerMeta = TextStyle(
-    fontSize: 12.sp,
-    fontWeight: FontWeight.w400,
-    color: Color(0xFF9E8E7E),
   );
 
   static TextStyle reviewBody = TextStyle(
@@ -265,6 +181,42 @@ class AppTextStyles {
     letterSpacing: 2,
     color: Colors.white,
   );
+
+  // ── Add Product ──────────────────────────────────────
+  static TextStyle addNewProductTitle = TextStyle(
+    fontFamily: AppFontFamilies.georgia,
+    color: Color(0xFF4E4639),
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle uploadLabel = TextStyle(
+    fontSize: 11.sp,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.8,
+    color: Colors.black87,
+  );
+
+  static TextStyle uploadHint = TextStyle(
+    fontSize: 11.sp,
+    color: Color.fromARGB(255, 176, 170, 170),
+    height: 1.5,
+  );
+
+  static TextStyle formSectionTitle = TextStyle(
+    fontFamily: AppFontFamilies.georgia,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w500,
+    color: Color(0xFF4E4639),
+  );
+
+  static TextStyle formFieldLabel = TextStyle(
+    fontFamily: "Sans Serif",
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    color: Color(0xFF4E4639),
+  );
+
   // ── Profile ──────────────────────────────────────────
   static TextStyle profileUserName = TextStyle(
     fontFamily: AppFontFamilies.georgia,
@@ -279,21 +231,12 @@ class AppTextStyles {
     color: Color(0xFF9E8E7E),
   );
 
-  // ── Settings ─────────────────────────────────────────
-  static TextStyle settingsSectionLabel = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w600,
-    letterSpacing: 1.5,
-    color: AppColors.profileSectionLabel,
-  );
-
   static TextStyle settingsTileText = TextStyle(
     fontSize: 15.sp,
     fontWeight: FontWeight.w400,
     color: AppColors.settingsTileText,
   );
 
-  // ── Theme Toggle ─────────────────────────────────────
   static TextStyle themeToggleActive = TextStyle(
     fontSize: 13.sp,
     fontWeight: FontWeight.w600,
@@ -303,23 +246,25 @@ class AppTextStyles {
   static TextStyle themeToggleInactive = TextStyle(
     fontSize: 13.sp,
     fontWeight: FontWeight.w400,
-    color: AppColors.themeToggleInactiveText,
+    color: AppColors.textSecondary,
   );
+
   static TextStyle logoutButtonText = TextStyle(
     color: AppColors.primaryColor,
     fontSize: 15.sp,
     fontWeight: FontWeight.w500,
   );
+
   // ── Cart ─────────────────────────────────────────────
-  static const TextStyle cartSummaryTitle = TextStyle(
+  static TextStyle cartSummaryTitle = TextStyle(
     fontFamily: AppFontFamilies.georgia,
     fontWeight: FontWeight.w400,
-    fontSize: 32,
+    fontSize: 32.sp,
     color: Color(0xFF4E4639),
   );
 
-  static const TextStyle secureCheckoutLabel = TextStyle(
-    fontSize: 12,
+  static TextStyle secureCheckoutLabel = TextStyle(
+    fontSize: 12.sp,
     color: Color(0xFF4E4639),
     fontWeight: FontWeight.w600,
   );

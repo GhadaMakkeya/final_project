@@ -50,10 +50,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(
-          'Add New Product',
-          style: AppTextStyles.addNewProductTextStyle,
-        ),
+        title: Text('Add New Product', style: AppTextStyles.addNewProductTitle),
         centerTitle: true,
       ),
       body: Form(

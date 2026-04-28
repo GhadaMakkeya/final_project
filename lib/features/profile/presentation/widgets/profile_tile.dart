@@ -33,7 +33,7 @@ class ProfileTile extends StatelessWidget {
             ? Icon(
                 Icons.arrow_forward_ios,
                 size: 14.sp,
-                color: AppColors.settingsTileArrow,
+                color: AppColors.settingsTileText,
               )
             : null,
         onTap: onTap,

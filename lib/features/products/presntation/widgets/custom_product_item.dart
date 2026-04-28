@@ -11,7 +11,7 @@ class CustomProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.productCardBackground,
+      color: AppColors.backgroundColor,
       elevation: 0.1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: Column(
@@ -23,7 +23,7 @@ class CustomProductItem extends StatelessWidget {
             child: Stack(
               children: [
                 Padding(
-                  padding:  EdgeInsets.only(right: 8.w, left: 8.w, top: 8.h),
+                  padding: EdgeInsets.only(right: 8.w, left: 8.w, top: 8.h),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4.r),
@@ -55,7 +55,10 @@ class CustomProductItem extends StatelessWidget {
                   bottom: 8.h,
                   right: 16.w,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6.w,
+                      vertical: 6.h,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.white.withOpacity(0.4),
                       shape: BoxShape.circle,
@@ -63,7 +66,7 @@ class CustomProductItem extends StatelessWidget {
                     child: Icon(
                       Icons.favorite_border,
                       size: 16.sp,
-                      color: AppColors.white
+                      color: AppColors.white,
                     ),
                   ),
                 ),
@@ -84,33 +87,26 @@ class CustomProductItem extends StatelessWidget {
                           productModel.name,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: AppTextStyles.discoverProductName,
+                          style: AppTextStyles.cardTitle,
                         ),
                       ),
                     ),
-                    Text("4.8", style: AppTextStyles.discoverProductRating),
+                    Text("4.8", style: AppTextStyles.cardRating),
                   ],
                 ),
-                 SizedBox(height: 6.h),
+                SizedBox(height: 6.h),
                 Row(
                   children: [
-                    Text(
-                      productModel.price,
-                      style: AppTextStyles.discoverProductPrice
-                    ),
-                     SizedBox(width: 8.w),
+                    Text(productModel.price, style: AppTextStyles.cardPrice),
+                    SizedBox(width: 8.w),
                     Text(
                       productModel.originalPrice ?? "",
-                      style: AppTextStyles.discoverProductOriginalPrice
+                      style: AppTextStyles.cardOriginalPrice,
                     ),
                   ],
                 ),
-                 SizedBox(height: 12.h),
-                 Divider(
-                  height: 1.h,
-                  thickness: 0.5,
-                  color: Color(0xffEEEEEE),
-                ),
+                SizedBox(height: 12.h),
+                Divider(height: 1.h, thickness: 0.5, color: Color(0xffEEEEEE)),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
