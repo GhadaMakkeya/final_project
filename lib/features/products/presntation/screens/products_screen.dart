@@ -19,15 +19,15 @@ class ProductScreen extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 65.h,
         elevation: 0,
-        leading: const Icon(Icons.menu, color: Colors.black),
+        leading: const Icon(Icons.menu, color: AppColors.black),
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor,
         leadingWidth: 64.w,
         title: Text(AppStrings.appName, style: AppTextStyles.appNameTextStyle),
         actions: [
-          Icon(Icons.search, color: Colors.black),
+          Icon(Icons.search, color: AppColors.black),
           SizedBox(width: 15.w),
-          Icon(Icons.shopping_bag_outlined, color: Colors.black),
+          Icon(Icons.shopping_bag_outlined, color: AppColors.black),
           SizedBox(width: 15.w),
         ],
       ),

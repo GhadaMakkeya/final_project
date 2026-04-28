@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String name;
@@ -24,34 +25,33 @@ class ProfileHeader extends StatelessWidget {
           child: Stack(
             children: [
               // Main avatar
-              CircleAvatar(
-                radius: 65.r,
-                backgroundColor: Colors.black26,
-                backgroundImage: const NetworkImage(
-                  "https://i.pravatar.cc/150?img=3",
+              Center(
+                child: CircleAvatar(
+                  radius: 65.r,
+                  backgroundColor: Colors.black26,
+                  backgroundImage: const NetworkImage(
+                    "https://i.pravatar.cc/150?img=3",
+                  ),
                 ),
               ),
               // Edit badge
               Positioned(
-                bottom: 4.h,
-                right: 4.w,
+                bottom: 10.h,
+                right: 10.w,
                 child: GestureDetector(
                   onTap: onEdit,
                   child: Container(
-                    width: 34.w,
-                    height: 34.h,
+                    width: 36.w,
+                    height: 36.h,
                     decoration: BoxDecoration(
                       color: AppColors.primaryColor,
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        color: AppColors.white,
-                        width: 2.w,
-                      ),
+                      border: Border.all(color: AppColors.white, width: 2.w),
                     ),
-                    child:  Icon(
+                    child: Icon(
                       Icons.edit,
                       size: 16.sp,
-                      color: Colors.white,
+                      color: AppColors.white,
                     ),
                   ),
                 ),
@@ -59,24 +59,10 @@ class ProfileHeader extends StatelessWidget {
             ],
           ),
         ),
-         SizedBox(height: 14.h),
-        Text(
-          name,
-          style:  TextStyle(
-            fontSize: 26.sp,
-            fontWeight: FontWeight.w400,
-            color: Colors.black87,
-            letterSpacing: 0.5,
-          ),
-        ),
-         SizedBox(height: 4.h),
-        Text(
-          email,
-          style: TextStyle(
-            color: AppColors.grey,
-            fontSize: 14.sp,
-          ),
-        ),
+        SizedBox(height: 14.h),
+        Text(name, style: AppTextStyles.profileUserName),
+        SizedBox(height: 4.h),
+        Text(email, style: AppTextStyles.profileUserEmail),
       ],
     );
   }

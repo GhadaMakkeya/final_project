@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/home/data/category_data.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,17 +22,16 @@ class CustomCategoryItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: categoryData.isSelected
-              ? Color(0xff1E1B16)
-              : Colors.transparent,
-          border: Border.all(color: Color(0xffD1C5B4)),
+              ? AppColors.chipSelected
+              : AppColors.transparent,
+          border: Border.all(color: AppColors.chipBorder),
           borderRadius: BorderRadius.circular(20.r),
         ),
         child: Text(
           categoryData.categoryName,
-          style: TextStyle(
-            color: categoryData.isSelected ? Colors.white : Color(0xff4E4639),
-            fontWeight: FontWeight.w500,
-          ),
+          style: categoryData.isSelected
+              ? AppTextStyles.categoryChipSelected
+              : AppTextStyles.categoryChipUnselected,
         ),
       ),
     );

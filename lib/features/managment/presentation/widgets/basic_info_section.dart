@@ -25,9 +25,9 @@ class BasicInformationSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Basic Information', style: AppTextStyles.sectionTitle),
+         Text('Basic Information', style: AppTextStyles.sectionTitle),
          SizedBox(height: 20.h),
-        const Text("PRODUCT NAME", style: AppTextStyles.fieldLabel),
+         Text("PRODUCT NAME", style: AppTextStyles.fieldLabel),
          SizedBox(height: 8.h),
         ProductFormField(
           controller: productNameController,
@@ -37,11 +37,11 @@ class BasicInformationSection extends StatelessWidget {
               : null,
         ),
          SizedBox(height: 20.h),
-        const Text("CATEGORY", style: AppTextStyles.fieldLabel),
+         Text("CATEGORY", style: AppTextStyles.fieldLabel),
          SizedBox(height: 8.h),
         CategoryDropdown(value: selectedCategory, onChanged: onCategoryChanged),
          SizedBox(height: 20),
-        const Text("PRICE (USD)", style: AppTextStyles.fieldLabel),
+         Text("PRICE (USD)", style: AppTextStyles.fieldLabel),
          SizedBox(height: 8.h),
         ProductFormField(
           controller: priceController,
@@ -55,7 +55,7 @@ class BasicInformationSection extends StatelessWidget {
           },
         ),
         const SizedBox(height: 20),
-        const Text("DESCRPTION", style: AppTextStyles.fieldLabel),
+         Text("DESCRPTION", style: AppTextStyles.fieldLabel),
         const SizedBox(height: 8),
         ProductFormField(
           controller: descriptionController,

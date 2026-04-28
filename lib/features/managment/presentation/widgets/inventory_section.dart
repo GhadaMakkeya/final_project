@@ -18,26 +18,17 @@ class InventorySection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Inventory',
-          style: AppTextStyles.sectionTitle
-        ),
-         SizedBox(height: 20.h),
-        const Text(
-          'SKU',
-          style: AppTextStyles.fieldLabel
-        ),
-         SizedBox(height: 8.h),
+        Text('Inventory', style: AppTextStyles.sectionTitle),
+        SizedBox(height: 20.h),
+        Text('SKU', style: AppTextStyles.fieldLabel),
+        SizedBox(height: 8.h),
         ProductFormField(
           controller: skuController,
           hintText: 'Optional identifier',
         ),
-         SizedBox(height: 20.h),
-        const Text(
-          'AVAILABLE QUANTITY',
-          style: AppTextStyles.fieldLabel
-        ),
-         SizedBox(height: 8.h),
+        SizedBox(height: 20.h),
+        Text('AVAILABLE QUANTITY', style: AppTextStyles.fieldLabel),
+        SizedBox(height: 8.h),
         ProductFormField(
           controller: skuController,
           hintText: "ِAvailable quantity",

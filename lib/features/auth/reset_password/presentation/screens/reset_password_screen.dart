@@ -45,7 +45,7 @@ class ResetPasswordScreen extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.05),
-                              blurRadius: 10,
+                              blurRadius: 10.r,
                               offset: const Offset(0, 4),
                             ),
                           ],

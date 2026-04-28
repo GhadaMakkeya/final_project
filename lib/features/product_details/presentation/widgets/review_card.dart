@@ -19,64 +19,52 @@ class ReviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16.w),
+    return Card(
       margin: EdgeInsets.only(bottom: 16.h),
-      decoration: BoxDecoration(
-        color:  const Color.fromARGB(255, 251, 247, 247),
+      color: AppColors.white,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: Color.fromARGB(255, 121, 95, 68), width: 1), 
+        side: BorderSide(color: AppColors.white, width: 1),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: AppTextStyles.font16InterRegular.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: const Color(0xFF001F3F), 
-                      fontSize: 14.sp,
+      elevation: 1,
+      child: Padding(
+        padding: EdgeInsets.all(16.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(name, style: AppTextStyles.reviewerName),
+                    SizedBox(height: 4.h),
+                    Text(
+                      'Verified Buyer • $date',
+                      style: AppTextStyles.reviewerMeta,
                     ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    'Verified Buyer • $date',
-                    style: AppTextStyles.font16InterRegular.copyWith(
-                      fontSize: 12.sp,
-                      color: const Color(0xFF757575),
+                  ],
+                ),
+                Row(
+                  children: List.generate(
+                    5,
+                    (index) => Icon(
+                      index < rating ? Icons.star : Icons.star_border,
+                      color: index < rating
+                          ? AppColors.primaryColor
+                          : AppColors.priceDiscounted,
+                      size: 14.sp,
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: List.generate(
-                  5,
-                  (index) => Icon(
-                    index < rating ? Icons.star : Icons.star_border,
-                    color: const Color(0xFF001F3F), 
-                    size: 14.sp,
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 12.h),
-          Text(
-            comment,
-            style: AppTextStyles.font16InterRegular.copyWith(
-              fontSize: 14.sp,
-              height: 1.5,
-              color: const Color(0xFF4E4639),
+              ],
             ),
-          ),
-        ],
+            SizedBox(height: 12.h),
+            Text(comment, style: AppTextStyles.reviewBody),
+          ],
+        ),
       ),
     );
   }

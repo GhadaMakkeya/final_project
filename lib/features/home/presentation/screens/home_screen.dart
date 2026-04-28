@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     "Featured Offers",
-                    style: AppTextStyles.featuredOffersTitle,
+                    style: AppTextStyles.homeSectionTitle,
                   ),
                   TextButton(
                     onPressed: () {},

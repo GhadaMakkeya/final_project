@@ -42,12 +42,12 @@ class _ImageUploadSectionState extends State<ImageUploadSection> {
                   ),
                 ),
                 SizedBox(height: 12.h),
-                const Text(
+                 Text(
                   'UPLOAD PRIMARY IMAGE',
                   style: AppTextStyles.uploadLabel,
                 ),
                 SizedBox(height: 6.h),
-                const Text(
+                 Text(
                   'High-resolution JPG or PNG.\nRecommended ratio 4:5.',
                   textAlign: TextAlign.center,
                   style: AppTextStyles.uploadHint,

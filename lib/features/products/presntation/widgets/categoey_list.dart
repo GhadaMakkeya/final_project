@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({super.key});
@@ -15,10 +18,10 @@ class CategoryList extends StatelessWidget {
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
+      padding:  EdgeInsets.symmetric(vertical: 15.h),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding:  EdgeInsets.symmetric(horizontal: 16.w),
         child: Row(
           children: categories.map((name) {
             return _buildCategoryChip(name, isSelected: name == "COLLECTIONS");
@@ -30,23 +33,18 @@ class CategoryList extends StatelessWidget {
 
   Widget _buildCategoryChip(String label, {bool isSelected = false}) {
     return Container(
-      margin: const EdgeInsets.only(right: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: EdgeInsets.only(right: 12.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: isSelected ? const Color(0xff1A1A1A) : Colors.transparent,
-        borderRadius: BorderRadius.circular(25),
+        color: isSelected ? AppColors.chipSelected : Colors.transparent,
+        borderRadius: BorderRadius.circular(25.r),
         border: Border.all(
-          color: isSelected ? Colors.transparent : Colors.grey.shade300,
+          color: isSelected ? AppColors.chipBorder : AppColors.grey200,
         ),
       ),
       child: Text(
         label,
-        style: TextStyle(
-          color: isSelected ? Colors.white : Color(0xff4E4639),
-          fontSize: 11,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1,
-        ),
+        style: isSelected ? AppTextStyles.categoryChipSelected : AppTextStyles.categoryChipUnselected
       ),
     );
   }

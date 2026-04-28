@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/home/data/product_data_model.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,7 @@ class CustomProductCard extends StatelessWidget {
               Expanded(
                 child: Center(
                   child: ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(8),
+                    borderRadius: BorderRadiusGeometry.circular(8.r),
                     child: Image.network(
                       productDataModel.imagePath,
                       width: double.infinity,
@@ -29,24 +30,12 @@ class CustomProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Text(
                 productDataModel.productName,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color(0xff1E1B16),
-                  fontFamily: AppFontFamilies.georgia,
-                ),
+                style: AppTextStyles.productName,
               ),
-
-              Text(
-                productDataModel.price,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xff565E77),
-                  fontFamily: AppFontFamilies.georgia,
-                ),
-              ),
+              Text(productDataModel.price, style: AppTextStyles.productPrice),
             ],
           ),
         ),

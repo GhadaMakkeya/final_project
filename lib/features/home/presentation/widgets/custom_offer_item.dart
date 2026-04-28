@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/home/data/offers_data.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,7 +10,7 @@ class CustomOfferIteam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(right: 8.w, left: 6.w),
+      padding: EdgeInsets.only(right: 8.w, left: 6.w),
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
         child: Stack(
@@ -23,7 +24,7 @@ class CustomOfferIteam extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
               child: Column(
                 spacing: 4.sp,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,15 +32,11 @@ class CustomOfferIteam extends StatelessWidget {
                 children: [
                   Text(
                     offersData.offerTitle,
-                    style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                    style: AppTextStyles.bannerTitle
                   ),
                   Text(
                     offersData.offerDesc,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w300,
-                    ),
+                    style: AppTextStyles.bannerSubtitle
                   ),
                 ],
               ),
