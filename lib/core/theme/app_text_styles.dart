@@ -7,7 +7,7 @@ import 'package:veloura/core/theme/app_colors.dart';
 class AppTextStyles {
   AppTextStyles._();
   // ── App Bar ──────────────────────────────────────────
-  static TextStyle appNameTextStyle = TextStyle(
+  static TextStyle appName = TextStyle(
     fontFamily: AppFontFamilies.georgia,
     fontSize: 20.sp,
     fontWeight: FontWeight.w500,
@@ -225,7 +225,7 @@ class AppTextStyles {
   );
 
   // ── Reviews Section ──────────────────────────────────
-  static TextStyle reviewsSectionTitle = TextStyle(
+  static TextStyle sectionHeading = TextStyle(
     fontFamily: AppFontFamilies.georgia,
     fontSize: 28.sp,
     fontWeight: FontWeight.w400,
@@ -309,5 +309,18 @@ class AppTextStyles {
     color: AppColors.primaryColor,
     fontSize: 15.sp,
     fontWeight: FontWeight.w500,
+  );
+  // ── Cart ─────────────────────────────────────────────
+  static const TextStyle cartSummaryTitle = TextStyle(
+    fontFamily: AppFontFamilies.georgia,
+    fontWeight: FontWeight.w400,
+    fontSize: 32,
+    color: Color(0xFF4E4639),
+  );
+
+  static const TextStyle secureCheckoutLabel = TextStyle(
+    fontSize: 12,
+    color: Color(0xFF4E4639),
+    fontWeight: FontWeight.w600,
   );
 }

@@ -101,11 +101,11 @@ class ProductDetailsScreen extends StatelessWidget {
                       SizedBox(height: 20.h),
                       const ProductFeaturesList(),
                       SizedBox(height: 32.h),
-                      const Divider(color: Color(0xFFE4E2E2), thickness: 1),
+                      const Divider(color: AppColors.divider, thickness: 1),
                       SizedBox(height: 32.h),
                       Text(
                         'Reviews',
-                        style: AppTextStyles.reviewsSectionTitle
+                        style: AppTextStyles.sectionHeading 
                       ),
                       SizedBox(height: 20.h),
                       const ReviewCard(

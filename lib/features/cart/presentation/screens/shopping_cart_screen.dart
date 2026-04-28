@@ -3,6 +3,7 @@ import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 import 'package:veloura/features/cart/presentation/widgets/cart_item.dart';
@@ -44,45 +45,33 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-        toolbarHeight: 65.h,
-        backgroundColor: AppColors.backgroundColor,
-        elevation: 0,
-        centerTitle: true,
-        leadingWidth: 64.w,
-        title: Text(AppStrings.appName, style: AppTextStyles.appNameTextStyle),
+      appBar: CustomAppBar(
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.menu, color: AppColors.black),
+        ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_bag_outlined)),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.shopping_bag_outlined, color: AppColors.black),
+          ),
         ],
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding:  EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 4.h),
-                child: Text(
-                  "Your Cart",
-                  style: TextStyle(
-                    color: Color(0xFF4E4639),
-                    fontSize: 40.sp,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: AppFontFamilies.georgia,
-                  ),
-                ),
+                padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 4.h),
+                child: Text("Your Cart", style: AppTextStyles.sectionHeading),
               ),
               Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 16.w),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Text(
                   "${cartItems.length} items ready for checkout.",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF4E4639),
-                  ),
+                  style: AppTextStyles.productDescription,
                 ),
               ),
               SizedBox(height: 48.h),
@@ -108,7 +97,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
               ),
               SizedBox(height: 40.h),
               Padding(
-                padding:  EdgeInsets.only(bottom: 50.h),
+                padding: EdgeInsets.only(bottom: 50.h),
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 16.w),
                   width: double.infinity,
@@ -120,20 +109,10 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Summary",
-                        style: TextStyle(
-                          fontFamily: AppFontFamilies.georgia,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 32.sp,
-                          color: Color(0xFF4E4639),
-                        ),
-                      ),
+                      Text("Summary", style: AppTextStyles.cartSummaryTitle),
+
                       SizedBox(height: 16.h),
-                      Divider(
-                        height: 24.h,
-                        color: Color.fromARGB(255, 201, 192, 178),
-                      ),
+                      Divider(height: 24.h, color: AppColors.divider),
                       SizedBox(height: 16.h),
                       SummaryRow(label: "Subtotal", value: "\$1,985.00"),
                       SizedBox(height: 8.h),
@@ -141,10 +120,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                       SizedBox(height: 8.h),
                       SummaryRow(label: "Estimated Tax", value: "\$158.80"),
                       SizedBox(height: 16.h),
-                      Divider(
-                        height: 24.h,
-                        color: Color.fromARGB(255, 201, 192, 178),
-                      ),
+                      Divider(height: 24.h, color: AppColors.divider),
                       SizedBox(height: 16.h),
                       SummaryRow(
                         label: "Total",
@@ -158,6 +134,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                       CustomPrimaryButton(
                         onPressed: () {},
                         label: "PROCEED TO CHECKOUT",
+                        letterSpacing: 0,
                       ),
                       SizedBox(height: 12.h),
                       Row(
@@ -166,16 +143,12 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                           Icon(
                             Icons.lock_outline,
                             size: 14.sp,
-                            color: Color(0xFF4E4639),
+                            color: AppColors.brown,
                           ),
                           SizedBox(width: 4),
                           Text(
                             "SECURE CHECKOUT",
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              color: Color(0xFF4E4639),
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: AppTextStyles.secureCheckoutLabel,
                           ),
                         ],
                       ),

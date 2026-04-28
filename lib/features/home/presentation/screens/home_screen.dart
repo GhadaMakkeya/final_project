@@ -3,6 +3,7 @@ import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/features/home/data/category_data.dart';
 import 'package:veloura/features/home/data/offers_data.dart';
 import 'package:veloura/features/home/data/product_data_model.dart';
@@ -123,26 +124,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       //-------------AppBar------------
-      appBar: AppBar(
-        toolbarHeight: 65.h,
-        backgroundColor: AppColors.backgroundColor,
-        elevation: 0,
-        centerTitle: true,
-        leadingWidth: 64.w,
-        title: Text(AppStrings.appName, style: AppTextStyles.appNameTextStyle),
+      appBar: CustomAppBar(
         leading: Padding(
-          padding:  EdgeInsets.only(left: 24.w),
+          padding: EdgeInsets.only(left: 24.w),
           child: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.search, color: Color(0xff1C1917)),
+            icon: Icon(Icons.search, color: AppColors.primaryColor),
           ),
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 24),
+            padding: EdgeInsets.only(right: 24.w),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.notifications_none, color: Color(0xff1C1917)),
+              icon: Icon(Icons.notifications_none, color: AppColors.primaryColor),
             ),
           ),
         ],

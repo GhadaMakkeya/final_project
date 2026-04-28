@@ -1,43 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
-
-import '../theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-  final VoidCallback? onMenuTap;
-  final VoidCallback? onCartTap;
+  final Widget? leading;
+  final List<Widget>? actions;
 
   const CustomAppBar({
     super.key,
-    required this.title,
-    this.onMenuTap,
-    this.onCartTap,
+    this.leading,
+    this.actions,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      toolbarHeight: 65.h,
+      backgroundColor: AppColors.backgroundColor,
       elevation: 0,
-      backgroundColor: Colors.white,
       centerTitle: true,
-      leading: IconButton(
-        icon: const Icon(Icons.menu, color: AppColors.primaryColor),
-        onPressed: onMenuTap,
-      ),
-      title: Text(title, style: AppTextStyles.appNameTextStyle),
-      actions: [
-        IconButton(
-          icon: const Icon(
-            Icons.shopping_bag_rounded,
-            color: AppColors.primaryColor,
-          ),
-          onPressed: onCartTap,
-        ),
-      ],
+      leadingWidth: 64.w,
+      title: Text(AppStrings.appName, style: AppTextStyles.appName),
+      leading: leading,
+      actions: actions,
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(65.h);
 }

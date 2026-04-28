@@ -1,10 +1,11 @@
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/home/presentation/screens/bottom_nav_bar.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page_content.dart';
-import 'package:veloura/features/onboarding/presentation/widgets/onboarding_appbar.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,7 +67,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OnboardingAppBar(onSkip: _handleGetStarted),
+      appBar: CustomAppBar(
+        actions: [
+          TextButton(
+            onPressed: () {},
+            child: Text("SKIP", style: AppTextStyles.seeAllButton),
+          ),
+        ],
+      ),
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Column(
