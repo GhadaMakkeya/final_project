@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen.dart';
 import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
-          home: CategoryScreen(),
+          home: SignUpScreen(),
         );
       },
     );
