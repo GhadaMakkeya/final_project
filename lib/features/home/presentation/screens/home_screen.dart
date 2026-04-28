@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 import 'package:veloura/features/home/data/category_data.dart';
 import 'package:veloura/features/home/data/offers_data.dart';
 import 'package:veloura/features/home/data/product_data_model.dart';
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentPage = 0;
   List<CategoryData> categories = [
     CategoryData(categoryName: "All", isSelected: true),
-    CategoryData(categoryName: "Watches"),
+    CategoryData(categoryName: "jewelry"),
     CategoryData(categoryName: "Perfumes"),
     CategoryData(categoryName: "Bags"),
     CategoryData(categoryName: "Shoes"),
@@ -154,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20,),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -168,7 +169,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 26,
                       fontFamily: AppFontFamilies.georgia,
                       color: Color(0xFF1A1A1A),
-                      fontWeight: FontWeight.w500                      ),
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   TextButton(
                     onPressed: () {},
@@ -182,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 8,),
+              SizedBox(height: 8),
               SizedBox(
                 height: 180,
                 child: PageView.builder(
@@ -226,6 +228,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       categoryData: categories[index],
                       onTap: () {
                         selectCategory(index);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CategoryScreen();
+                            },
+                          ),
+                        );
                       },
                     );
                   },

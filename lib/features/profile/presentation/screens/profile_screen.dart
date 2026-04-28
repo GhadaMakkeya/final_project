@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
-
+import 'package:veloura/core/theme/app_text_styles.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../widgets/logout_button.dart';
@@ -8,6 +8,7 @@ import '../widgets/profile_header.dart';
 import '../widgets/profile_tile.dart';
 import '../widgets/section_title.dart';
 import '../widgets/theme_switch.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
@@ -16,72 +17,59 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).size.width * 0.05;
     return Scaffold(
-      backgroundColor: Color(0xffF2EDE8),
-      appBar: AppBar(
-        toolbarHeight: 65,
-        backgroundColor: Color(0xffF2EDE8),
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        centerTitle: true,
-        leadingWidth: 64,
-        title: Text(
-          AppStrings.appName,
-          style: const TextStyle(
-            fontFamily: AppFontFamilies.georgia,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 4,
-            color: Color(0xFF1A1A1A),
-          ),
-        ),
+      backgroundColor: AppColors.backgroundColor,
+      appBar: CustomAppBar(
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.menu, color: AppColors.primary),
+          icon: Icon(Icons.menu, color: AppColors.primaryColor),
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.shopping_bag_outlined, color: AppColors.primary),
+            icon: Icon(
+              Icons.shopping_bag_outlined,
+              color: AppColors.primaryColor,
+            ),
           ),
-        ],
+        ], title: AppStrings.appName,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: padding),
         child: Column(
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: 20.h),
             ProfileHeader(
               name: AppStrings.name,
               email: AppStrings.email,
               onEdit: () {},
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 30.h),
             SectionTitle(title: AppStrings.account),
-            SizedBox(height: 8),
+            SizedBox(height: 8.h),
             ProfileTile(title: AppStrings.changePassword, onTap: () {}),
-            SizedBox(height: 24),
+            SizedBox(height: 24.h),
             SectionTitle(title: AppStrings.preferences),
-            SizedBox(height: 8),
+            SizedBox(height: 8.h),
             ThemeSwitch(),
 
-            SizedBox(height: 24),
+            SizedBox(height: 24.h),
 
             SectionTitle(title: AppStrings.information),
-            SizedBox(height: 8),
+            SizedBox(height: 8.h),
             ProfileTile(title: AppStrings.privacyPolicy, onTap: () {}),
-            SizedBox(height: 8),
+            SizedBox(height: 8.h),
             ProfileTile(title: AppStrings.aboutUs, onTap: () {}),
-            SizedBox(height: 8),
+            SizedBox(height: 8.h),
             ProfileTile(title: AppStrings.contactUs, onTap: () {}),
 
-            SizedBox(height: 36),
+            SizedBox(height: 36.h),
 
             LogoutButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/login');
               },
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 30.h),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const List<String> _kCategories = [
   'Bags & Accessories',
@@ -23,9 +24,12 @@ class CategoryDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         color: Color.fromARGB(255, 251, 248, 245),
-        border: Border.all(color: Color.fromARGB(255, 121, 95, 68), width: 1.2),
+        border: Border.all(
+          color: Color.fromARGB(255, 121, 95, 68),
+          width: 1.2.w,
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: DropdownButtonHideUnderline(
@@ -33,33 +37,37 @@ class CategoryDropdown extends StatelessWidget {
           value: value,
           isExpanded: true,
           dropdownColor: Color.fromARGB(255, 251, 248, 245),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           elevation: 3,
-          menuMaxHeight: 260,
+          menuMaxHeight: 260.h,
           hint: Row(
-            children: const [
-              Icon(Icons.grid_view_rounded, size: 16, color: Color.fromARGB(255, 121, 95, 68)),
+            children: [
+              Icon(
+                Icons.grid_view_rounded,
+                size: 16.sp,
+                color: Color.fromARGB(255, 121, 95, 68),
+              ),
               SizedBox(width: 8),
               Text(
                 'Select a category',
                 style: TextStyle(
                   color: Color.fromARGB(255, 121, 95, 68),
-                  fontSize: 13,
+                  fontSize: 13.sp,
                   fontWeight: FontWeight.w400,
                 ),
               ),
             ],
           ),
           icon: Container(
-            padding: const EdgeInsets.all(4),
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
             decoration: BoxDecoration(
               color: Colors.transparent,
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(6.r),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.keyboard_arrow_down_rounded,
               color: Color.fromARGB(255, 121, 95, 68),
-              size: 22,
+              size: 22.sp,
             ),
           ),
           selectedItemBuilder: (_) => _kCategories
@@ -68,8 +76,8 @@ class CategoryDropdown extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     c,
-                    style: const TextStyle(
-                      fontSize: 13,
+                    style: TextStyle(
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFF5C3D1E),
                     ),
@@ -85,16 +93,16 @@ class CategoryDropdown extends StatelessWidget {
                 children: [
                   Icon(
                     _categoryIcon(c),
-                    size: 16,
+                    size: 16.sp,
                     color: isSelected
                         ? const Color(0xFF8B5E3C)
                         : const Color(0xFFB08060),
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: 10.w),
                   Text(
                     c,
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 13.sp,
                       fontWeight: isSelected
                           ? FontWeight.w600
                           : FontWeight.w400,

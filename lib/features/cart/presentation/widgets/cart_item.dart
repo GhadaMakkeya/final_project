@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartItem extends StatelessWidget {
   final String name, subtitle, image;
@@ -24,25 +25,25 @@ class CartItem extends StatelessWidget {
       color: Color(0xffF2EDE8),
       elevation: 0.1,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
+            padding:  EdgeInsets.only(left: 8.w, right: 8.w),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(24.r),
               child: Image.asset(
                 image,
                 width: double.infinity,
-                height: 200,
+                height: 200.h,
                 fit: BoxFit.fitWidth,
               ),
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 10.h),
           Padding(
-            padding: const EdgeInsets.only(bottom: 24, left: 24, right: 24),
+            padding: EdgeInsets.only(bottom: 24.h, left: 24.w, right: 24.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,7 +54,7 @@ class CartItem extends StatelessWidget {
                       name,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontFamily: AppFontFamilies.georgia,
                         color: Color(0xFF4E4639),
                       ),
@@ -62,19 +63,19 @@ class CartItem extends StatelessWidget {
                       '\$${price.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontFamily: AppFontFamilies.georgia,
                         color: Color(0xFF4E4639),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: 4.h),
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 13, color: Color.fromARGB(255, 160, 149, 133),),
+                  style: TextStyle(fontSize: 13.sp, color: Color.fromARGB(255, 160, 149, 133),),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -83,16 +84,16 @@ class CartItem extends StatelessWidget {
                         border: Border.all(
                           color: Color.fromARGB(255, 225, 221, 216),
                         ),
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: Row(
                         children: [
                           _qtyButton(Icons.remove, onDecrement),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            padding:  EdgeInsets.symmetric(horizontal: 12.w),
                             child: Text(
                               '$quantity',
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 15.sp),
                             ),
                           ),
                           _qtyButton(Icons.add, onIncrement),
@@ -104,7 +105,7 @@ class CartItem extends StatelessWidget {
                       child: Text(
                         "REMOVE",
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                           decoration: TextDecoration.underline,
                         ),
@@ -123,7 +124,7 @@ class CartItem extends StatelessWidget {
   Widget _qtyButton(IconData icon, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(width: 28, height: 28, child: Icon(icon, size: 16)),
+      child: Container(width: 28.w, height: 28.h, child: Icon(icon, size: 16.sp)),
     );
   }
 }

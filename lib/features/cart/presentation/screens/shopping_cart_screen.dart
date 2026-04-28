@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 import 'package:veloura/features/cart/presentation/widgets/cart_item.dart';
 import 'package:veloura/features/cart/presentation/widgets/summary_row.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShoppingCartScreen extends StatefulWidget {
   const ShoppingCartScreen({super.key});
@@ -15,13 +18,6 @@ class ShoppingCartScreen extends StatefulWidget {
 }
 
 class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    FlutterNativeSplash.remove();
-  }
-
   final List<CartItemModel> cartItems = [
     CartItemModel(
       name: 'Cashmere & Silk Scarf',
@@ -48,58 +44,37 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF2EDE8),
-      appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-        toolbarHeight: 65,
-        backgroundColor: Color(0xffF2EDE8),
-        elevation: 0,
-        centerTitle: true,
-        leadingWidth: 64,
-        title: Text(
-          AppStrings.appName,
-          style: const TextStyle(
-            fontFamily: AppFontFamilies.georgia,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 4,
-            color: Color(0xFF1A1A1A),
-          ),
+      backgroundColor: AppColors.backgroundColor,
+      appBar: CustomAppBar(
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.menu, color: AppColors.black),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_bag_outlined)),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.shopping_bag_outlined, color: AppColors.black),
+          ),
         ],
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
-                child: Text(
-                  "Your Cart",
-                  style: TextStyle(
-                    color: Color(0xFF4E4639),
-                    fontSize: 40,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: AppFontFamilies.georgia,
-                  ),
-                ),
+                padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 4.h),
+                child: Text("Your Cart", style: AppTextStyles.sectionHeading),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Text(
                   "${cartItems.length} items ready for checkout.",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF4E4639),
-                  ),
+                  style: AppTextStyles.productDescription,
                 ),
               ),
-              SizedBox(height: 48),
+              SizedBox(height: 48.h),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -120,70 +95,60 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                   );
                 },
               ),
-              SizedBox(height: 40,),
+              SizedBox(height: 40.h),
               Padding(
-                padding: const EdgeInsets.only(bottom: 50),
+                padding: EdgeInsets.only(bottom: 50.h),
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  margin: EdgeInsets.symmetric(horizontal: 16.w),
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(20, 24, 20, 32),
+                  padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 32.h),
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 251, 247, 247),
-                    borderRadius: BorderRadius.circular(8)
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Summary",
-                        style: TextStyle(
-                          fontFamily: AppFontFamilies.georgia,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 32,
-                          color: Color(0xFF4E4639),
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      Divider(height: 24, color: Color.fromARGB(255, 201, 192, 178)),
-                      SizedBox(height: 16),
+                      Text("Summary", style: AppTextStyles.cartSummaryTitle),
+
+                      SizedBox(height: 16.h),
+                      Divider(height: 24.h, color: AppColors.divider),
+                      SizedBox(height: 16.h),
                       SummaryRow(label: "Subtotal", value: "\$1,985.00"),
-                      SizedBox(height: 8),
+                      SizedBox(height: 8.h),
                       SummaryRow(label: "Shipping", value: "Complimentary"),
-                      SizedBox(height: 8),
+                      SizedBox(height: 8.h),
                       SummaryRow(label: "Estimated Tax", value: "\$158.80"),
-                      SizedBox(height: 16),
-                      Divider(height: 24, color: Color.fromARGB(255, 201, 192, 178)),
-                      SizedBox(height: 16),
+                      SizedBox(height: 16.h),
+                      Divider(height: 24.h, color: AppColors.divider),
+                      SizedBox(height: 16.h),
                       SummaryRow(
                         label: "Total",
                         value: "\$2,143.80",
                         isBold: true,
-                        labelFontSize: 24,
-                        valueFontSize: 32,
+                        labelFontSize: 24.sp,
+                        valueFontSize: 32.sp,
                         fontFamily: AppFontFamilies.georgia,
                       ),
-                      SizedBox(height: 24),
+                      SizedBox(height: 24.h),
                       CustomPrimaryButton(
                         onPressed: () {},
                         label: "PROCEED TO CHECKOUT",
+                        letterSpacing: 0,
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: 12.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.lock_outline,
-                            size: 14,
-                            color: Color(0xFF4E4639),
+                            size: 14.sp,
+                            color: AppColors.brown,
                           ),
                           SizedBox(width: 4),
                           Text(
                             "SECURE CHECKOUT",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Color(0xFF4E4639),
-                              fontWeight: FontWeight.w600
-                            ),
+                            style: AppTextStyles.secureCheckoutLabel,
                           ),
                         ],
                       ),

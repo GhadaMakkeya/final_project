@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomPrimaryButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final double? width;
-  final double height;
   final Color color;
   final Color buttonTextColor;
   final Color borderColor;
@@ -18,8 +19,7 @@ class CustomPrimaryButton extends StatelessWidget {
     this.label = 'NEXT',
     required this.onPressed,
     this.width = double.infinity,
-    this.height = 58,
-    this.color = const Color(0xFF1B2A4A),
+    this.color = AppColors.primaryColor,
     this.buttonTextColor = Colors.white,
     this.borderColor = Colors.transparent,
     this.trailingIcon,
@@ -31,7 +31,7 @@ class CustomPrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: height,
+      height: 60.h,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -39,16 +39,16 @@ class CustomPrimaryButton extends StatelessWidget {
           foregroundColor: Colors.white,
           elevation: 4,
           shadowColor: Colors.black26,
-          side: BorderSide(color: Colors.black, width: 1),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-        ),     
+          side: BorderSide(color: Colors.black, width: 1.w),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
+        ),
         child: Text(
           label,
           style: TextStyle(
             color: buttonTextColor,
-            fontSize: 13,
+            fontSize: 13.sp,
             fontWeight: FontWeight.w600,
-            letterSpacing: 2,
+            letterSpacing: letterSpacing,
           ),
         ),
       ),

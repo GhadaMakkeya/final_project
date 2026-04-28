@@ -12,7 +12,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF2EDE8),
+      backgroundColor: AppColors.backgroundColor,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -61,30 +61,12 @@ class ProductDetailsScreen extends StatelessWidget {
                     children: [
                       Text(
                         'HERITAGE COLLECTION',
-                        style: AppTextStyles.font16InterRegular.copyWith(
-                          color: const Color(0xFF7F7667),
-                          fontSize: 11.sp,
-                          letterSpacing: 1.5,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: AppTextStyles.captionText,
                       ),
                       SizedBox(height: 8.h),
-                      Text(
-                        'Midnight Bloom Silk\nScarf',
-                        style: AppTextStyles.font32NotoSerifRegular.copyWith(
-                          fontSize: 28.sp,
-                          height: 1.2,
-                          color: const Color(0xFF061F3D),
-                        ),
-                      ),
+                      Text('(24 Reviews)', style: AppTextStyles.reviewsCount),
                       SizedBox(height: 12.h),
-                      Text(
-                        '\$345.00',
-                        style: AppTextStyles.font16InterRegular.copyWith(
-                          color: const Color(0xFF4E4639),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      Text('\$345.00', style: AppTextStyles.productDetailPrice),
                       SizedBox(height: 16.h),
                       Row(
                         children: [
@@ -93,7 +75,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               5,
                               (index) => Icon(
                                 Icons.star,
-                                color: const Color(0xFF061F3D),
+                                color: AppColors.primaryColor,
                                 size: 14.sp,
                               ),
                             ),
@@ -101,34 +83,21 @@ class ProductDetailsScreen extends StatelessWidget {
                           SizedBox(width: 8.w),
                           Text(
                             '(24 Reviews)',
-                            style: AppTextStyles.font16InterRegular.copyWith(
-                              color: const Color(0xFF7F7667),
-                              fontSize: 13.sp,
-                            ),
+                            style: AppTextStyles.productSpecItem,
                           ),
                         ],
                       ),
                       SizedBox(height: 24.h),
                       Text(
                         'Woven from the finest mulberry silk, the Midnight Bloom scarf features a meticulously hand-rolled hem and an exclusive archival floral print. Its generous proportions allow for versatile styling, offering an effortless touch of evening elegance to any ensemble.',
-                        style: AppTextStyles.font16InterRegular.copyWith(
-                          height: 1.6,
-                          fontSize: 14.sp,
-                          color: const Color(0xFF4E4639),
-                        ),
+                        style: AppTextStyles.productDescription,
                       ),
                       SizedBox(height: 20.h),
                       const ProductFeaturesList(),
                       SizedBox(height: 32.h),
-                      const Divider(color: Color(0xFFE4E2E2), thickness: 1),
+                      const Divider(color: AppColors.divider, thickness: 1),
                       SizedBox(height: 32.h),
-                      Text(
-                        'Reviews',
-                        style: AppTextStyles.font32NotoSerifRegular.copyWith(
-                          fontSize: 24.sp,
-                          color: const Color(0xFF061F3D),
-                        ),
-                      ),
+                      Text('Reviews', style: AppTextStyles.sectionHeading),
                       SizedBox(height: 20.h),
                       const ReviewCard(
                         name: 'Eleanor V.',
@@ -148,13 +117,15 @@ class ProductDetailsScreen extends StatelessWidget {
                       CustomPrimaryButton(
                         onPressed: () {},
                         label: "Read All Reviews",
-                        color: Color(0xffF2EDE8),
-                        buttonTextColor: AppColors.primary,
+                        color: AppColors.backgroundColor,
+                        buttonTextColor: AppColors.primaryColor,
+                        letterSpacing: 0.5,
                       ),
                       SizedBox(height: 100.h),
                       CustomPrimaryButton(
                         onPressed: () {},
                         label: "ADD TO CART",
+                        letterSpacing: 0,
                       ),
                     ],
                   ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -25,24 +27,27 @@ class ProductFormField extends StatelessWidget {
       maxLines: maxLines,
       keyboardType: keyboardType,
       validator: validator,
-      cursorColor: Color.fromARGB(255, 121, 95, 68),
-      style: const TextStyle(fontSize: 13, color: Colors.black87),
+      cursorColor: AppColors.brownLight,
+      style: TextStyle(fontSize: 13.sp, color: Colors.black87),
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon,
-        prefixIconColor: Color(0xFF4E4639),
-        hintStyle: const TextStyle(color: Color.fromARGB(255, 121, 95, 68), fontSize: 13),
+        prefixIconColor: AppColors.brown,
+        hintStyle: const TextStyle(
+          color: Color.fromARGB(255, 121, 95, 68),
+          fontSize: 13,
+        ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 14,
           vertical: 12,
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color.fromARGB(255, 121, 95, 68), width: 1),
+          borderSide: const BorderSide(color: AppColors.brownLight, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color.fromARGB(255, 121, 95, 68), width: 1.2),
+          borderSide: const BorderSide(color: AppColors.brownLight, width: 1.2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

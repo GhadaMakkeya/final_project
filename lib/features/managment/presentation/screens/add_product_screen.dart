@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/managment/presentation/widgets/basic_info_section.dart';
 import 'package:veloura/features/managment/presentation/widgets/bottom_action_buttons.dart';
 import 'package:veloura/features/managment/presentation/widgets/image_upload_scteion.dart';
 import 'package:veloura/features/managment/presentation/widgets/inventory_section.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddNewProductScreen extends StatefulWidget {
   const AddNewProductScreen({super.key});
@@ -40,23 +42,15 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 251, 248, 245),
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 251, 248, 245),
+        backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Add New Product',
-          style: TextStyle(
-            fontFamily: AppFontFamilies.georgia,
-            color: Color(0xFF4E4639),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        title: Text('Add New Product', style: AppTextStyles.addNewProductTitle),
         centerTitle: true,
       ),
       body: Form(
@@ -65,16 +59,16 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Column(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         // Image Upload
                         const ImageUploadSection(),
-                        const SizedBox(height: 28),
+                        SizedBox(height: 28.h),
                         // Basic Information
                         BasicInformationSection(
                           productNameController: _productNameController,
@@ -84,13 +78,13 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           onCategoryChanged: (value) =>
                               setState(() => _selectedCategory = value),
                         ),
-                        const SizedBox(height: 28),
+                        SizedBox(height: 28.h),
                         // Inventory
                         InventorySection(
                           skuController: _skuController,
                           quantityController: _quantityController,
                         ),
-                        const SizedBox(height: 50),
+                        SizedBox(height: 50.h),
                         BottomActionButtons(
                           onPublish: _onPublish,
                           onSaveDraft: _onSaveDraft,
@@ -100,7 +94,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                   ],
                 ),
               ),
-            ),          
+            ),
           ],
         ),
       ),

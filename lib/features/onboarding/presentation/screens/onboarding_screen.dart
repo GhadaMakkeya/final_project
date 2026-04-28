@@ -1,12 +1,13 @@
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/features/home/presentation/screens/bottom_nav_bar.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page_content.dart';
-import 'package:veloura/features/onboarding/presentation/widgets/onboarding_appbar.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -65,8 +66,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OnboardingAppBar(onSkip: _handleGetStarted),
-      backgroundColor: const Color(0xffF2EDE8),
+      appBar: CustomAppBar(
+        actions: [
+          TextButton(
+            onPressed: () {},
+            child: Text("SKIP", style: AppTextStyles.seeAllLabel),
+          ),
+        ],
+      ),
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -99,7 +107,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               },
               onGetStarted: _handleGetStarted,
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h),
           ],
         ),
       ),
@@ -111,29 +119,20 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     _fadeController.reset();
     _fadeController.forward();
   }
-// في ملف VelouraOnboardingScreen أو الملف الذي يحتوي على _handleGetStarted
 
   void _handleGetStarted() {
-    // 1. أولاً: إظهار رسالة الترحيب باستخدام SnackBar
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Welcome to VELOURA!'),
-        backgroundColor: Color(0xFF1A2233), // اللون الكحلي الداكن المتناسق
-        duration: Duration(seconds: 2), // مدة ظهور الرسالة
+        backgroundColor: AppColors.primaryColor,
+        duration: Duration(seconds: 2),
       ),
     );
-
-    // TODO: قم بتخزين حالة إكمال الـ Onboarding (مثلاً باستخدام SharedPreferences)
-    // لكي لا تظهر للمستخدم مرة أخرى عند فتح التطبيق.
-
-    // 2. ثانياً: الانتقال إلى الشاشة الرئيسية (MainNavigation)
-    // استخدام pushReplacement لضمان عدم العودة لصفحة الـ Onboarding
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) {
-          // تأكد من عمل import لملف MainNavigation بشكل صحيح
-          return const MainNavigation();
+          return HomeScreen();
         },
       ),
     );

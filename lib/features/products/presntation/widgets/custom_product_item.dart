@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/products/presntation/widgets/product_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomProductItem extends StatelessWidget {
   final Product productModel;
@@ -8,7 +11,7 @@ class CustomProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color(0xffF2EDE8),
+      color: AppColors.backgroundColor,
       elevation: 0.1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: Column(
@@ -20,10 +23,10 @@ class CustomProductItem extends StatelessWidget {
             child: Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 8, left: 8, top: 8),
+                  padding: EdgeInsets.only(right: 8.w, left: 8.w, top: 8.h),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(4.r),
                       image: DecorationImage(
                         image: NetworkImage(productModel.imageUrl),
                         fit: BoxFit.cover,
@@ -33,47 +36,46 @@ class CustomProductItem extends StatelessWidget {
                 ),
                 if (productModel.label != null)
                   Positioned(
-                    top: 8,
-                    left: 8,
+                    top: 8.h,
+                    left: 8.w,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 3,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 6.w,
+                        vertical: 3.h,
                       ),
                       color: _getLabelColor(productModel.label!),
                       child: Text(
                         productModel.label!,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 8,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: AppTextStyles.productBadgeLabel,
                       ),
                     ),
                   ),
                 const SizedBox(),
                 Positioned(
-                  bottom: 8,
-                  right: 16,
+                  bottom: 8.h,
+                  right: 16.w,
                   child: Container(
-                    padding: const EdgeInsets.all(6),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6.w,
+                      vertical: 6.h,
+                    ),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.4),
+                      color: AppColors.white.withOpacity(0.4),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.favorite_border,
-                      size: 16,
-                      color: Colors.white,
+                      size: 16.sp,
+                      color: AppColors.white,
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           Padding(
-            padding: const EdgeInsets.only(right: 12, left: 12, bottom: 12),
+            padding: EdgeInsets.only(right: 12.w, left: 12.w, bottom: 12.h),
             child: Column(
               children: [
                 Row(
@@ -85,51 +87,26 @@ class CustomProductItem extends StatelessWidget {
                           productModel.name,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontFamily: 'Serif',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: AppTextStyles.cardTitle,
                         ),
                       ),
                     ),
-                    const Text(
-                      "4.8",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                        fontFamily: 'Sans Serif',
-                      ),
-                    ),
+                    Text("4.8", style: AppTextStyles.cardRating),
                   ],
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: 6.h),
                 Row(
                   children: [
-                    Text(
-                      productModel.price,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
+                    Text(productModel.price, style: AppTextStyles.cardPrice),
+                    SizedBox(width: 8.w),
                     Text(
                       productModel.originalPrice ?? "",
-                      style: const TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey,
-                        decoration: TextDecoration.lineThrough,
-                      ),
+                      style: AppTextStyles.cardOriginalPrice,
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
-                const Divider(
-                  height: 1,
-                  thickness: 0.5,
-                  color: Color(0xffEEEEEE),
-                ),
+                SizedBox(height: 12.h),
+                Divider(height: 1.h, thickness: 0.5, color: Color(0xffEEEEEE)),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

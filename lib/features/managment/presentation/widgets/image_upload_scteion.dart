@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImageUploadSection extends StatefulWidget {
   const ImageUploadSection({super.key});
@@ -8,17 +10,16 @@ class ImageUploadSection extends StatefulWidget {
 }
 
 class _ImageUploadSectionState extends State<ImageUploadSection> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: (){},
+          onTap: () {},
           child: Container(
             width: double.infinity,
-            height: 200,
+            height: 200.h,
             decoration: BoxDecoration(
               color: Color.fromARGB(255, 251, 248, 245),
               borderRadius: BorderRadius.circular(10),
@@ -34,50 +35,45 @@ class _ImageUploadSectionState extends State<ImageUploadSection> {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Color.fromARGB(255, 121, 95, 68)),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.add_photo_alternate,
-                    size: 28,
+                    size: 28.sp,
                     color: Color.fromARGB(255, 121, 95, 68),
                   ),
                 ),
-                const SizedBox(height: 12),
-                const Text(
+                SizedBox(height: 12.h),
+                 Text(
                   'UPLOAD PRIMARY IMAGE',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.8,
-                    color: Colors.black87,
-                  ),
+                  style: AppTextStyles.uploadLabel,
                 ),
-                const SizedBox(height: 6),
-                const Text(
+                SizedBox(height: 6.h),
+                 Text(
                   'High-resolution JPG or PNG.\nRecommended ratio 4:5.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Color.fromARGB(255, 176, 170, 170),
-                    height: 1.5,
-                  ),
+                  style: AppTextStyles.uploadHint,
                 ),
               ],
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         Row(
           children: [
             GestureDetector(
-              onTap: (){},
+              onTap: () {},
               child: Container(
-                width: 56,
-                height: 56,
+                width: 56.w,
+                height: 56.h,
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 251, 248, 245),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: Color.fromARGB(255, 121, 95, 68)),
                 ),
-                child: const Icon(Icons.add, color: Color.fromARGB(255, 121, 95, 68), size: 20),
+                child:  Icon(
+                  Icons.add,
+                  color: Color.fromARGB(255, 121, 95, 68),
+                  size: 20.sp,
+                ),
               ),
             ),
           ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import '../../../../core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ThemeSwitch extends StatefulWidget {
   const ThemeSwitch({super.key});
@@ -14,44 +16,35 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.grey.shade200,
-          width: 1,
-        ),
+        color: AppColors.settingsTileBackground,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: AppColors.themeToggleBackground, width: 1.w),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Icon(Icons.wb_sunny_outlined, size: 18, color: AppColors.primary),
-              const SizedBox(width: 8),
-              const Text(
-                "Theme",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87,
-                ),
+              Icon(
+                Icons.wb_sunny_outlined,
+                size: 18.sp,
+                color: AppColors.settingsTileText,
               ),
+              SizedBox(width: 8.w),
+              Text("Theme", style: AppTextStyles.settingsTileText),
             ],
           ),
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(25.r),
+              color: AppColors.settingsTileBackground,
               border: Border.all(color: Colors.grey.shade300),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                _item("Light"),
-                _item("D-ark"),
-              ],
+              children: [_item("Light"), _item("Dark")],
             ),
           ),
         ],
@@ -70,18 +63,16 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : Colors.transparent,
-          borderRadius: BorderRadius.circular(25),
+          color: isSelected ? AppColors.primaryColor : AppColors.transparent,
+          borderRadius: BorderRadius.circular(25.r),
         ),
         child: Text(
           text,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: isSelected ? Colors.white : Colors.black54,
-          ),
+          style: isSelected
+              ? AppTextStyles.themeToggleActive
+              : AppTextStyles.themeToggleInactive,
         ),
       ),
     );

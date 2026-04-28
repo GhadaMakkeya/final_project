@@ -25,10 +25,7 @@ class ProductFeaturesList extends StatelessWidget {
           SizedBox(width: 8.w),
           Text(
             text,
-            style: AppTextStyles.font16InterRegular.copyWith(
-              color: const Color(0xFF4E4639),
-              fontSize: 14.sp,
-            ),
+            style: AppTextStyles.productSpecItem
           ),
         ],
       ),

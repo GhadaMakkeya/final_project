@@ -1,6 +1,7 @@
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BottomControls extends StatelessWidget {
   final int currentPage;
@@ -19,7 +20,7 @@ class BottomControls extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isLast = currentPage == pageCount - 1;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -30,25 +31,24 @@ class BottomControls extends StatelessWidget {
               pageCount,
               (index) => AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                margin: const EdgeInsets.symmetric(horizontal: 6),
+                margin:  EdgeInsets.symmetric(horizontal: 6.w),
                 height: 8,
-                width: currentPage == index ? 20 : 8,
+                width: currentPage == index ? 20.w : 8.w,
                 decoration: BoxDecoration(
                   color: currentPage == index
-                      ? Color(0xFF1B2A4A)
+                      ? AppColors.primaryColor
                       : Colors.grey.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(4.r),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 16),
+           SizedBox(height: 16.h),
 
           CustomPrimaryButton(
             label: isLast ? 'GET STARTED' : 'NEXT',
             onPressed: isLast ? onGetStarted : onNext,
-            height: 54,
-            width: 350,
+            width: 350.w,
           ),
         ],
       ),

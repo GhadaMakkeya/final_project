@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SummaryRow extends StatelessWidget {
   final String label, value;
@@ -11,8 +12,8 @@ class SummaryRow extends StatelessWidget {
     required this.label,
     required this.value,
     this.isBold = false,
-    this.labelFontSize = 16,
-    this.valueFontSize = 16,
+    this.labelFontSize,
+    this.valueFontSize,
     this.fontFamily,
   });
 
@@ -26,7 +27,7 @@ class SummaryRow extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: labelFontSize,
+              fontSize: labelFontSize ?? 16.sp,
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               color: Color(0xFF4E4639),
               fontFamily: fontFamily,
@@ -35,7 +36,7 @@ class SummaryRow extends StatelessWidget {
           Text(
             value,
             style: TextStyle(
-              fontSize: valueFontSize,
+              fontSize: valueFontSize ?? 16.sp,
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               color: Color(0xFF4E4639),
               fontFamily: fontFamily,

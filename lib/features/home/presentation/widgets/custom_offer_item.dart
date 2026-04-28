@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/home/data/offers_data.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomOfferIteam extends StatelessWidget {
   const CustomOfferIteam({super.key, required this.offersData});
@@ -8,13 +10,13 @@ class CustomOfferIteam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 8, left: 6),
+      padding: EdgeInsets.only(right: 8.w, left: 6.w),
       child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: BorderRadiusGeometry.circular(15),
+              borderRadius: BorderRadiusGeometry.circular(15.r),
               child: Image.network(
                 offersData.imagePath,
                 fit: BoxFit.cover,
@@ -22,23 +24,16 @@ class CustomOfferIteam extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
               child: Column(
-                spacing: 4,
+                spacing: 4.sp,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    offersData.offerTitle,
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
+                  Text(offersData.offerTitle, style: AppTextStyles.bannerTitle),
                   Text(
                     offersData.offerDesc,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300,
-                    ),
+                    style: AppTextStyles.bannerSubtitle,
                   ),
                 ],
               ),
