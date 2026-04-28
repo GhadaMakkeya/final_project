@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
+import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 
 class CategoryList extends StatelessWidget {
-
-
-  const CategoryList({super.key,});
+  const CategoryList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,27 +25,43 @@ class CategoryList extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Row(
           children: categories.map((name) {
-            return _buildCategoryChip(name, isSelected: name == "COLLECTIONS");
+            return _buildCategoryChip(
+              context,
+              name,
+              isSelected: name == "COLLECTIONS",
+            );
           }).toList(),
         ),
       ),
     );
   }
 
-  Widget _buildCategoryChip(String label, {bool isSelected = false}) {
-    return Container(
-      margin: EdgeInsets.only(right: 12.w),
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-      decoration: BoxDecoration(
-        color: isSelected ? AppColors.chipSelected : Colors.transparent,
-        borderRadius: BorderRadius.circular(25.r),
-        border: Border.all(color: AppColors.divider),
-      ),
-      child: Text(
-        label,
-        style: isSelected
-            ? AppTextStyles.chipLabelSelected
-            : AppTextStyles.chipLabelUnselected,
+  Widget _buildCategoryChip(
+    BuildContext context,
+    String label, {
+    bool isSelected = false,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CategoryScreen()),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 12.w),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.chipSelected : Colors.transparent,
+          borderRadius: BorderRadius.circular(25.r),
+          border: Border.all(color: AppColors.divider),
+        ),
+        child: Text(
+          label,
+          style: isSelected
+              ? AppTextStyles.chipLabelSelected
+              : AppTextStyles.chipLabelUnselected,
+        ),
       ),
     );
   }

@@ -31,40 +31,32 @@ class ProductScreen extends StatelessWidget {
           SizedBox(width: 15.w),
         ],
       ),
-      body: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ProductDetailsScreen()),
-          );
-        },
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const CategoryList(),
-              Padding(
-                padding: EdgeInsets.fromLTRB(6.w, 2.h, 6.w, 6.h),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: myProducts.length,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.53,
-                    crossAxisSpacing: 6,
-                    mainAxisSpacing: 6,
-                  ),
-                  itemBuilder: (context, index) {
-                    return CustomProductItem(productModel: myProducts[index]);
-                  },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const CategoryList(),
+            Padding(
+              padding: EdgeInsets.fromLTRB(6.w, 2.h, 6.w, 6.h),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: myProducts.length,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.w,
+                  vertical: 10.h,
                 ),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.53,
+                  crossAxisSpacing: 6,
+                  mainAxisSpacing: 6,
+                ),
+                itemBuilder: (context, index) {
+                  return CustomProductItem(productModel: myProducts[index]);
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
