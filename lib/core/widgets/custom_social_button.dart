@@ -33,7 +33,7 @@ class CustomSocialButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(iconPath, height: 22.h),
-            SizedBox(width: 10.w),
+            SizedBox(width: 4.w),
             Text(
               text,
               style: TextStyle(
