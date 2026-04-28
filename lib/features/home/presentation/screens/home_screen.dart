@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
-import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
-import 'package:veloura/core/widgets/custom_app_bar.dart';
+import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 import 'package:veloura/features/home/data/category_data.dart';
 import 'package:veloura/features/home/data/offers_data.dart';
 import 'package:veloura/features/home/data/product_data_model.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_category_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_offer_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_product_card.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -23,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentPage = 0;
   List<CategoryData> categories = [
     CategoryData(categoryName: "All", isSelected: true),
-    CategoryData(categoryName: "Watches"),
+    CategoryData(categoryName: "jewelry"),
     CategoryData(categoryName: "Perfumes"),
     CategoryData(categoryName: "Bags"),
     CategoryData(categoryName: "Shoes"),
@@ -122,25 +119,37 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ];
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Color(0xffF2EDE8),
       //-------------AppBar------------
-      appBar: CustomAppBar(
+      appBar: AppBar(
+        toolbarHeight: 65,
+        backgroundColor: Color(0xffF2EDE8),
+        elevation: 0,
+        centerTitle: true,
+        leadingWidth: 64,
+        title: Text(
+          AppStrings.appName,
+          style: const TextStyle(
+            fontFamily: AppFontFamilies.georgia,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 4,
+            color: Color(0xFF1A1A1A),
+          ),
+        ),
         leading: Padding(
-          padding: EdgeInsets.only(left: 24.w),
+          padding: const EdgeInsets.only(left: 24),
           child: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.search, color: AppColors.primaryColor),
+            icon: Icon(Icons.search, color: Color(0xff1C1917)),
           ),
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 24.w),
+            padding: const EdgeInsets.only(right: 24),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(
-                Icons.notifications_none,
-                color: AppColors.primaryColor,
-              ),
+              icon: Icon(Icons.notifications_none, color: Color(0xff1C1917)),
             ),
           ),
         ],
@@ -154,17 +163,30 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Featured Offers", style: AppTextStyles.sectionHeading),
-
+                  Text(
+                    "Featured Offers",
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontFamily: AppFontFamilies.georgia,
+                      color: Color(0xFF1A1A1A),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                   TextButton(
                     onPressed: () {},
-                    child: Text("SEE ALL", style: AppTextStyles.seeAllLabel),
+                    child: Text(
+                      "SEE ALL",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ),
                 ],
               ),
               SizedBox(height: 8),
               SizedBox(
-                height: 180.h,
+                height: 180,
                 child: PageView.builder(
                   onPageChanged: (index) {
                     setState(() {
@@ -177,27 +199,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 15),
               //----------offers section---------
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(offers.length, (index) {
                   return AnimatedContainer(
                     duration: Duration(milliseconds: 300),
-                    margin: EdgeInsets.symmetric(horizontal: 4.w),
-                    width: currentPage == index ? 10.w : 6.w,
-                    height: 6.h,
+                    margin: EdgeInsets.symmetric(horizontal: 4),
+                    width: currentPage == index ? 10 : 6,
+                    height: 6,
                     decoration: BoxDecoration(
                       color: currentPage == index ? Colors.black : Colors.grey,
-                      borderRadius: BorderRadius.circular(10.r),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   );
                 }),
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 30),
               //----------category---------
               SizedBox(
-                height: 40.h,
+                height: 40,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: categories.length,
@@ -206,12 +228,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       categoryData: categories[index],
                       onTap: () {
                         selectCategory(index);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CategoryScreen();
+                            },
+                          ),
+                        );
                       },
                     );
                   },
                 ),
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 15),
               //----------products--------
               GridView.builder(
                 shrinkWrap: true,

@@ -30,13 +30,10 @@ class CustomOfferIteam extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    offersData.offerTitle,
-                    style: AppTextStyles.bannerTitle
-                  ),
+                  Text(offersData.offerTitle, style: AppTextStyles.bannerTitle),
                   Text(
                     offersData.offerDesc,
-                    style: AppTextStyles.bannerSubtitle
+                    style: AppTextStyles.bannerSubtitle,
                   ),
                 ],
               ),
