@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/features/auth/forget_password/presentation/screens/forget_password.dart';
+import 'package:veloura/features/auth/reset_password/presentation/screens/reset_password_screen.dart';
 import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';

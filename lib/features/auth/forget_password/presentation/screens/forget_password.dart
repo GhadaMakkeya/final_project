@@ -63,7 +63,7 @@ class ForgetPassword extends StatelessWidget {
           CustomPrimaryButton(
             label: 'Send Reset Link',
             trailingIcon: Icons.arrow_forward,
-            borderRadius: 30.r,
+            borderRadius: 16.r,
             letterSpacing: 0.5.w,
             onPressed: () {},
           ),
