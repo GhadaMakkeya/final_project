@@ -34,7 +34,6 @@ class ProfileHeader extends StatelessWidget {
                   ),
                 ),
               ),
-              // Edit badge
               Positioned(
                 bottom: 10.h,
                 right: 10.w,

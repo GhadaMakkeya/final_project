@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
 
+import '../theme/app_colors.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onMenuTap;
@@ -17,19 +19,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       centerTitle: true,
       leading: IconButton(
-        icon: const Icon(Icons.menu, color: Colors.black),
+        icon: const Icon(Icons.menu, color: AppColors.primaryColor),
         onPressed: onMenuTap,
       ),
-      title: Text(
-        title,
-        style: AppTextStyles.appNameTextStyle
-      ),
+      title: Text(title, style: AppTextStyles.appNameTextStyle),
       actions: [
         IconButton(
-          icon: const Icon(Icons.shopping_bag_outlined, color: Colors.black),
+          icon: const Icon(
+            Icons.shopping_bag_rounded,
+            color: AppColors.primaryColor,
+          ),
           onPressed: onCartTap,
         ),
       ],

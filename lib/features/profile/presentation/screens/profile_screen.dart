@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import '../../../../core/constants/app_strings.dart';
