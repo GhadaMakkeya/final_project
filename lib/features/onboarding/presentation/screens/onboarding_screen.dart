@@ -1,6 +1,6 @@
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
-import 'package:veloura/features/home/presentation/screens/bottom_nav_bar.dart';
+import 'package:veloura/core/widgets/bottom_nav_bar.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
