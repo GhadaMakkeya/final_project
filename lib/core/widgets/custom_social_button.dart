@@ -17,7 +17,7 @@ class CustomSocialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-     
+      width: 140.w,
       height: 48.h,
       child: OutlinedButton(
         onPressed: onPressed,
@@ -29,15 +29,16 @@ class CustomSocialButton extends StatelessWidget {
           ),
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(iconPath, height: 22.h),
-            SizedBox(width: 12.w),
+            SizedBox(width: 10.w),
             Text(
               text,
               style: TextStyle(
                 fontFamily: AppFontFamilies.georgia,
-                fontSize: 14.sp,
+                fontSize: 12.sp,
                 color: Colors.black87,
                 fontWeight: FontWeight.w500,
               ),

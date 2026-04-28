@@ -116,20 +116,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(height: 20.h),
                       Row(
                         children: [
-                          Row(
-                            children: [
-                              CustomSocialButton(
-                                text: " Google",
-                                iconPath: "assets/images/google.png",
-                                onPressed: () {},
-                              ),
-                              SizedBox(width: 12.w),
-                              CustomSocialButton(
-                                text: " Facebook",
-                                iconPath: "assets/images/facebook.png",
-                                onPressed: () {},
-                              ),
-                            ],
+                          Expanded(
+                            child: CustomSocialButton(
+                              text: " Google",
+                              iconPath: "assets/images/google.png",
+                              onPressed: () {},
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            child: CustomSocialButton(
+                              text: " Facebook",
+                              iconPath: "assets/images/facebook.png",
+                              onPressed: () {},
+                            ),
                           ),
                         ],
                       ),
