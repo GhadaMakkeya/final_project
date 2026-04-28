@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
-import 'package:veloura/core/widgets/custom_primary_button.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../widgets/logout_button.dart';
@@ -32,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
               color: AppColors.primaryColor,
             ),
           ),
-        ],
+        ], title: AppStrings.appName,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: padding),

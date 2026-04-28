@@ -4,7 +4,9 @@ import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
 
 class CategoryList extends StatelessWidget {
-  const CategoryList({super.key});
+
+
+  const CategoryList({super.key,});
 
   @override
   Widget build(BuildContext context) {

@@ -38,7 +38,7 @@ List<CategoryModel> categoryList = [
     name: "Lumina Hoops",
     subtitle: "14k Yellow Gold",
     price: 650,
-    image: "https://images.unsplash.com/photo-1617038220319-276d3cfab638",
+    image:  "https://images.unsplash.com/photo-1588449668365-d15e397f6787",
     isNew: true,
   ),
 ];
