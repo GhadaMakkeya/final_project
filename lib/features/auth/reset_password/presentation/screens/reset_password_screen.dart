@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/features/auth/reset_password/presentation/widgets/custom_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,14 +31,12 @@ class ResetPasswordScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Veloura",
-                        style: TextStyle(
-                          fontSize: 55.sp,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: -.8,
-                          color: AppColors.primaryColor,
-                          fontFamily: AppFontFamilies.georgia,
-                        ),
+                        AppStrings.appName,
+                        style:AppTextStyles.appName.copyWith(
+                          fontSize: 40.sp,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: -1,
+                        )
                       ),
                       SizedBox(height: 18.h),
 
@@ -49,7 +49,7 @@ class ResetPasswordScreen extends StatelessWidget {
                               offset: const Offset(0, 4),
                             ),
                           ],
-                          color: Colors.white,
+                          color: AppColors.authCardColor,
                           borderRadius: BorderRadius.circular(25.r),
                         ),
                         child: Padding(

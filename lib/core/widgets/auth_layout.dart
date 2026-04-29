@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import '../theme/app_colors.dart';
 import '../constants/app_font_families.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,13 +32,11 @@ class AuthLayout extends StatelessWidget {
                   children: [
                     // Logo
                     Text(
-                      'Veloura',
-                      style: TextStyle(
-                        fontFamily: AppFontFamilies.georgia,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 55.sp,
-                        color: AppColors.primaryColor,
-                        letterSpacing: -2,
+                      AppStrings.appName,
+                      style: AppTextStyles.appName.copyWith(
+                        fontSize: 40.sp,
+                        letterSpacing: -1,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                     SizedBox(height: 40.h),
@@ -49,7 +49,7 @@ class AuthLayout extends StatelessWidget {
                         vertical: 48.0.h,
                       ),
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 253, 250, 250),
+                        color: AppColors.authCardColor,
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(

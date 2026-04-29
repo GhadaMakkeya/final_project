@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/custom_social_button.dart';
 import 'package:veloura/features/auth/login/presentation/widgets/auth_text_field.dart';
 import 'package:veloura/features/auth/login/presentation/widgets/social_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFEFEBE6),
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 40),
@@ -25,11 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               const SizedBox(height: 10),
               Text(
-                'Veloura',
-                style: GoogleFonts.playfairDisplay(
-                  fontSize: 45,
+                AppStrings.appName,
+                style: AppTextStyles.appName.copyWith(
+                  fontSize: 40.sp,
                   fontWeight: FontWeight.w800,
-                  color: const Color(0xFF061F3D),
                   letterSpacing: -1,
                 ),
               ),
@@ -47,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 padding: const EdgeInsets.all(30),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.authCardColor,
                   borderRadius: BorderRadius.circular(35),
                   boxShadow: [
                     BoxShadow(

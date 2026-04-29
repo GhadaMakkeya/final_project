@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
-import 'package:veloura/core/theme/app_colors.dart'; 
+import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/theme/app_text_styles.dart';
 
@@ -32,7 +33,7 @@ class OtpScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: colorWhite,
+      backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -46,21 +47,23 @@ class OtpScreen extends StatelessWidget {
                   icon: const Icon(Icons.arrow_back, color: colorDeepNavy),
                 ),
               ),
-              
+
               Text(
-                'Veloura',
-  style: AppTextStyles.appName.copyWith(
-    fontSize: 40.sp,
+                AppStrings.appName,
+                style: AppTextStyles.appName.copyWith(
+                  fontSize: 40.sp,
+                  letterSpacing: -1,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
-              
+
               SizedBox(height: 40.h),
-              
+
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(30.w),
                 decoration: BoxDecoration(
-                  color: colorWhite,
+                  color: AppColors.authCardColor,
                   borderRadius: BorderRadius.circular(20.r),
                   boxShadow: [
                     BoxShadow(
@@ -75,12 +78,12 @@ class OtpScreen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.all(15.w),
                       decoration: const BoxDecoration(
-                        color: colorOffWhite,
+                        color: AppColors.backgroundColor,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.email_outlined,
-                        color: AppColors.primaryColor, 
+                        color: AppColors.primaryColor,
                         size: 35.sp,
                       ),
                     ),
@@ -97,17 +100,17 @@ class OtpScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 15.h),
                     Text(
-  'Enter the code sent to your\nemail to continue.',
-  textAlign: TextAlign.center,
-  style: TextStyle(
-    fontSize: 14.sp,
-    color: Color(0xFF6B7280),
-    height: 1.4, 
-  ),
-),
+                      'Enter the code sent to your\nemail to continue.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Color(0xFF6B7280),
+                        height: 1.4,
+                      ),
+                    ),
 
-SizedBox(height: 35.h),
-                    
+                    SizedBox(height: 35.h),
+
                     Pinput(
                       length: 4,
                       defaultPinTheme: defaultPinTheme,
@@ -117,15 +120,11 @@ SizedBox(height: 35.h),
                         ),
                       ),
                     ),
-                    
+
                     SizedBox(height: 40.h),
-                    
-                    CustomPrimaryButton(
-                      label:  'Verify',
-                      onPressed: () {
-                      },
-                    ),
-                    
+
+                    CustomPrimaryButton(label: 'Verify', onPressed: () {}),
+
                     SizedBox(height: 25.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
