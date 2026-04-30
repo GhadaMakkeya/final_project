@@ -27,11 +27,13 @@ class CustomCategoryItem extends StatelessWidget {
           border: Border.all(color: AppColors.divider),
           borderRadius: BorderRadius.circular(20.r),
         ),
-        child: Text(
-          categoryData.categoryName,
-          style: categoryData.isSelected
-              ? AppTextStyles.chipLabelSelected
-              : AppTextStyles.chipLabelUnselected,
+        child: Center(
+          child: Text(
+            categoryData.categoryName,
+            style: categoryData.isSelected
+                ? AppTextStyles.chipLabelSelected
+                : AppTextStyles.chipLabelUnselected,
+          ),
         ),
       ),
     );

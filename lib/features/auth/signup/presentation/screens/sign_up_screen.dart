@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/widgets/custom_social_button.dart';
 import 'package:veloura/core/widgets/custom_text_field.dart';
@@ -16,7 +19,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF6F3EF),
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -25,24 +28,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "VELOURA",
-                  style: TextStyle(
-                    fontFamily: AppFontFamilies.georgia,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff061F3D),
+                  AppStrings.appName,
+                  style: AppTextStyles.appName.copyWith(
+                    letterSpacing: -1,
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 SizedBox(height: 30.h),
                 Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Color.from(
-                      alpha: 255,
-                      red: 253,
-                      green: 250,
-                      blue: 250,
-                    ),
+                    color: AppColors.authCardColor,
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Column(
@@ -116,20 +113,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(height: 20.h),
                       Row(
                         children: [
-                          Row(
-                            children: [
-                              CustomSocialButton(
-                                text: " Google",
-                                iconPath: "assets/images/google.png",
-                                onPressed: () {},
-                              ),
-                              SizedBox(width: 12.w),
-                              CustomSocialButton(
-                                text: " Facebook",
-                                iconPath: "assets/images/facebook.png",
-                                onPressed: () {},
-                              ),
-                            ],
+                          Expanded(
+                            child: CustomSocialButton(
+                              text: " Google",
+                              iconPath: "assets/images/google.png",
+                              onPressed: () {},
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            child: CustomSocialButton(
+                              text: " Facebook",
+                              iconPath: "assets/images/facebook.png",
+                              onPressed: () {},
+                            ),
                           ),
                         ],
                       ),
