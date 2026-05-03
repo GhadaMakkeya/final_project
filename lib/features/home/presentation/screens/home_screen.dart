@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 import 'package:veloura/features/home/data/category_data.dart';
 import 'package:veloura/features/home/data/offers_data.dart';
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       ProductDataModel(
         imagePath:
-            "https://i.pinimg.com/control1/736x/7d/d9/ed/7dd9edd6992dec26196227c59688ad24.jpg",
+            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
         productName: "Essence No. 5",
         price: "\$280.00",
       ),
@@ -119,11 +120,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ];
     return Scaffold(
-      backgroundColor: Color(0xffF2EDE8),
+      backgroundColor: AppColors.backgroundColor,
       //-------------AppBar------------
       appBar: AppBar(
         toolbarHeight: 65,
-        backgroundColor: Color(0xffF2EDE8),
+        backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         centerTitle: true,
         leadingWidth: 64,
@@ -248,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 2.6 / 3,
+                  childAspectRatio: 0.6,
                 ),
                 itemCount: products.length,
                 itemBuilder: (context, index) {

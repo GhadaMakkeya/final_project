@@ -11,7 +11,6 @@ import 'package:veloura/features/managment/presentation/screens/add_product_scre
 import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
 
-
 late double screenWidth;
 late double screenHeight;
 
