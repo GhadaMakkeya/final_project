@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class ImageUploadSection extends StatefulWidget {
   const ImageUploadSection({super.key});
@@ -12,18 +12,22 @@ class ImageUploadSection extends StatefulWidget {
 class _ImageUploadSectionState extends State<ImageUploadSection> {
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // ── Primary image upload box ──────────────────────────────────────
         GestureDetector(
           onTap: () {},
           child: Container(
             width: double.infinity,
-            height: 200.h,
+            height: 300.h,
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 251, 248, 245),
+              color: colors.cardColor,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Color.fromARGB(255, 121, 95, 68)),
+              border: Border.all(color: colors.border),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -31,54 +35,74 @@ class _ImageUploadSectionState extends State<ImageUploadSection> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Color.fromARGB(255, 121, 95, 68)),
+                    color: colors.background,
+                    borderRadius: BorderRadius.circular(8.r),
+                    border: Border.all(color: colors.border),
                   ),
                   child: Icon(
-                    Icons.add_photo_alternate,
+                    Icons.add_photo_alternate_outlined,
                     size: 28.sp,
-                    color: Color.fromARGB(255, 121, 95, 68),
+                    color: colors.textSecondary,
                   ),
                 ),
                 SizedBox(height: 12.h),
-                 Text(
-                  'UPLOAD PRIMARY IMAGE',
-                  style: AppTextStyles.uploadLabel,
-                ),
+                Text('UPLOAD PRIMARY IMAGE', style: textTheme.titleSmall),
                 SizedBox(height: 6.h),
-                 Text(
+                Text(
                   'High-resolution JPG or PNG.\nRecommended ratio 4:5.',
                   textAlign: TextAlign.center,
-                  style: AppTextStyles.uploadHint,
+                  style: textTheme.bodySmall,
                 ),
               ],
             ),
           ),
         ),
+
         SizedBox(height: 12.h),
+
+        // ── 3 thumbnail boxes (+ button + 2 empty slots) ──────────────────
         Row(
           children: [
-            GestureDetector(
+            // "+" add button
+            _ThumbnailBox(
+              colors: colors,
+              child: Icon(Icons.add, color: colors.textSecondary, size: 20.sp),
               onTap: () {},
-              child: Container(
-                width: 56.w,
-                height: 56.h,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 251, 248, 245),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Color.fromARGB(255, 121, 95, 68)),
-                ),
-                child:  Icon(
-                  Icons.add,
-                  color: Color.fromARGB(255, 121, 95, 68),
-                  size: 20.sp,
-                ),
-              ),
             ),
+            SizedBox(width: 10.w),
+            // empty slot 1
+            _ThumbnailBox(colors: colors),
+            SizedBox(width: 10.w),
+            // empty slot 2
+            _ThumbnailBox(colors: colors),
           ],
         ),
       ],
+    );
+  }
+}
+
+class _ThumbnailBox extends StatelessWidget {
+  final MyColors colors;
+  final Widget? child;
+  final VoidCallback? onTap;
+
+  const _ThumbnailBox({required this.colors, this.child, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 56.w,
+        height: 56.h,
+        decoration: BoxDecoration(
+          color: colors.secondary,
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(color: colors.border),
+        ),
+        child: child != null ? Center(child: child) : null,
+      ),
     );
   }
 }

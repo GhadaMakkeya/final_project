@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 
 class ReviewCard extends StatelessWidget {
   final String name;
@@ -19,12 +18,15 @@ class ReviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
+
     return Card(
       margin: EdgeInsets.only(bottom: 16.h),
-      color: AppColors.white,
+      color: colors.cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.r),
-        side: BorderSide(color: AppColors.white, width: 1),
+        side: BorderSide(color: colors.border, width: 1),
       ),
       elevation: 1,
       child: Padding(
@@ -39,12 +41,9 @@ class ReviewCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(name, style: AppTextStyles.reviewerName),
+                    Text(name, style: textTheme.titleLarge),
                     SizedBox(height: 4.h),
-                    Text(
-                      'Verified Buyer • $date',
-                      style: AppTextStyles.captionText,
-                    ),
+                    Text('Verified Buyer • $date', style: textTheme.bodySmall),
                   ],
                 ),
                 Row(
@@ -52,9 +51,7 @@ class ReviewCard extends StatelessWidget {
                     5,
                     (index) => Icon(
                       index < rating ? Icons.star : Icons.star_border,
-                      color: index < rating
-                          ? AppColors.primaryColor
-                          : AppColors.textMuted,
+                      color: index < rating ? colors.gold : colors.textTertiary,
                       size: 14.sp,
                     ),
                   ),
@@ -62,7 +59,7 @@ class ReviewCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 12.h),
-            Text(comment, style: AppTextStyles.reviewBody),
+            Text(comment, style: textTheme.bodyLarge),
           ],
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import '../../../../core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,32 +14,31 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
       decoration: BoxDecoration(
-        color: AppColors.settingsTileBackground,
+        color: colors.cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColors.themeToggleBackground, width: 1.w),
+        border: Border.all(color: colors.border, width: 1.w),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Icon(
-                Icons.wb_sunny_outlined,
-                size: 18.sp,
-                color: AppColors.settingsTileText,
-              ),
+              Icon(Icons.wb_sunny_outlined, size: 18.sp, color: colors.textSecondary),
               SizedBox(width: 8.w),
-              Text("Theme", style: AppTextStyles.settingsTileText),
+              Text("Theme", style: textTheme.bodyLarge),
             ],
           ),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25.r),
-              color: AppColors.settingsTileBackground,
-              border: Border.all(color: Colors.grey.shade300),
+              color: colors.cardColor,
+              border: Border.all(color: colors.border),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -53,26 +51,24 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
   }
 
   Widget _item(String text) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     final isSelected = selected == text;
 
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          selected = text;
-        });
-      },
+      onTap: () => setState(() => selected = text),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryColor : AppColors.transparent,
+          color: isSelected ? colors.primary : BaseColors.transparent,
           borderRadius: BorderRadius.circular(25.r),
         ),
         child: Text(
           text,
           style: isSelected
-              ? AppTextStyles.themeToggleActive
-              : AppTextStyles.themeToggleInactive,
+              ? textTheme.labelLarge?.copyWith(color: colors.chipSelectedText)
+              : textTheme.bodySmall?.copyWith(color: colors.chipUnSelectedText),
         ),
       ),
     );

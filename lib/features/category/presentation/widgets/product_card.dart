@@ -14,6 +14,8 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = Responsive.width(context);
     double h = Responsive.height(context);
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
 
     return InkWell(
       onTap: onTap,
@@ -43,7 +45,7 @@ class ProductCard extends StatelessWidget {
                     onPressed: () {},
                     icon: Icon(
                       Icons.favorite,
-                      color: AppColors.secondaryColor,
+                      color: colors.gold,
                       size: w * 0.06,
                     ),
                   ),
@@ -61,9 +63,9 @@ class ProductCard extends StatelessWidget {
                       color: Colors.black,
                       child: Text(
                         "NEW",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: w * 0.03,
+                        style: textTheme.labelSmall?.copyWith(
+                          color: BaseColors.white,
+                          letterSpacing: 1.5,
                         ),
                       ),
                     ),
@@ -80,17 +82,14 @@ class ProductCard extends StatelessWidget {
                   child: Text(
                     category.name,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: w * 0.04,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: textTheme.titleLarge?.copyWith(fontSize: w * 0.05),
                   ),
                 ),
                 Text(
                   "\$${category.price}",
-                  style: TextStyle(
+                  style: textTheme.titleMedium?.copyWith(
                     fontSize: w * 0.04,
-                    fontWeight: FontWeight.bold,
+                    color: colors.textPrimary,
                   ),
                 ),
               ],
@@ -102,7 +101,7 @@ class ProductCard extends StatelessWidget {
               category.subtitle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.grey, fontSize: w * 0.035),
+              style: textTheme.bodyMedium?.copyWith(fontSize: w * 0.035),
             ),
           ],
         ),

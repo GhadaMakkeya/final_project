@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/custom_primary_button.dart';
 import '../widgets/review_card.dart';
 import '../widgets/product_features_list.dart';
@@ -11,8 +10,10 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
+
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -38,8 +39,8 @@ class ProductDetailsScreen extends StatelessWidget {
                           children: [
                             //_buildCircleIcon(Icons.arrow_back),
                             Container(
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFFFFFFF),
+                              decoration: BoxDecoration(
+                                color: colors.background,
                                 shape: BoxShape.circle,
                               ),
                               child: IconButton(
@@ -49,15 +50,15 @@ class ProductDetailsScreen extends StatelessWidget {
                                 icon: Icon(
                                   Icons.arrow_back,
                                   size: 20.sp,
-                                  color: const Color(0xFF061F3D),
+                                  color: colors.primary,
                                 ),
                               ),
                             ),
                             Row(
                               children: [
-                                _buildCircleIcon(Icons.favorite_border),
+                                _buildCircleIcon(Icons.favorite_border, colors),
                                 SizedBox(width: 8.w),
-                                _buildCircleIcon(Icons.ios_share),
+                                _buildCircleIcon(Icons.ios_share, colors),
                               ],
                             ),
                           ],
@@ -75,14 +76,14 @@ class ProductDetailsScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'HERITAGE COLLECTION',
-                        style: AppTextStyles.captionText,
-                      ),
+                      Text('HERITAGE COLLECTION', style: textTheme.titleSmall),
                       SizedBox(height: 8.h),
-                      Text('(24 Reviews)', style: AppTextStyles.reviewsCount),
+                      Text(
+                        'Midnight Bloom Silk Scarf',
+                        style: textTheme.headlineMedium,
+                      ),
                       SizedBox(height: 12.h),
-                      Text('\$345.00', style: AppTextStyles.productDetailPrice),
+                      Text('\$345.00', style: textTheme.titleMedium),
                       SizedBox(height: 16.h),
                       Row(
                         children: [
@@ -91,29 +92,26 @@ class ProductDetailsScreen extends StatelessWidget {
                               5,
                               (index) => Icon(
                                 Icons.star,
-                                color: AppColors.primaryColor,
+                                color: colors.primary,
                                 size: 14.sp,
                               ),
                             ),
                           ),
                           SizedBox(width: 8.w),
-                          Text(
-                            '(24 Reviews)',
-                            style: AppTextStyles.productSpecItem,
-                          ),
+                          Text('(24 Reviews)', style: textTheme.bodySmall),
                         ],
                       ),
                       SizedBox(height: 24.h),
                       Text(
                         'Woven from the finest mulberry silk, the Midnight Bloom scarf features a meticulously hand-rolled hem and an exclusive archival floral print. Its generous proportions allow for versatile styling, offering an effortless touch of evening elegance to any ensemble.',
-                        style: AppTextStyles.productDescription,
+                        style: textTheme.bodyLarge,
                       ),
                       SizedBox(height: 20.h),
                       const ProductFeaturesList(),
                       SizedBox(height: 32.h),
-                      const Divider(color: AppColors.divider, thickness: 1),
+                      Divider(color: colors.border, thickness: 1),
                       SizedBox(height: 32.h),
-                      Text('Reviews', style: AppTextStyles.sectionHeading),
+                      Text('Reviews', style: textTheme.headlineSmall),
                       SizedBox(height: 20.h),
                       const ReviewCard(
                         name: 'Eleanor V.',
@@ -133,8 +131,6 @@ class ProductDetailsScreen extends StatelessWidget {
                       CustomPrimaryButton(
                         onPressed: () {},
                         label: "Read All Reviews",
-                        color: AppColors.backgroundColor,
-                        buttonTextColor: AppColors.primaryColor,
                         letterSpacing: 0.5,
                       ),
                       SizedBox(height: 100.h),
@@ -154,14 +150,14 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCircleIcon(IconData icon) {
+  Widget _buildCircleIcon(IconData icon, MyColors colors) {
     return Container(
       padding: EdgeInsets.all(8.w),
-      decoration: const BoxDecoration(
-        color: Color(0xFFFFFFFF),
+      decoration: BoxDecoration(
+        color: colors.background,
         shape: BoxShape.circle,
       ),
-      child: Icon(icon, size: 20.sp, color: const Color(0xFF061F3D)),
+      child: Icon(icon, size: 20.sp, color: colors.primary),
     );
   }
 }

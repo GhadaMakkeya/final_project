@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/theme/app_colors.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -22,42 +20,40 @@ class ProductFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colors = context.colors;
     return TextFormField(
       controller: controller,
       maxLines: maxLines,
       keyboardType: keyboardType,
       validator: validator,
-      cursorColor: colors.primary,
-      style: textTheme.bodyMedium,
+      cursorColor: Color.fromARGB(255, 121, 95, 68),
+      style: const TextStyle(fontSize: 13, color: Colors.black87),
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon,
-        prefixIconColor: colors.textSecondary,
-        hintStyle: textTheme.bodyMedium?.copyWith(color: colors.textTertiary),
+        prefixIconColor: Color(0xFF4E4639),
+        hintStyle: const TextStyle(color: Color.fromARGB(255, 121, 95, 68), fontSize: 13),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 14,
           vertical: 12,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: colors.border, width: 1),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color.fromARGB(255, 121, 95, 68), width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: colors.primary, width: 1.2),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color.fromARGB(255, 121, 95, 68), width: 1.2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: BaseColors.alert),
+          borderSide: const BorderSide(color: Colors.redAccent),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: BaseColors.alert, width: 1.2),
+          borderSide: const BorderSide(color: Colors.redAccent, width: 1.2),
         ),
         filled: true,
-        fillColor: colors.secondary,
+        fillColor: Color.fromARGB(255, 251, 248, 245),
       ),
     );
   }

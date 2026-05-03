@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 import 'package:veloura/features/home/data/category_data.dart';
 import 'package:veloura/features/home/data/offers_data.dart';
@@ -119,30 +120,17 @@ class _HomeScreenState extends State<HomeScreen> {
         price: "\$420.00",
       ),
     ];
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       //-------------AppBar------------
-      appBar: AppBar(
-        toolbarHeight: 65,
-        backgroundColor: AppColors.backgroundColor,
-        elevation: 0,
-        centerTitle: true,
-        leadingWidth: 64,
-        title: Text(
-          AppStrings.appName,
-          style: const TextStyle(
-            fontFamily: AppFontFamilies.georgia,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 4,
-            color: Color(0xFF1A1A1A),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: AppStrings.appName,
         leading: Padding(
           padding: const EdgeInsets.only(left: 24),
           child: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.search, color: Color(0xff1C1917)),
+            icon: Icon(Icons.search, color: colors.primary),
           ),
         ),
         actions: [
@@ -150,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(right: 24),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.notifications_none, color: Color(0xff1C1917)),
+              icon: Icon(Icons.notifications_none, color: colors.primary),
             ),
           ),
         ],
@@ -164,24 +152,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Featured Offers",
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontFamily: AppFontFamilies.georgia,
-                      color: Color(0xFF1A1A1A),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  Text("Featured Offers", style: textTheme.headlineSmall),
                   TextButton(
                     onPressed: () {},
-                    child: Text(
-                      "SEE ALL",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
+                    child: Text("SEE ALL", style: textTheme.labelMedium),
                   ),
                 ],
               ),
@@ -211,7 +185,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: currentPage == index ? 10 : 6,
                     height: 6,
                     decoration: BoxDecoration(
-                      color: currentPage == index ? Colors.black : Colors.grey,
+                      color: currentPage == index
+                          ? colors.primary
+                          : colors.border,
                       borderRadius: BorderRadius.circular(10),
                     ),
                   );
@@ -249,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 0.6,
+                  childAspectRatio: 0.5,
                 ),
                 itemCount: products.length,
                 itemBuilder: (context, index) {

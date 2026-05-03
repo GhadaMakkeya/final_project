@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/core/theme/app_colors.dart';
 
 const List<String> _kCategories = [
   'Bags & Accessories',
@@ -23,47 +21,45 @@ class CategoryDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
-        color: colors.secondary,
-        border: Border.all(color: colors.border, width: 1.2.w),
+        borderRadius: BorderRadius.circular(12),
+        color: Color.fromARGB(255, 251, 248, 245),
+        border: Border.all(color: Color.fromARGB(255, 121, 95, 68), width: 1.2),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: value,
           isExpanded: true,
-          dropdownColor: colors.secondary,
-          borderRadius: BorderRadius.circular(12.r),
+          dropdownColor: Color.fromARGB(255, 251, 248, 245),
+          borderRadius: BorderRadius.circular(12),
           elevation: 3,
-          menuMaxHeight: 260.h,
+          menuMaxHeight: 260,
           hint: Row(
-            children: [
-              Icon(
-                Icons.grid_view_rounded,
-                size: 16.sp,
-                color: colors.textSecondary,
-              ),
+            children: const [
+              Icon(Icons.grid_view_rounded, size: 16, color: Color.fromARGB(255, 121, 95, 68)),
               SizedBox(width: 8),
               Text(
                 'Select a category',
-                style: TextStyle(color: colors.textSecondary, fontSize: 13.sp),
+                style: TextStyle(
+                  color: Color.fromARGB(255, 121, 95, 68),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ],
           ),
           icon: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: BaseColors.transparent,
-              borderRadius: BorderRadius.circular(6.r),
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(6),
             ),
-            child: Icon(
+            child: const Icon(
               Icons.keyboard_arrow_down_rounded,
-              color: colors.textSecondary,
-              size: 22.sp,
+              color: Color.fromARGB(255, 121, 95, 68),
+              size: 22,
             ),
           ),
           selectedItemBuilder: (_) => _kCategories
@@ -72,10 +68,10 @@ class CategoryDropdown extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     c,
-                    style: TextStyle(
-                      fontSize: 13.sp,
+                    style: const TextStyle(
+                      fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: colors.textPrimary,
+                      color: Color(0xFF5C3D1E),
                     ),
                   ),
                 ),
@@ -89,16 +85,22 @@ class CategoryDropdown extends StatelessWidget {
                 children: [
                   Icon(
                     _categoryIcon(c),
-                    size: 16.sp,
-                     color: isSelected ? colors.primary : colors.textTertiary,
+                    size: 16,
+                    color: isSelected
+                        ? const Color(0xFF8B5E3C)
+                        : const Color(0xFFB08060),
                   ),
-                  SizedBox(width: 10.w),
+                  const SizedBox(width: 10),
                   Text(
                     c,
-                     style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                      color: isSelected ? colors.textPrimary : colors.textSecondary,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: isSelected
+                          ? FontWeight.w600
+                          : FontWeight.w400,
+                      color: isSelected
+                          ? const Color(0xFF5C3D1E)
+                          : const Color(0xFF7A5C44),
                     ),
                   ),
                 ],

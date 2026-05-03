@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/products/presntation/widgets/product_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,8 +9,9 @@ class CustomProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Card(
-      color: AppColors.backgroundColor,
       elevation: 0.1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: Column(
@@ -46,7 +46,9 @@ class CustomProductItem extends StatelessWidget {
                       color: _getLabelColor(productModel.label!),
                       child: Text(
                         productModel.label!,
-                        style: AppTextStyles.productBadgeLabel,
+                        style: textTheme.labelSmall?.copyWith(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -60,13 +62,13 @@ class CustomProductItem extends StatelessWidget {
                       vertical: 6.h,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.white.withOpacity(0.4),
+                      color: BaseColors.white.withOpacity(0.4),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.favorite_border,
                       size: 16.sp,
-                      color: AppColors.white,
+                      color: BaseColors.white,
                     ),
                   ),
                 ),
@@ -87,26 +89,28 @@ class CustomProductItem extends StatelessWidget {
                           productModel.name,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: AppTextStyles.cardTitle,
+                          style: textTheme.bodyLarge
                         ),
                       ),
                     ),
-                    Text("4.8", style: AppTextStyles.cardRating),
+                    Text("4.8", style: textTheme.bodySmall),
                   ],
                 ),
                 SizedBox(height: 6.h),
                 Row(
                   children: [
-                    Text(productModel.price, style: AppTextStyles.cardPrice),
+                    Text(productModel.price, style: textTheme.bodySmall),
                     SizedBox(width: 8.w),
                     Text(
                       productModel.originalPrice ?? "",
-                      style: AppTextStyles.cardOriginalPrice,
+                      style: textTheme.labelSmall?.copyWith(
+                        decoration: TextDecoration.lineThrough,
+                      ),
                     ),
                   ],
                 ),
-                SizedBox(height: 12.h),
-                Divider(height: 1.h, thickness: 0.5, color: Color(0xffEEEEEE)),
+                SizedBox(height: 6.h),
+                Divider(height: 1.h, thickness: 0.5, color: colors.border),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,8 +119,18 @@ class CustomProductItem extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("MIDNIGHT", style: _subTextStyle()),
-                        Text("BLUE", style: _subTextStyle()),
+                        Text(
+                          "MIDNIGHT",
+                          style: textTheme.labelSmall?.copyWith(
+                            color: colors.textSecondary,
+                          ),
+                        ),
+                        Text(
+                          "BLUE",
+                          style: textTheme.labelSmall?.copyWith(
+                            color: colors.textSecondary,
+                          ),
+                        ),
                       ],
                     ),
                     Column(
@@ -124,11 +138,15 @@ class CustomProductItem extends StatelessWidget {
                       children: [
                         Text(
                           "LIMITED",
-                          style: _subTextStyle(color: const Color(0xffD9534F)),
+                          style: textTheme.labelSmall?.copyWith(
+                            color: BaseColors.alert,
+                          ),
                         ),
                         Text(
                           "STOCK",
-                          style: _subTextStyle(color: const Color(0xffD9534F)),
+                          style: textTheme.labelSmall?.copyWith(
+                            color: BaseColors.alert,
+                          ),
                         ),
                       ],
                     ),
@@ -139,16 +157,6 @@ class CustomProductItem extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  TextStyle _subTextStyle({Color color = Colors.grey}) {
-    return TextStyle(
-      color: color,
-      fontSize: 8,
-      fontWeight: FontWeight.bold,
-      letterSpacing: 0.5,
-      height: 1.3,
     );
   }
 

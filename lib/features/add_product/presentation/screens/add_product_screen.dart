@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/features/managment/presentation/widgets/basic_info_section.dart';
-import 'package:veloura/features/managment/presentation/widgets/bottom_action_buttons.dart';
-import 'package:veloura/features/managment/presentation/widgets/image_upload_scteion.dart';
-import 'package:veloura/features/managment/presentation/widgets/inventory_section.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/features/add_product/presentation/widgets/basic_info_section.dart';
+import 'package:veloura/features/add_product/presentation/widgets/bottom_action_buttons.dart';
+import 'package:veloura/features/add_product/presentation/widgets/image_upload_scteion.dart';
+import 'package:veloura/features/add_product/presentation/widgets/inventory_section.dart';
 
 class AddNewProductScreen extends StatefulWidget {
   const AddNewProductScreen({super.key});
@@ -40,16 +39,25 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colors = context.colors;
-
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 251, 248, 245),
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 251, 248, 245),
+        elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: colors.textPrimary),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text('Add New Product', style: textTheme.titleLarge),
+        title: const Text(
+          'Add New Product',
+          style: TextStyle(
+            fontFamily: AppFontFamilies.georgia,
+            color: Color(0xFF4E4639),
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: Form(
         key: _formKey,
@@ -57,16 +65,16 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 16.h),
+                        const SizedBox(height: 16),
                         // Image Upload
                         const ImageUploadSection(),
-                        SizedBox(height: 28.h),
+                        const SizedBox(height: 28),
                         // Basic Information
                         BasicInformationSection(
                           productNameController: _productNameController,
@@ -76,13 +84,13 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           onCategoryChanged: (value) =>
                               setState(() => _selectedCategory = value),
                         ),
-                        SizedBox(height: 28.h),
+                        const SizedBox(height: 28),
                         // Inventory
                         InventorySection(
                           skuController: _skuController,
                           quantityController: _quantityController,
                         ),
-                        SizedBox(height: 50.h),
+                        const SizedBox(height: 50),
                         BottomActionButtons(
                           onPublish: _onPublish,
                           onSaveDraft: _onSaveDraft,
@@ -92,7 +100,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                   ],
                 ),
               ),
-            ),
+            ),          
           ],
         ),
       ),

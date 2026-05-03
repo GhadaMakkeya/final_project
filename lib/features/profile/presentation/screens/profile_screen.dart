@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -15,23 +14,21 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final padding = MediaQuery.of(context).size.width * 0.05;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       appBar: CustomAppBar(
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.menu, color: AppColors.primaryColor),
+          icon: Icon(Icons.menu, color: colors.primary),
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
-              Icons.shopping_bag_outlined,
-              color: AppColors.primaryColor,
-            ),
+            icon: Icon(Icons.shopping_bag_outlined, color: colors.primary),
           ),
-        ], title: AppStrings.appName,
+        ],
+        title: AppStrings.appName,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: padding),

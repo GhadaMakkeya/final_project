@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 
 class BottomActionButtons extends StatelessWidget {
@@ -15,20 +14,18 @@ class BottomActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 35),
+      padding: const EdgeInsets.only(bottom: 40),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CustomPrimaryButton(
-            onPressed: () {},
-            label: "Publish Product",
-            letterSpacing: 1,
-          ),
-          SizedBox(height: 30.h),
+          CustomPrimaryButton(onPressed: () {}, label: "Publish Product"),
+          const SizedBox(height: 10),
           CustomPrimaryButton(
             onPressed: () {},
             label: "Save Draft",
-            letterSpacing: 1,
+            color: Color.fromARGB(255, 251, 248, 245),
+            buttonTextColor: Color(0xFF1B2A4A),
+            borderColor: const Color(0xFF1B2A4A),
           ),
         ],
       ),
