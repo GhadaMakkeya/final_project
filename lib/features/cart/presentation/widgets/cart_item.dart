@@ -1,23 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/features/cart/data/models/cart_item_model.dart';
+import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 
-class CartItem extends StatelessWidget {
-  final String name, subtitle, image;
-  final double price;
-  final int quantity;
-  final VoidCallback onRemove, onIncrement, onDecrement;
-  const CartItem({
-    super.key,
-    required this.name,
-    required this.subtitle,
-    required this.image,
-    required this.price,
-    required this.quantity,
-    required this.onRemove,
-    required this.onIncrement,
-    required this.onDecrement,
-  });
+class CartItem extends StatefulWidget {
+  const CartItem({super.key, required this.items});
+  final CartItemModel items;
+  @override
+  State<CartItem> createState() => _CartItemState();
+}
+
+class _CartItemState extends State<CartItem> {
+  late int quantity;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    quantity = widget.items.quantity;
+  }
+
+  void onIncrement() {
+    setState(() => quantity++);
+    context.read<CartCubit>().incrementItem(widget.items);
+  }
+
+  void onDecrement() {
+    if (quantity == 1) {
+      context.read<CartCubit>().removeItem(widget.items.itemId);
+      return;
+    }
+    setState(() => quantity--);
+    context.read<CartCubit>().decrementItem(widget.items);
+  }
+
+  void onRemove() {
+    context.read<CartCubit>().removeItem(widget.items.itemId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +51,23 @@ class CartItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding:  EdgeInsets.only(left: 8.w, right: 8.w),
+            padding: EdgeInsets.only(left: 8.w, right: 8.w),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(24.r),
-              child: Image.asset(
-                image,
+              child: Image.network(
+                widget.items.productCoverUrl,
                 width: double.infinity,
                 height: 200.h,
                 fit: BoxFit.fitWidth,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  height: 200.h,
+                  color: Colors.grey[200],
+                  child: Icon(Icons.image_not_supported),
+                ),
               ),
             ),
           ),
+
           SizedBox(height: 10.h),
           Padding(
             padding: EdgeInsets.only(bottom: 24.h, left: 24.w, right: 24.w),
@@ -50,17 +77,21 @@ class CartItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.sp,
-                        fontFamily: AppFontFamilies.georgia,
-                        color: Color(0xFF4E4639),
+                    Expanded(
+                      child: Text(
+                        widget.items.productName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.sp,
+                          fontFamily: AppFontFamilies.georgia,
+                          color: Color(0xFF4E4639),
+                        ),
                       ),
                     ),
                     Text(
-                      '\$${price.toStringAsFixed(2)}',
+                      '\$${widget.items.finalPricePerUnit.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.sp,
@@ -70,11 +101,7 @@ class CartItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 4.h),
-                Text(
-                  subtitle,
-                  style: TextStyle(fontSize: 13.sp, color: Color.fromARGB(255, 160, 149, 133),),
-                ),
+
                 SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +117,7 @@ class CartItem extends StatelessWidget {
                         children: [
                           _qtyButton(Icons.remove, onDecrement),
                           Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 12.w),
+                            padding: EdgeInsets.symmetric(horizontal: 12.w),
                             child: Text(
                               '$quantity',
                               style: TextStyle(fontSize: 15.sp),
@@ -124,7 +151,11 @@ class CartItem extends StatelessWidget {
   Widget _qtyButton(IconData icon, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(width: 28.w, height: 28.h, child: Icon(icon, size: 16.sp)),
+      child: Container(
+        width: 28.w,
+        height: 28.h,
+        child: Icon(icon, size: 16.sp),
+      ),
     );
   }
 }
