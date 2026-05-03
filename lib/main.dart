@@ -15,7 +15,6 @@ import 'package:veloura/features/product_details/presentation/screens/product_de
 
 late double screenWidth;
 late double screenHeight;
-import 'package:veloura/features/onboarding/presentation/onboarding_screen.dart';
 
 void main() {
   runApp(const MyApp());
