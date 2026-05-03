@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String name;
@@ -17,6 +16,8 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Column(
       children: [
         SizedBox(
@@ -43,14 +44,14 @@ class ProfileHeader extends StatelessWidget {
                     width: 36.w,
                     height: 36.h,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
+                      color: colors.primary,
                       shape: BoxShape.circle,
-                      border: Border.all(color: AppColors.white, width: 2.w),
+                      border: Border.all(color: colors.background, width: 2.w),
                     ),
                     child: Icon(
                       Icons.edit,
                       size: 16.sp,
-                      color: AppColors.white,
+                      color: colors.background,
                     ),
                   ),
                 ),
@@ -59,9 +60,9 @@ class ProfileHeader extends StatelessWidget {
           ),
         ),
         SizedBox(height: 14.h),
-        Text(name, style: AppTextStyles.profileUserName),
+        Text(name, style: textTheme.headlineSmall),
         SizedBox(height: 4.h),
-        Text(email, style: AppTextStyles.profileUserEmail),
+        Text(email, style: textTheme.bodyMedium),
       ],
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class CartItem extends StatelessWidget {
   final String name, subtitle, image;
@@ -21,6 +21,8 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Card(
       color: Color(0xffF2EDE8),
       elevation: 0.1,
@@ -30,7 +32,7 @@ class CartItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding:  EdgeInsets.only(left: 8.w, right: 8.w),
+            padding: EdgeInsets.only(left: 8.w, right: 8.w),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(24.r),
               child: Image.asset(
@@ -50,66 +52,42 @@ class CartItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.sp,
-                        fontFamily: AppFontFamilies.georgia,
-                        color: Color(0xFF4E4639),
-                      ),
-                    ),
+                    Text(name, style: textTheme.titleLarge),
+                    SizedBox(width: 8.w),
                     Text(
                       '\$${price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.sp,
-                        fontFamily: AppFontFamilies.georgia,
-                        color: Color(0xFF4E4639),
-                      ),
+                      style: textTheme.titleMedium,
                     ),
                   ],
                 ),
                 SizedBox(height: 4.h),
-                Text(
-                  subtitle,
-                  style: TextStyle(fontSize: 13.sp, color: Color.fromARGB(255, 160, 149, 133),),
-                ),
+                Text(subtitle, style: textTheme.bodyMedium),
                 SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Color.fromARGB(255, 225, 221, 216),
-                        ),
+                        border: Border.all(color: colors.border),
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: Row(
                         children: [
-                          _qtyButton(Icons.remove, onDecrement),
+                          _qtyButton(Icons.remove, onDecrement, colors),
                           Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 12.w),
+                            padding: EdgeInsets.symmetric(horizontal: 12.w),
                             child: Text(
                               '$quantity',
-                              style: TextStyle(fontSize: 15.sp),
+                              style: textTheme.titleMedium,
                             ),
                           ),
-                          _qtyButton(Icons.add, onIncrement),
+                          _qtyButton(Icons.add, onIncrement, colors),
                         ],
                       ),
                     ),
                     InkWell(
                       onTap: onRemove,
-                      child: Text(
-                        "REMOVE",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
+                      child: Text("REMOVE", style: textTheme.labelMedium),
                     ),
                   ],
                 ),
@@ -121,10 +99,14 @@ class CartItem extends StatelessWidget {
     );
   }
 
-  Widget _qtyButton(IconData icon, VoidCallback onTap) {
+  Widget _qtyButton(IconData icon, VoidCallback onTap, MyColors colors) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(width: 28.w, height: 28.h, child: Icon(icon, size: 16.sp)),
+      child: Container(
+        width: 28.w,
+        height: 28.h,
+        child: Icon(icon, size: 16.sp, color: colors.textSecondary),
+      ),
     );
   }
 }

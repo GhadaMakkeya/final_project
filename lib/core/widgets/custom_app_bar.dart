@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -14,13 +12,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return AppBar(
       toolbarHeight: 65.h,
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: colors.background,
       elevation: 0,
       centerTitle: true,
       leadingWidth: 64.w,
-      title: Text(AppStrings.appName, style: AppTextStyles.appName),
+      title: Text(
+        AppStrings.appName,
+        style: textTheme.titleLarge?.copyWith(
+          letterSpacing: 3.5,
+          color: colors.primary,
+        ),
+      ),
       leading: leading,
       actions: actions,
     );

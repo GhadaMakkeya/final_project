@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
+import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/widgets/custom_social_button.dart';
 import 'package:veloura/features/auth/login/presentation/widgets/auth_text_field.dart';
-import 'package:veloura/features/auth/login/presentation/widgets/social_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,8 +18,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 40),
@@ -30,27 +29,24 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 10),
               Text(
                 AppStrings.appName,
-                style: AppTextStyles.appName.copyWith(
-                  fontSize: 40.sp,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -1,
+                style: textTheme.headlineLarge?.copyWith(
+                  color: colors.primary,
+                  letterSpacing: 6.0,
                 ),
               ),
               Text(
                 'Curated elegance.',
-                style: GoogleFonts.lato(
-                  color: Colors.grey,
+                style: textTheme.bodySmall?.copyWith(
                   fontStyle: FontStyle.italic,
-                  fontSize: 16,
+                  color: colors.textTertiary,
                 ),
               ),
               const SizedBox(height: 40),
 
-              // Card Container
               Container(
                 padding: const EdgeInsets.all(30),
                 decoration: BoxDecoration(
-                  color: AppColors.authCardColor,
+                  color: colors.authCardColor,
                   borderRadius: BorderRadius.circular(35),
                   boxShadow: [
                     BoxShadow(
@@ -61,14 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      'Sign In',
-                      style: GoogleFonts.playfairDisplay(
-                        fontSize: 27,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF061F3D),
-                      ),
-                    ),
+                    Text('Sign In', style: textTheme.headlineMedium),
                     const SizedBox(height: 30),
                     const AuthField(
                       label: 'EMAIL ADDRESS',
@@ -116,13 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               const SizedBox(width: 8),
-                              Text(
-                                'Remember me',
-                                style: GoogleFonts.lato(
-                                  color: Color(0xff57534E),
-                                  fontSize: 14,
-                                ),
-                              ),
+                              Text('Remember me', style: textTheme.bodySmall),
                             ],
                           ),
                         ),
@@ -131,9 +114,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextButton.styleFrom(padding: EdgeInsets.zero),
                           child: Text(
                             'Forgot password?',
-                            style: GoogleFonts.lato(
-                              color: const Color(0xFF061F3D),
-                              fontSize: 14,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: colors.primary,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -143,34 +125,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     const SizedBox(height: 25),
 
-                    // Sign In Button
-                    SizedBox(
-                      width: double.infinity,
-                      height: 56,
-                      child: ElevatedButton(
-                        onPressed: () => print("Sign In Pressed!"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF061F3D),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          elevation: 2,
-                        ),
-                        child: Text(
-                          'SIGN IN',
-                          style: GoogleFonts.playfairDisplay(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2.0,
-                          ),
-                        ),
-                      ),
+                    CustomPrimaryButton(
+                      onPressed: () {},
+                      label: 'SIGN IN',
+                      letterSpacing: 2.0,
                     ),
 
                     SizedBox(height: 25),
 
-                    // Or Divider
                     Row(
                       children: [
                         const Expanded(child: Divider(thickness: 1)),
@@ -178,9 +140,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
                             'Or',
-                            style: GoogleFonts.lato(
-                              color: Colors.grey,
-                              fontSize: 14,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: colors.textTertiary,
                             ),
                           ),
                         ),
@@ -198,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: 'Google',
                           ),
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: 5),
                         Expanded(
                           child: CustomSocialButton(
                             iconPath: 'assets/images/facebook.png',
@@ -219,10 +180,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Text(
                     "Don't have an account? ",
-                    style: GoogleFonts.playfairDisplay(
-                      fontSize: 14,
-                      color: Colors.grey.shade600,
-                      fontWeight: FontWeight.w500,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: colors.textSecondary,
                     ),
                   ),
 
@@ -230,8 +189,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () => print("Go to Register Screen"),
                     child: Text(
                       'Register',
-                      style: GoogleFonts.playfairDisplay(
-                        color: Color(0xFFD9B36E),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colors.gold,
                         fontWeight: FontWeight.w700,
                       ),
                     ),

@@ -1,7 +1,4 @@
-import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/bottom_nav_bar.dart';
-import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page_content.dart';
@@ -66,16 +63,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
+        final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: CustomAppBar(
         actions: [
           TextButton(
             onPressed: () {},
-            child: Text("SKIP", style: AppTextStyles.seeAllLabel),
+              child: Text("SKIP", style: textTheme.labelMedium),
           ),
         ],
       ),
-      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -122,13 +120,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _handleGetStarted() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Welcome to VELOURA!'),
-        backgroundColor: AppColors.primaryColor,
-        duration: Duration(seconds: 2),
-      ),
-    );
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
@@ -43,17 +42,18 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       appBar: CustomAppBar(
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.menu, color: AppColors.black),
+          icon: Icon(Icons.menu, color: colors.primary),
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.shopping_bag_outlined, color: AppColors.black),
+            icon: Icon(Icons.shopping_bag_outlined, color: colors.primary),
           ),
         ],
       ),
@@ -65,13 +65,13 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 4.h),
-                child: Text("Your Cart", style: AppTextStyles.sectionHeading),
+                child: Text("Your Cart", style: textTheme.headlineLarge),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Text(
                   "${cartItems.length} items ready for checkout.",
-                  style: AppTextStyles.productDescription,
+                  style: textTheme.bodySmall,
                 ),
               ),
               SizedBox(height: 48.h),
@@ -109,10 +109,9 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Summary", style: AppTextStyles.cartSummaryTitle),
-
+                      Text("Summary", style: textTheme.headlineSmall),
                       SizedBox(height: 16.h),
-                      Divider(height: 24.h, color: AppColors.divider),
+                      Divider(height: 24.h, color: colors.border),
                       SizedBox(height: 16.h),
                       SummaryRow(label: "Subtotal", value: "\$1,985.00"),
                       SizedBox(height: 8.h),
@@ -120,7 +119,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                       SizedBox(height: 8.h),
                       SummaryRow(label: "Estimated Tax", value: "\$158.80"),
                       SizedBox(height: 16.h),
-                      Divider(height: 24.h, color: AppColors.divider),
+                      Divider(height: 24.h, color: colors.border),
                       SizedBox(height: 16.h),
                       SummaryRow(
                         label: "Total",
@@ -143,13 +142,10 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                           Icon(
                             Icons.lock_outline,
                             size: 14.sp,
-                            color: AppColors.brown,
+                            color: colors.textSecondary,
                           ),
                           SizedBox(width: 4),
-                          Text(
-                            "SECURE CHECKOUT",
-                            style: AppTextStyles.secureCheckoutLabel,
-                          ),
+                          Text("SECURE CHECKOUT", style: textTheme.labelMedium),
                         ],
                       ),
                     ],

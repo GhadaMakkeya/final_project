@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_strings.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import '../theme/app_colors.dart';
-import '../constants/app_font_families.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AuthLayout extends StatelessWidget {
@@ -13,8 +11,9 @@ class AuthLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -33,10 +32,9 @@ class AuthLayout extends StatelessWidget {
                     // Logo
                     Text(
                       AppStrings.appName,
-                      style: AppTextStyles.appName.copyWith(
-                        fontSize: 40.sp,
-                        letterSpacing: -1,
-                        fontWeight: FontWeight.w800,
+                      style: textTheme.headlineLarge?.copyWith(
+                        color: colors.primary,
+                        letterSpacing: 6.0,
                       ),
                     ),
                     SizedBox(height: 40.h),
@@ -49,7 +47,7 @@ class AuthLayout extends StatelessWidget {
                         vertical: 48.0.h,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.authCardColor,
+                        color: colors.authCardColor,
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
@@ -58,10 +56,7 @@ class AuthLayout extends StatelessWidget {
                             offset: const Offset(0, 10),
                           ),
                         ],
-                        border: Border.all(
-                          color: Colors.grey.shade100,
-                          width: 1.w,
-                        ),
+                        border: Border.all(color: colors.border, width: 1.w),
                       ),
                       child: child,
                     ),

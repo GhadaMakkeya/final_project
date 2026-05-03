@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class AuthField extends StatefulWidget {
   // حولناه لـ StatefulWidget
@@ -31,34 +32,25 @@ class _AuthFieldState extends State<AuthField> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.label,
-          style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: Color(0xffA8A29E),
-            letterSpacing: 1.2,
-          ),
-        ),
+        Text(widget.label, style: textTheme.titleSmall),
         const SizedBox(height: 8),
         TextFormField(
           obscureText: _obscureText,
           decoration: InputDecoration(
             hintText: widget.hintText,
-            prefixIcon: Icon(
-              widget.icon,
-              color: const Color(0xffA8A29E),
-              size: 20,
-            ),
+            hintStyle: textTheme.bodyMedium?.copyWith(color: colors.textTertiary),
+            prefixIcon: Icon(widget.icon, color: colors.textTertiary, size: 20),
 
             suffixIcon: widget.isPassword
                 ? IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility_off : Icons.visibility,
-                      color: const Color(0xFFD1C5B4),
+                      color: colors.textSecondary,
                       size: 20,
                     ),
                     onPressed: () {
@@ -71,14 +63,14 @@ class _AuthFieldState extends State<AuthField> {
                 : null,
 
             filled: true,
-            fillColor: const Color(0xFFFDFAFA),
+            fillColor: colors.cardColor,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: Colors.grey.shade200),
+              borderSide: BorderSide(color: colors.border),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: Colors.grey.shade200),
+              borderSide: BorderSide(color: colors.border),
             ),
           ),
         ),

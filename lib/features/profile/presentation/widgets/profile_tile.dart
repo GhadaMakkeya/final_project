@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,23 +17,22 @@ class ProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.settingsTileBackground,
+        color: colors.cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColors.formFieldFill, width: 1.w),
+        border: Border.all(color: colors.border, width: 1.w),
       ),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-        title: Text(
-          title,
-          style: AppTextStyles.settingsTileText
-        ),
+        title: Text(title, style: textTheme.bodyLarge),
         trailing: showArrow
             ? Icon(
                 Icons.arrow_forward_ios,
                 size: 14.sp,
-                color: AppColors.settingsTileText,
+                color: colors.textSecondary,
               )
             : null,
         onTap: onTap,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/managment/presentation/widgets/basic_info_section.dart';
 import 'package:veloura/features/managment/presentation/widgets/bottom_action_buttons.dart';
 import 'package:veloura/features/managment/presentation/widgets/image_upload_scteion.dart';
@@ -41,17 +40,16 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
+
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.backgroundColor,
-        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: colors.textPrimary),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text('Add New Product', style: AppTextStyles.addNewProductTitle),
-        centerTitle: true,
+        title: Text('Add New Product', style: textTheme.titleLarge),
       ),
       body: Form(
         key: _formKey,
