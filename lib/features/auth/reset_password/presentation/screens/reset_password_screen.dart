@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
-import 'package:veloura/features/auth/reset_password/presentation/widgets/custom_text_field.dart';
+import 'package:veloura/features/auth/reset_password/presentation/widgets/custom_pass_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
@@ -72,17 +72,16 @@ class ResetPasswordScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 32.h),
-                              const CustomTextField(
+                              const CustomPassTextField(
                                 fieldName: "NEW PASSWORD",
                                 hintName: "••••••••",
                                 isPassword: true,
                               ),
-                              const CustomTextField(
+                              const CustomPassTextField(
                                 fieldName: "CONFIRM NEW PASSWORD",
                                 hintName: "••••••••",
                                 isPassword: true,
                               ),
-
                               SizedBox(height: 26.h),
                               CustomPrimaryButton(
                                 onPressed: () {},

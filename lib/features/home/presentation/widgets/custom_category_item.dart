@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/features/home/data/category_data.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/features/home/data/models/category_data.dart';
 
 class CustomCategoryItem extends StatelessWidget {
   const CustomCategoryItem({
