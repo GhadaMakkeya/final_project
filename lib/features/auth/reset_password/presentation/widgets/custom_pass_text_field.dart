@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 
-class CustomTextField extends StatefulWidget {
-  const CustomTextField({
+class CustomPassTextField extends StatefulWidget {
+  const CustomPassTextField({
     super.key,
     required this.fieldName,
     required this.hintName,
@@ -12,10 +12,10 @@ class CustomTextField extends StatefulWidget {
   final String hintName;
   final bool isPassword;
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<CustomPassTextField> createState() => _CustomPassTextFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _CustomPassTextFieldState extends State<CustomPassTextField> {
   bool obscure = true;
   @override
   Widget build(BuildContext context) {
