@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/widgets/custom_social_button.dart';
 import 'package:veloura/core/widgets/custom_text_field.dart';
@@ -18,8 +16,9 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -29,17 +28,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 Text(
                   AppStrings.appName,
-                  style: AppTextStyles.appName.copyWith(
-                    letterSpacing: -1,
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.w800,
+                  style: textTheme.headlineLarge?.copyWith(
+                    color: colors.primary, 
+                    letterSpacing: 6.0,
                   ),
                 ),
                 SizedBox(height: 30.h),
                 Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: AppColors.authCardColor,
+                    color: colors.authCardColor,
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Column(
@@ -47,20 +45,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       Text(
                         "Create an Account",
-                        style: TextStyle(
-                          fontFamily: AppFontFamilies.georgia,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: textTheme.headlineMedium,
                       ),
                       SizedBox(height: 6.h),
                       Text(
                         'Join Veloura for an exclusive experience.',
-                        style: TextStyle(
-                          fontFamily: AppFontFamilies.georgia,
-                          fontSize: 13.sp,
-                          color: Colors.grey,
-                        ),
+                        style: textTheme.bodySmall,
                       ),
                       SizedBox(height: 30.h),
                       CustomTextField(
@@ -103,11 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Center(
                         child: Text(
                           'OR REGISTER WITH',
-                          style: TextStyle(
-                            fontFamily: AppFontFamilies.georgia,
-                            fontSize: 11.sp,
-                            color: Colors.grey,
-                          ),
+                          style: textTheme.titleSmall,
                         ),
                       ),
                       SizedBox(height: 20.h),
@@ -136,20 +122,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         children: [
                           Text(
                             "Already have an account?",
-                            style: TextStyle(
-                              fontFamily: AppFontFamilies.georgia,
-                              fontSize: 11.sp,
-                              color: Colors.grey,
-                            ),
+                              style: textTheme.bodySmall,
                           ),
                           TextButton(
                             onPressed: () {},
                             child: Text(
                               " Log in",
-                              style: TextStyle(
-                                fontFamily: AppFontFamilies.georgia,
-                                fontSize: 11.sp,
-                                color: Color(0xffD9B36E),
+                              style: textTheme.bodySmall?.copyWith(
+                                color: colors.gold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),

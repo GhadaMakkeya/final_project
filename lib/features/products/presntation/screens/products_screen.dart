@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
-import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
-import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/features/products/presntation/widgets/categoey_list.dart';
 import 'package:veloura/features/products/presntation/widgets/custom_product_item.dart';
 import 'package:veloura/features/products/presntation/widgets/product_model.dart';
@@ -14,20 +11,22 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        toolbarHeight: 65.h,
-        elevation: 0,
-        leading: const Icon(Icons.menu, color: Colors.black),
-        centerTitle: true,
-        backgroundColor: AppColors.backgroundColor,
-        leadingWidth: 64.w,
-        title: Text(AppStrings.appName, style: AppTextStyles.appName),
+      appBar: CustomAppBar(
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.menu, color: colors.primary),
+        ),
         actions: [
-          Icon(Icons.search, color: Colors.black),
-          SizedBox(width: 15.w),
-          Icon(Icons.shopping_bag_outlined, color: Colors.black),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.search, color: colors.primary),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.shopping_bag_outlined, color: colors.primary),
+          ),
           SizedBox(width: 15.w),
         ],
       ),
@@ -41,10 +40,7 @@ class ProductScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: myProducts.length,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                  vertical: 10.h,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 0.53,
