@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/features/home/data/offers_data.dart';
+import 'package:veloura/features/home/data/models/offers_data.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomOfferIteam extends StatelessWidget {
@@ -21,6 +21,13 @@ class CustomOfferIteam extends StatelessWidget {
                 offersData.imagePath,
                 fit: BoxFit.cover,
                 width: double.infinity,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.network(
+                    'https://i.pinimg.com/736x/86/95/7f/86957f18605edb09e7b75925147e60b1.jpg',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  );
+                },
               ),
             ),
             Padding(
@@ -31,12 +38,15 @@ class CustomOfferIteam extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    offersData.offerTitle, // "Winter Collection"
+                    offersData.offerTitle,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: textTheme.titleLarge?.copyWith(color: Colors.white),
                   ),
                   Text(
                     offersData.offerDesc,
-                    // "Exclusive 20% off..."
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: textTheme.bodySmall?.copyWith(color: Colors.white70),
                   ),
                 ],

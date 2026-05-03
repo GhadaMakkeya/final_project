@@ -1,12 +1,18 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/features/category/presentation/screens/category_screen.dart';
-import 'package:veloura/features/home/data/category_data.dart';
-import 'package:veloura/features/home/data/offers_data.dart';
-import 'package:veloura/features/home/data/product_data_model.dart';
+import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
+import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_states.dart';
+import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
+import 'package:veloura/features/home/presentation/cubits/products_cubit/products_states.dart';
+import 'package:veloura/features/home/data/models/category_data.dart';
+import 'package:veloura/features/home/data/models/offers_data.dart';
+import 'package:veloura/features/home/data/models/product_data_model.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_category_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_offer_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_product_card.dart';
@@ -19,6 +25,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<ProductsCubit>(context).getProducts();
+    BlocProvider.of<OffersCubit>(context).getOffers();
+  }
+
   int currentPage = 0;
   List<CategoryData> categories = [
     CategoryData(categoryName: "All", isSelected: true),
@@ -38,88 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<OffersData> offers = [
-      OffersData(
-        imagePath:
-            "https://i.pinimg.com/736x/ef/5d/19/ef5d19d66d9fafecd3ff4d1c85f82c3c.jpg",
-        offerTitle: "Winter Collection",
-        offerDesc: "Exclusive 20% off for the next 24 hours",
-      ),
-      OffersData(
-        imagePath:
-            "https://i.pinimg.com/control1/1200x/2e/fd/67/2efd6797c8ef797666ffaa7cd9d473b8.jpg",
-        offerTitle: "Winter Collection",
-        offerDesc: "Exclusive 20% off for the next 24 hours",
-      ),
-      OffersData(
-        imagePath:
-            "https://i.pinimg.com/736x/ef/5d/19/ef5d19d66d9fafecd3ff4d1c85f82c3c.jpg",
-        offerTitle: "Winter Collection",
-        offerDesc: "Exclusive 20% off for the next 24 hours",
-      ),
-    ];
-    List<ProductDataModel> products = [
-      ProductDataModel(
-        imagePath:
-            "https://i.pinimg.com/736x/a7/42/24/a7422429694f5e1426ebaf85b5160d89.jpg",
-        productName: "Signature Chrono",
-        price: "\$1,250.00",
-      ),
-      ProductDataModel(
-        imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Essence No. 5",
-        price: "\$280.00",
-      ),
-      ProductDataModel(
-        imagePath:
-            "https://i.pinimg.com/736x/04/3e/d4/043ed498d9e5d1d3cddd2587283805b3.jpg",
-        productName: "Aviator Gilt",
-        price: "\$890.00",
-      ),
-      ProductDataModel(
-        imagePath:
-            "https://i.pinimg.com/736x/36/ce/79/36ce79b6407b7fc75cdfaaee1668a916.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-            "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-    ];
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
     return Scaffold(
@@ -160,39 +91,57 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               SizedBox(height: 8),
-              SizedBox(
-                height: 180,
-                child: PageView.builder(
-                  onPageChanged: (index) {
-                    setState(() {
-                      currentPage = index;
-                    });
-                  },
-                  itemCount: offers.length,
-                  itemBuilder: (context, index) {
-                    return CustomOfferIteam(offersData: offers[index]);
-                  },
-                ),
+              BlocBuilder<OffersCubit, OffersStates>(
+                builder: (context, state) {
+                  if (state is OffersLoadingState) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if ((state is OffersSuccessState)) {
+                    final offers = state.offers;
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: 180,
+                          child: PageView.builder(
+                            onPageChanged: (index) {
+                              setState(() {
+                                currentPage = index;
+                              });
+                            },
+                            itemCount: offers.length,
+                            itemBuilder: (context, index) {
+                              return CustomOfferIteam(
+                                offersData: offers[index],
+                              );
+                            },
+                          ),
+                        ),
+
+                        SizedBox(height: 15),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(offers.length, (index) {
+                            return AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              margin: EdgeInsets.symmetric(horizontal: 4),
+                              width: currentPage == index ? 10 : 6,
+                              height: 6,
+                              decoration: BoxDecoration(
+                                color: currentPage == index
+                                    ? AppColors.lightColors.chipSelectedColor
+                                    : Colors.grey,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            );
+                          }),
+                        ),
+                      ],
+                    );
+                  }
+                  return SizedBox();
+                },
               ),
-              SizedBox(height: 15),
-              //----------offers section---------
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(offers.length, (index) {
-                  return AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
-                    margin: EdgeInsets.symmetric(horizontal: 4),
-                    width: currentPage == index ? 10 : 6,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: currentPage == index
-                          ? colors.primary
-                          : colors.border,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  );
-                }),
-              ),
+
               SizedBox(height: 30),
               //----------category---------
               SizedBox(
@@ -220,16 +169,32 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SizedBox(height: 15),
               //----------products--------
-              GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.5,
-                ),
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  return CustomProductCard(productDataModel: products[index]);
+              BlocBuilder<ProductsCubit, ProductsStates>(
+                builder: (context, state) {
+                  if (state is ProductsLoadingState) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state is ProductsSuccessState) {
+                    final products = state.products;
+
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: .5,
+                      ),
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        return CustomProductCard(
+                          productDataModel: products[index],
+                        );
+                      },
+                    );
+                  } else if (state is ProductsErrorState) {
+                    return Center(child: Text("Error"));
+                  }
+
+                  return SizedBox();
                 },
               ),
             ],
