@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 
 class CartItem extends StatefulWidget {
   const CartItem({super.key, required this.items});
   final CartItemModel items;
-
   @override
   State<CartItem> createState() => _CartItemState();
 }
@@ -18,6 +17,7 @@ class _CartItemState extends State<CartItem> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     quantity = widget.items.quantity;
   }
@@ -67,6 +67,7 @@ class _CartItemState extends State<CartItem> {
               ),
             ),
           ),
+
           SizedBox(height: 10.h),
           Padding(
             padding: EdgeInsets.only(bottom: 24.h, left: 24.w, right: 24.w),
@@ -100,6 +101,7 @@ class _CartItemState extends State<CartItem> {
                     ),
                   ],
                 ),
+
                 SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -18,10 +18,10 @@ class CartItemModel {
       productName: json['productName'],
       productCoverUrl: json['productCoverUrl'],
       finalPricePerUnit: (json['finalPricePerUnit'] as num).toDouble() > 0
-          ? (json['finalPricePerUnit'] as num).toDouble()
-          : (json['basePricePerUnit'] as num).toDouble(),
+    ? (json['finalPricePerUnit'] as num).toDouble()
+    : (json['basePricePerUnit'] as num).toDouble(),
       totalPrice: (json['totalPrice'] as num).toDouble(),
-      quantity: json['quantity'],
+      quantity: int.parse(json['quantity'].toString()),
     );
   }
 }

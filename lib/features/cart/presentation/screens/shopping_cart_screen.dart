@@ -6,6 +6,7 @@ import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/theme/app_text_theme.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
+import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:veloura/features/cart/presentation/cubits/cart_state.dart';
 import 'package:veloura/features/cart/presentation/widgets/cart_item.dart';
@@ -78,7 +79,9 @@ class ShoppingCartScreen extends StatelessWidget {
                       itemCount: items.length,
                       itemBuilder: (context, index) {
                         final item = items[index];
-                        return CartItem(items: item);
+                        return CartItem(items: item,
+                          
+                        );
                       },
                     ),
                     SizedBox(height: 40.h),
