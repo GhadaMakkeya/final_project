@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/managment/presentation/widgets/add_product_form_field.dart';
 import 'package:veloura/features/managment/presentation/widgets/category_dropdown_list.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,12 +21,14 @@ class BasicInformationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Basic Information', style: AppTextStyles.formSectionTitle),
+        Text('Basic Information', style: textTheme.headlineSmall),
         SizedBox(height: 20.h),
-        Text("PRODUCT NAME", style: AppTextStyles.formFieldLabel),
+        Text("PRODUCT NAME", style: textTheme.titleSmall),
         SizedBox(height: 8.h),
         ProductFormField(
           controller: productNameController,
@@ -37,11 +38,11 @@ class BasicInformationSection extends StatelessWidget {
               : null,
         ),
         SizedBox(height: 20.h),
-        Text("CATEGORY", style: AppTextStyles.formFieldLabel),
+        Text("CATEGORY", style: textTheme.titleSmall),
         SizedBox(height: 8.h),
         CategoryDropdown(value: selectedCategory, onChanged: onCategoryChanged),
-        SizedBox(height: 20),
-        Text("PRICE (USD)", style: AppTextStyles.formFieldLabel),
+        SizedBox(height: 20.h),
+        Text("PRICE (USD)", style: textTheme.titleSmall),
         SizedBox(height: 8.h),
         ProductFormField(
           controller: priceController,
@@ -55,7 +56,7 @@ class BasicInformationSection extends StatelessWidget {
           },
         ),
         const SizedBox(height: 20),
-        Text("DESCRPTION", style: AppTextStyles.formFieldLabel),
+        Text("DESCRIPTION", style: textTheme.titleSmall),
         const SizedBox(height: 8),
         ProductFormField(
           controller: descriptionController,

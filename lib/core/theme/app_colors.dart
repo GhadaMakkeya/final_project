@@ -1,50 +1,141 @@
 import 'package:flutter/material.dart';
 
+abstract final class BaseColors {
+  static const white = Color(0xFFFFFFFF);
+  static const black = Color(0xFF000000);
+  static const transparent = Color(0x00000000);
+
+  static const alert = Color(0xFFD32F2F);
+  static const warning = Color(0xFFF57C00);
+  static const info = Color(0xFF1976D2);
+  static const success = Color(0xFF388E3C);
+}
+
 class AppColors {
   AppColors._();
+  static final lightColors = _LightColors();
+  static final darkColors = _DarkColors();
 
-  // ── Core ─────────────────────────────────────────────
-  static const Color backgroundColor = Color(0xFFEFEBE6);
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color black = Color(0xFF1A1A1A);
-  static const Color transparent = Colors.transparent;
+  static Color? get backgroundColor => null;
 
-  // ── Brand ────────────────────────────────────────────
-  static const Color primaryColor = Color(0xFF1B2A4A);
-  static const Color secondaryColor = Color(0xFFD9B36E);
-  static const Color brown = Color(0xFF4E4639);
-  static const Color brownLight = Color(0xFF795F44);
+  static MyColors colors(BuildContext context) =>
+      Theme.of(context).extension<MyColors>() ?? AppColors.lightColors;
+}
 
-  // ── Text ─────────────────────────────────────────────
-  static const Color textPrimary = Color(0xFF1A1A1A);
-  static const Color textSecondary = Color(0xFF9E8E7E);
-  static const Color textMuted = Color(0xFFAAAAAA);
-  static const Color textPurple = Color(0xFF7B6FA0);
+abstract class MyColors extends ThemeExtension<MyColors> {
+  MyColors();
 
-  // ── Badges ───────────────────────────────────────────
-  static const Color dangerColor = Color(0xFFB94040);
-  static const Color soldOutBadge = Color(0xFF6B6B6B);
+  Color get primary;
+  Color get secondary;
+  Color get gold;
 
-  // ── Chip ─────────────────────────────────────────────
-  static const Color chipSelected = Color(0xFF1A1A1A);
-  static const Color chipUnselected = Color(0xFFFFFFFF);
+  Color get background;
+  Color get cardColor;
+  Color get authCardColor;
 
-  // ── Divider ──────────────────────────────────────────
-  static const Color divider = Color(0xFFD6CFC6);
+  Color get textPrimary;
+  Color get textSecondary;
+  Color get textTertiary;
 
-  // ── Bottom Nav ───────────────────────────────────────
-  static const Color bottomNavBackground = Color(0xFFEFEBE6);
+  Color get border;
 
-  // ── Settings ─────────────────────────────────────────
-  static const Color settingsTileBackground = Color(0xFFFDFAFA);
-  static const Color settingsTileText = Color(0xFF524437);
-  static const Color profileSectionLabel = Color(0xFF4E4139);
+  Color get chipSelectedColor;
+  Color get chipUnSelectedColor;
+  Color get chipSelectedText;
+  Color get chipUnSelectedText;
 
-  // ── Theme Toggle ─────────────────────────────────────
-  static const Color themeToggleBackground = Color(0xFFE8E2DB);
-  static const Color themeToggleActiveText = Color(0xFFFFFFFF);
+  @override
+  ThemeExtension<MyColors> copyWith() => this;
 
-  // ── Form ─────────────────────────────────────────────
-  static const Color formFieldFill = Color(0xFFFBF8F5);
-  static const Color authCardColor = Color(0xFFFDFAFA);
+  @override
+  MyColors lerp(ThemeExtension<MyColors>? other, double t) {
+    if (other is! MyColors) return this;
+    return other;
+  }
+}
+
+class _LightColors extends MyColors {
+  @override
+  Color get primary => const Color(0xFF1A1F3D);
+
+  @override
+  Color get secondary => const Color(0xFFF5F2EE);
+
+  @override
+  Color get gold => const Color(0xFFC9A96E);
+
+  @override
+  Color get background => const Color(0xFFF0EDE8);
+
+  @override
+  Color get cardColor => const Color(0xFFF0EDE8);
+
+  @override
+  Color get authCardColor => const Color(0xFFFFFFFF);
+
+  @override
+  Color get border => const Color(0xFFE8E4DF);
+
+  @override
+  Color get textPrimary => const Color(0xFF1A1A2E);
+
+  @override
+  Color get textSecondary => const Color(0xFF6B6460);
+
+  @override
+  Color get textTertiary => const Color(0xFFABA8A4);
+
+  @override
+  Color get chipSelectedColor => const Color(0xFF1A1F3D);
+  @override
+  Color get chipUnSelectedColor => Colors.transparent;
+  @override
+  Color get chipSelectedText => const Color(0xFFFFFFFF);
+  @override
+  Color get chipUnSelectedText => const Color(0xFF1A1F3D);
+}
+
+class _DarkColors extends MyColors {
+  @override
+  Color get primary => const Color(0xFFC9A96E);
+
+  @override
+  Color get secondary => const Color(0xFF0C2340);
+
+  @override
+  Color get gold => const Color(0xFFC9A96E);
+
+  @override
+  Color get background => const Color(0xFF050F1E);
+
+  @override
+  Color get cardColor => const Color(0xFF0C2340);
+
+  @override
+  Color get authCardColor => const Color(0xFF0F2847);
+
+  @override
+  Color get border => const Color(0xFF1E3A5F);
+
+  @override
+  Color get textPrimary => const Color(0xFFEDE8E0);
+
+  @override
+  Color get textSecondary => const Color(0xFFB0A898);
+
+  @override
+  Color get textTertiary => const Color(0xFF7A7268);
+
+  @override
+  Color get chipSelectedColor => const Color(0xFFC9A96E);
+  @override
+  Color get chipUnSelectedColor => Colors.transparent;
+  @override
+  Color get chipSelectedText => const Color(0xFF050F1E);
+  @override
+  Color get chipUnSelectedText => const Color(0xFFC9A96E);
+}
+
+extension ColorExt on BuildContext {
+  MyColors get colors => AppColors.colors(this);
 }

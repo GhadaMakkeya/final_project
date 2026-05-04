@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 import '../../../../../core/constants/app_font_families.dart';
 import '../../../../../core/widgets/auth_layout.dart';
 import '../../../../../core/widgets/custom_primary_button.dart';
@@ -10,21 +11,19 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return AuthLayout(
       bottomLink: TextButton.icon(
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back, size: 16.sp, color: Color(0xFF8D715B)),
-        label: TextButton(
-          onPressed: () {},
-          child: Text(
-            ' Return to Login',
-            style: TextStyle(
-              color: Color(0xFF8D715B),
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-            ),
+        icon: Icon(Icons.arrow_back, size: 16.sp, color: colors.gold),
+        label: Text(
+          'Return to Login',
+          style: textTheme.bodySmall?.copyWith(
+            color: colors.gold,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
@@ -34,22 +33,15 @@ class ForgetPassword extends StatelessWidget {
           Text(
             'Forgot\nPassword',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: AppFontFamilies.georgia,
-              fontSize: 36.sp,
-              height: 1.2.h,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1B1B1B),
-            ),
+            style: textTheme.headlineLarge,
           ),
           SizedBox(height: 16.h),
           Text(
             'Enter your email to receive a\npassword reset link.',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 15.sp,
-              height: 1.4.h,
-              color: Color(0xFF5A5A5A),
+             style: textTheme.bodyLarge?.copyWith(
+              color: colors.textSecondary,
+              height: 1.4,
             ),
           ),
           SizedBox(height: 32.h),
@@ -57,7 +49,7 @@ class ForgetPassword extends StatelessWidget {
             label: 'Email Address',
             hintText: 'name@example.com',
             prefixIcon: Icons.mail_outline,
-           // keyboardType: TextInputType.emailAddress,
+            // keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(height: 32.h),
           CustomPrimaryButton(

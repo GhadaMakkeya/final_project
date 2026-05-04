@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
-import 'package:veloura/features/home/data/category_data.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/features/home/data/models/category_data.dart';
 
 class CustomCategoryItem extends StatelessWidget {
   const CustomCategoryItem({
@@ -14,6 +13,8 @@ class CustomCategoryItem extends StatelessWidget {
   final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -22,17 +23,21 @@ class CustomCategoryItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: categoryData.isSelected
-              ? AppColors.chipSelected
-              : AppColors.transparent,
-          border: Border.all(color: AppColors.divider),
+              ? colors.chipSelectedColor
+              : Colors.transparent,
+          border: Border.all(color: colors.border),
           borderRadius: BorderRadius.circular(20.r),
         ),
         child: Center(
           child: Text(
             categoryData.categoryName,
             style: categoryData.isSelected
-                ? AppTextStyles.chipLabelSelected
-                : AppTextStyles.chipLabelUnselected,
+                ? textTheme.labelMedium?.copyWith(
+                    color: colors.chipSelectedText,
+                  )
+                : textTheme.labelMedium?.copyWith(
+                    color: colors.chipUnSelectedText,
+                  ),
           ),
         ),
       ),

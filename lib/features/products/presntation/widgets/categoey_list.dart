@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 
 class CategoryList extends StatelessWidget {
@@ -41,6 +40,8 @@ class CategoryList extends StatelessWidget {
     String label, {
     bool isSelected = false,
   }) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -52,15 +53,17 @@ class CategoryList extends StatelessWidget {
         margin: EdgeInsets.only(right: 12.w),
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.chipSelected : Colors.transparent,
+          color: isSelected ? colors.chipSelectedColor : Colors.transparent,
           borderRadius: BorderRadius.circular(25.r),
-          border: Border.all(color: AppColors.divider),
+          border: Border.all(color: colors.border),
         ),
         child: Text(
           label,
           style: isSelected
-              ? AppTextStyles.chipLabelSelected
-              : AppTextStyles.chipLabelUnselected,
+              ? textTheme.labelMedium?.copyWith(color: colors.chipSelectedText)
+              : textTheme.labelMedium?.copyWith(
+                  color: colors.chipUnSelectedText,
+                ),
         ),
       ),
     );

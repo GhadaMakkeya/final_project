@@ -22,43 +22,42 @@ class ProductFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return TextFormField(
       controller: controller,
       maxLines: maxLines,
       keyboardType: keyboardType,
       validator: validator,
-      cursorColor: AppColors.brownLight,
-      style: TextStyle(fontSize: 13.sp, color: Colors.black87),
+      cursorColor: colors.primary,
+      style: textTheme.bodyMedium,
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon,
-        prefixIconColor: AppColors.brown,
-        hintStyle: const TextStyle(
-          color: Color.fromARGB(255, 121, 95, 68),
-          fontSize: 13,
-        ),
+        prefixIconColor: colors.textSecondary,
+        hintStyle: textTheme.bodyMedium?.copyWith(color: colors.textTertiary),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 14,
           vertical: 12,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.brownLight, width: 1),
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(color: colors.border, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.brownLight, width: 1.2),
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(color: colors.primary, width: 1.2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.redAccent),
+          borderSide: const BorderSide(color: BaseColors.alert),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.redAccent, width: 1.2),
+          borderSide: const BorderSide(color: BaseColors.alert, width: 1.2),
         ),
         filled: true,
-        fillColor: Color.fromARGB(255, 251, 248, 245),
+        fillColor: colors.secondary,
       ),
     );
   }

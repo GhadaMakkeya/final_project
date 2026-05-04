@@ -18,6 +18,8 @@ class BottomControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     final bool isLast = currentPage == pageCount - 1;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
@@ -31,19 +33,19 @@ class BottomControls extends StatelessWidget {
               pageCount,
               (index) => AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                margin:  EdgeInsets.symmetric(horizontal: 6.w),
+                margin: EdgeInsets.symmetric(horizontal: 6.w),
                 height: 8,
                 width: currentPage == index ? 20.w : 8.w,
                 decoration: BoxDecoration(
                   color: currentPage == index
-                      ? AppColors.primaryColor
-                      : Colors.grey.withOpacity(0.5),
+                      ? colors.primary
+                      : colors.textTertiary.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(4.r),
                 ),
               ),
             ),
           ),
-           SizedBox(height: 16.h),
+          SizedBox(height: 16.h),
 
           CustomPrimaryButton(
             label: isLast ? 'GET STARTED' : 'NEXT',

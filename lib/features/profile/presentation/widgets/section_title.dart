@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
-import '../../../../core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SectionTitle extends StatelessWidget {
@@ -10,11 +8,12 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(
         padding: EdgeInsets.only(left: 4.w),
-        child: Text(title, style: AppTextStyles.labelUppercase),
+        child: Text(title, style: textTheme.titleSmall),
       ),
     );
   }

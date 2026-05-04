@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
-import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
+import 'package:veloura/core/theme/app_text_theme.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
@@ -11,7 +11,6 @@ import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:veloura/features/cart/presentation/cubits/cart_state.dart';
 import 'package:veloura/features/cart/presentation/widgets/cart_item.dart';
 import 'package:veloura/features/cart/presentation/widgets/summary_row.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShoppingCartScreen extends StatelessWidget {
   const ShoppingCartScreen({super.key});
@@ -36,19 +35,19 @@ class ShoppingCartScreen extends StatelessWidget {
               ? state.cartItems
               : [];
 
-         return Scaffold(
-            backgroundColor: AppColors.backgroundColor,
+          return Scaffold(
+            backgroundColor: context.colors.background,
             appBar: CustomAppBar(
               leading: IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.menu, color: AppColors.black),
+                icon: Icon(Icons.menu, color: context.colors.textPrimary),
               ),
               actions: [
                 IconButton(
                   onPressed: () {},
                   icon: Icon(
                     Icons.shopping_bag_outlined,
-                    color: AppColors.black,
+                    color: context.colors.textPrimary
                   ),
                 ),
               ],
@@ -63,14 +62,14 @@ class ShoppingCartScreen extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 4.h),
                       child: Text(
                         "Your Cart",
-                        style: AppTextStyles.sectionHeading,
+                        style: Theme.of(context).textTheme.headlineLarge
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Text(
                         "${items.length} items ready for checkout.",
-                        style: AppTextStyles.productDescription,
+                        style: Theme.of(context).textTheme.bodySmall
                       ),
                     ),
                     SizedBox(height: 48.h),
@@ -101,13 +100,15 @@ class ShoppingCartScreen extends StatelessWidget {
                           children: [
                             Text(
                               "Summary",
-                              style: AppTextStyles.cartSummaryTitle,
+                             style: Theme.of(context).textTheme.headlineSmall
                             ),
-
                             SizedBox(height: 16.h),
-                            Divider(height: 24.h, color: AppColors.divider),
+                            Divider(height: 24.h, color: context.colors.border),
                             SizedBox(height: 16.h),
-                            SummaryRow(label: "Subtotal", value: "\$${cubit.subtotal.toStringAsFixed(2)}"),
+                            SummaryRow(
+                              label: "Subtotal",
+                              value: "\$${cubit.subtotal.toStringAsFixed(2)}",
+                            ),
                             SizedBox(height: 8.h),
                             SummaryRow(
                               label: "Shipping",
@@ -119,7 +120,7 @@ class ShoppingCartScreen extends StatelessWidget {
                               value: "\$${cubit.tax.toStringAsFixed(2)}",
                             ),
                             SizedBox(height: 16.h),
-                            Divider(height: 24.h, color: AppColors.divider),
+                            Divider(height: 24.h, color: context.colors.border),
                             SizedBox(height: 16.h),
                             SummaryRow(
                               label: "Total",
@@ -142,12 +143,12 @@ class ShoppingCartScreen extends StatelessWidget {
                                 Icon(
                                   Icons.lock_outline,
                                   size: 14.sp,
-                                  color: AppColors.brown,
+                                  color: context.colors.gold
                                 ),
                                 SizedBox(width: 4),
                                 Text(
                                   "SECURE CHECKOUT",
-                                  style: AppTextStyles.secureCheckoutLabel,
+                                  style: Theme.of(context).textTheme.labelMedium
                                 ),
                               ],
                             ),

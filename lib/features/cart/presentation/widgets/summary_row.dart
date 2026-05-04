@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class SummaryRow extends StatelessWidget {
   final String label, value;
@@ -19,6 +20,8 @@ class SummaryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -26,21 +29,15 @@ class SummaryRow extends StatelessWidget {
         children: [
           Text(
             label,
-            style: TextStyle(
-              fontSize: labelFontSize ?? 16.sp,
-              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-              color: Color(0xFF4E4639),
-              fontFamily: fontFamily,
-            ),
+            style: isBold
+                ? textTheme.headlineSmall
+                : textTheme.bodyLarge?.copyWith(color: colors.textSecondary),
           ),
           Text(
             value,
-            style: TextStyle(
-              fontSize: valueFontSize ?? 16.sp,
-              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-              color: Color(0xFF4E4639),
-              fontFamily: fontFamily,
-            ),
+            style: isBold
+                ? textTheme.headlineSmall
+                : textTheme.bodyLarge?.copyWith(color: colors.textSecondary),
           ),
         ],
       ),

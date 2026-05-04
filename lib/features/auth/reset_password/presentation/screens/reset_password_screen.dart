@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
-import 'package:veloura/features/auth/reset_password/presentation/widgets/custom_text_field.dart';
+import 'package:veloura/features/auth/reset_password/presentation/widgets/custom_pass_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
@@ -12,8 +10,9 @@ class ResetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -32,11 +31,11 @@ class ResetPasswordScreen extends StatelessWidget {
                     children: [
                       Text(
                         AppStrings.appName,
-                        style:AppTextStyles.appName.copyWith(
-                          fontSize: 40.sp,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: -1,
-                        )
+                        style: textTheme.headlineLarge?.copyWith(
+                          color: colors.primary,
+                          letterSpacing: 6.0,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                       SizedBox(height: 18.h),
 
@@ -49,7 +48,7 @@ class ResetPasswordScreen extends StatelessWidget {
                               offset: const Offset(0, 4),
                             ),
                           ],
-                          color: AppColors.authCardColor,
+                          color: colors.authCardColor,
                           borderRadius: BorderRadius.circular(25.r),
                         ),
                         child: Padding(
@@ -62,34 +61,27 @@ class ResetPasswordScreen extends StatelessWidget {
                             children: [
                               Text(
                                 "Reset Password",
-                                style: TextStyle(
-                                  fontFamily: AppFontFamilies.georgia,
-                                  color: AppColors.primaryColor,
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                style: textTheme.headlineMedium,
                               ),
                               SizedBox(height: 10.h),
                               Text(
                                 "Please enter your new password \n below.",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: const Color(0xFF5A5A5A),
-                                  fontSize: 16.sp,
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: colors.textSecondary,
                                 ),
                               ),
                               SizedBox(height: 32.h),
-                              const CustomTextField(
+                              const CustomPassTextField(
                                 fieldName: "NEW PASSWORD",
                                 hintName: "••••••••",
                                 isPassword: true,
                               ),
-                              const CustomTextField(
+                              const CustomPassTextField(
                                 fieldName: "CONFIRM NEW PASSWORD",
                                 hintName: "••••••••",
                                 isPassword: true,
                               ),
-
                               SizedBox(height: 26.h),
                               CustomPrimaryButton(
                                 onPressed: () {},
@@ -106,14 +98,13 @@ class ResetPasswordScreen extends StatelessWidget {
                         onPressed: () => Navigator.pop(context),
                         icon: Icon(
                           Icons.arrow_back,
-                          color: const Color(0xff775A1E),
+                          color: colors.gold,
                           size: 18.sp,
                         ),
                         label: Text(
                           "Back to Login",
-                          style: TextStyle(
-                            color: const Color(0xff775A1E),
-                            fontSize: 16.sp,
+                          style: textTheme.bodySmall?.copyWith(
+                            color: colors.gold,
                           ),
                         ),
                       ),

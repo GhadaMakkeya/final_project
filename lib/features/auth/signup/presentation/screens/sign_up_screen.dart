@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/utils/validators.dart';
@@ -39,8 +38,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
@@ -50,12 +50,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   Text(
-                    AppStrings.appName,
-                    style: TextStyle(
-                      fontFamily: AppFontFamilies.georgia,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w800,
-                    ),
+                  AppStrings.appName,
+                  style: textTheme.headlineLarge?.copyWith(
+                    color: colors.primary, 
+                    letterSpacing: 6.0,
+                  ),
                   ),
                   SizedBox(height: 30.h),
 
@@ -68,22 +67,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Create an Account",
-                          style: TextStyle(
-                            fontFamily: AppFontFamilies.georgia,
-                            fontSize: 30.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
+                       Text(
+                        "Create an Account",
+                        style: textTheme.headlineMedium,
+                      ),
                         ),
                         SizedBox(height: 6.h),
-                        Text(
-                          "Join Veloura for an exclusive experience.",
-                          style: TextStyle(
-                            fontFamily: AppFontFamilies.georgia,
-                            fontSize: 13.sp,
-                            color: Colors.grey,
-                          ),
+                          Text(
+                        'Join Veloura for an exclusive experience.',
+                        style: textTheme.bodySmall,
+                      ),
                         ),
                         SizedBox(height: 30.h),
 
@@ -171,15 +164,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         SizedBox(height: 30.h),
 
-                        Center(
-                          child: Text(
-                            "OR REGISTER WITH",
-                            style: TextStyle(
-                              fontFamily: AppFontFamilies.georgia,
-                              fontSize: 11.sp,
-                              color: Colors.grey,
-                            ),
-                          ),
+                    Center(
+                        child: Text(
+                          'OR REGISTER WITH',
+                          style: textTheme.titleSmall,
+                        ),                 
                         ),
                         SizedBox(height: 20.h),
 
@@ -209,10 +198,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           children: [
                             Text(
                               "Already have an account?",
-                              style: TextStyle(
-                                fontFamily: AppFontFamilies.georgia,
-                                fontSize: 11.sp,
-                                color: Colors.grey,
+                                    Text(
+                            "Already have an account?",
+                              style: textTheme.bodySmall,
+                          ),
                               ),
                             ),
                             TextButton(
@@ -226,10 +215,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               },
                               child: Text(
                                 " Log in",
-                                style: TextStyle(
-                                  fontFamily: AppFontFamilies.georgia,
-                                  fontSize: 11.sp,
-                                  color: const Color(0xffD9B36E),
+                                " Log in",
+                              style: textTheme.bodySmall?.copyWith(
+                                color: colors.gold,
+                                fontWeight: FontWeight.w600,
+                                )
                                 ),
                               ),
                             ),

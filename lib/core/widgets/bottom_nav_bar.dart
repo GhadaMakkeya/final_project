@@ -24,17 +24,11 @@ class MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor = Color(0xFF1B2A4A);
     return Scaffold(
       body: IndexedStack(index: _currentIndex, children: _screens),
       bottomNavigationBar: BottomNavBar(
         currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        primaryColor: primaryColor,
+        onTap: (index) => setState(() => _currentIndex = index),
       ),
     );
   }
@@ -43,20 +37,20 @@ class MainNavigationState extends State<MainNavigation> {
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
-  final Color primaryColor;
 
   const BottomNavBar({
     super.key,
     required this.currentIndex,
     required this.onTap,
-    required this.primaryColor,
   });
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.cardColor,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -70,17 +64,17 @@ class BottomNavBar extends StatelessWidget {
         ),
       ),
       child: ClipRRect(
-        borderRadius:  BorderRadius.only(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30.r),
           topRight: Radius.circular(30.r),
         ),
         child: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: onTap,
-          backgroundColor: AppColors.backgroundColor,
+          backgroundColor: colors.cardColor,
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: primaryColor,
-          unselectedItemColor: Color.fromARGB(255, 135, 130, 125),
+          selectedItemColor: colors.primary,
+          unselectedItemColor: colors.textTertiary,
           selectedFontSize: 12.sp,
           unselectedFontSize: 12.sp,
           elevation: 0,

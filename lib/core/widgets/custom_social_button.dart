@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class CustomSocialButton extends StatelessWidget {
   final String text;
@@ -16,14 +17,16 @@ class CustomSocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return SizedBox(
       width: 140.w,
       height: 48.h,
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
-          backgroundColor: Colors.white,
-          side: BorderSide(color: Colors.grey.shade300),
+          backgroundColor: colors.cardColor, // ← was Colors.white
+          side: BorderSide(color: colors.border),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.r),
           ),
@@ -36,10 +39,7 @@ class CustomSocialButton extends StatelessWidget {
             SizedBox(width: 4.w),
             Text(
               text,
-              style: TextStyle(
-                fontFamily: AppFontFamilies.georgia,
-                fontSize: 12.sp,
-                color: Colors.black87,
+              style: textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w500,
               ),
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/core/theme/app_text_styles.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
@@ -29,10 +28,13 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppTextStyles.labelUppercase),
+        Text(label, style: textTheme.titleSmall),
+       
         SizedBox(height: 8.h),
         TextFormField(
           controller: controller,
@@ -41,16 +43,18 @@ class CustomTextField extends StatelessWidget {
 
           validator: validator,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-
-          style: TextStyle(fontSize: 15.sp, color: AppColors.textPrimary),
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: TextStyle(color: AppColors.textMuted, fontSize: 15.sp),
-            prefixIcon: Icon(
-              prefixIcon,
-              color: AppColors.textSecondary,
-              size: 20.sp,
-            ),
+          style: TextStyle(fontSize: 15.sp, color: Colors.black87),
+          
+            decoration: InputDecoration(
+              hintText: hintText,
+              hintStyle: textTheme.bodyMedium?.copyWith(
+                color: colors.textTertiary,
+              ),
+              prefixIcon: Icon(
+                prefixIcon,
+                color: colors.textSecondary,
+                size: 20.sp,
+                 )
             suffixIcon: suffix != null
                 ? InkWell(
                     onTap: onSuffixTap,
@@ -62,22 +66,12 @@ class CustomTextField extends StatelessWidget {
                   )
                 : null,
             filled: true,
-            fillColor: AppColors.formFieldFill,
+            fillColor:  colors.cardColor, 
             contentPadding: EdgeInsets.symmetric(
               horizontal: 16.w,
               vertical: 16.h,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.r),
-              borderSide: BorderSide(color: AppColors.divider, width: 1.w),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.r),
-              borderSide: BorderSide(
-                color: AppColors.primaryColor,
-                width: 1.5.w,
-              ),
-            ),
+           
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.r),
               borderSide: BorderSide(color: AppColors.dangerColor, width: 1.w),
@@ -88,9 +82,31 @@ class CustomTextField extends StatelessWidget {
                 color: AppColors.dangerColor,
                 width: 1.5.w,
               ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: BorderSide(color: colors.border, width: 1.w),
+              ),
+              // ── Focused ────────────────────────────────────────────────────
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: BorderSide(color: colors.primary, width: 1.5.w),
+              ),
+              // ── Error ──────────────────────────────────────────────────────
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: const BorderSide(color: Colors.redAccent, width: 1),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: const BorderSide(
+                  color: Colors.redAccent,
+                  width: 1.5,
+                ),
+              ),
             ),
           ),
         ),
+        SizedBox(height: 8,)
       ],
     );
   }
