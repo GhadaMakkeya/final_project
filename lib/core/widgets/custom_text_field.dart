@@ -54,13 +54,13 @@ class CustomTextField extends StatelessWidget {
                 prefixIcon,
                 color: colors.textSecondary,
                 size: 20.sp,
-                 )
+                 ),
             suffixIcon: suffix != null
                 ? InkWell(
                     onTap: onSuffixTap,
                     child: Icon(
                       suffix,
-                      color: AppColors.textSecondary,
+                      color: colors.textSecondary,
                       size: 20.sp,
                     ),
                   )
@@ -74,14 +74,15 @@ class CustomTextField extends StatelessWidget {
            
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.r),
-              borderSide: BorderSide(color: AppColors.dangerColor, width: 1.w),
+              borderSide: BorderSide(color: BaseColors.alert, width: 1.w),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.r),
               borderSide: BorderSide(
-                color: AppColors.dangerColor,
+                color: BaseColors.alert,
                 width: 1.5.w,
               ),
+            ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16.r),
                 borderSide: BorderSide(color: colors.border, width: 1.w),
@@ -90,22 +91,9 @@ class CustomTextField extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16.r),
                 borderSide: BorderSide(color: colors.primary, width: 1.5.w),
-              ),
-              // ── Error ──────────────────────────────────────────────────────
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16.r),
-                borderSide: const BorderSide(color: Colors.redAccent, width: 1),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16.r),
-                borderSide: const BorderSide(
-                  color: Colors.redAccent,
-                  width: 1.5,
-                ),
-              ),
+              ),       
             ),
           ),
-        ),
         SizedBox(height: 8,)
       ],
     );

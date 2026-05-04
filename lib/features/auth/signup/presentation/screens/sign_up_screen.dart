@@ -50,33 +50,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   Text(
-                  AppStrings.appName,
-                  style: textTheme.headlineLarge?.copyWith(
-                    color: colors.primary, 
-                    letterSpacing: 6.0,
-                  ),
+                    AppStrings.appName,
+                    style: textTheme.headlineLarge?.copyWith(
+                      color: colors.primary,
+                      letterSpacing: 6.0,
+                    ),
                   ),
                   SizedBox(height: 30.h),
 
                   Container(
                     padding: EdgeInsets.all(20.w),
                     decoration: BoxDecoration(
-                      color: AppColors.authCardColor,
+                      color: colors.authCardColor,
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                       Text(
-                        "Create an Account",
-                        style: textTheme.headlineMedium,
-                      ),
+                        Text(
+                          "Create an Account",
+                          style: textTheme.headlineMedium,
                         ),
                         SizedBox(height: 6.h),
-                          Text(
-                        'Join Veloura for an exclusive experience.',
-                        style: textTheme.bodySmall,
-                      ),
+                        Text(
+                          'Join Veloura for an exclusive experience.',
+                          style: textTheme.bodySmall,
                         ),
                         SizedBox(height: 30.h),
 
@@ -85,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hintText: "Jane Doe",
                           prefixIcon: Icons.person,
                           controller: fullNameController,
-                          
+
                           validator: (value) {
                             return Validator.validateUserName(value ?? '');
                           },
@@ -164,11 +162,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         SizedBox(height: 30.h),
 
-                    Center(
-                        child: Text(
-                          'OR REGISTER WITH',
-                          style: textTheme.titleSmall,
-                        ),                 
+                        Center(
+                          child: Text(
+                            'OR REGISTER WITH',
+                            style: textTheme.titleSmall,
+                          ),
                         ),
                         SizedBox(height: 20.h),
 
@@ -198,12 +196,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           children: [
                             Text(
                               "Already have an account?",
-                                    Text(
-                            "Already have an account?",
                               style: textTheme.bodySmall,
-                          ),
-                              ),
                             ),
+
                             TextButton(
                               onPressed: () {
                                 Navigator.push(
@@ -215,11 +210,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               },
                               child: Text(
                                 " Log in",
-                                " Log in",
-                              style: textTheme.bodySmall?.copyWith(
-                                color: colors.gold,
-                                fontWeight: FontWeight.w600,
-                                )
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: colors.gold,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
