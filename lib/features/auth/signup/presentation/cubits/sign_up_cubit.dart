@@ -4,9 +4,9 @@ import 'package:veloura/features/auth/signup/data/models/sign_up_requist_model.d
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_states.dart';
 
 class SignUpCubit extends Cubit<SignUpStates> {
-  SignUpCubit() : super(SignUpInitialState());
+  final SignUpRemoteDataSource signUpRemoteDataSource;
 
-  SignUpRemoteDataSource signUpRemoteDataSource = SignUpRemoteDataSource();
+  SignUpCubit(this.signUpRemoteDataSource) : super(SignUpInitialState());
 
   Future<void> signUp({
     required String firstName,

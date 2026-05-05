@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
@@ -8,6 +9,8 @@ import 'package:veloura/core/widgets/custom_social_button.dart';
 import 'package:veloura/core/widgets/custom_text_field.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:veloura/features/auth/otp/presentation/screens/otp_screen.dart';
+import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_cubit.dart';
+import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_states.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -17,7 +20,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final fullNameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -29,11 +33,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
-    fullNameController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  void _onSubmit() {
+    if (myKey.currentState!.validate()) {
+      context.read<SignUpCubit>().signUp(
+        firstName: firstNameController.text.trim(),
+        lastName: lastNameController.text.trim(),
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    }
   }
 
   @override
@@ -79,10 +95,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         SizedBox(height: 30.h),
 
                         CustomTextField(
-                          label: "FULL NAME",
+                          label: "FIRST NAME",
                           hintText: "Jane Doe",
                           prefixIcon: Icons.person,
-                          controller: fullNameController,
+                          controller: firstNameController,
 
                           validator: (value) {
                             return Validator.validateUserName(value ?? '');
@@ -90,6 +106,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         SizedBox(height: 14.h),
 
+                        CustomTextField(
+                          label: "LAST NAME",
+                          hintText: "Jane Doe",
+                          prefixIcon: Icons.person,
+                          controller: lastNameController,
+
+                          validator: (value) {
+                            return Validator.validateUserName(value ?? '');
+                          },
+                        ),
+                        SizedBox(height: 14.h),
                         CustomTextField(
                           label: "EMAIL ADDRESS",
                           hintText: "jane@example.com",
@@ -149,14 +176,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         SizedBox(height: 20.h),
 
-                        CustomPrimaryButton(
-                          label: "CREATE ACCOUNT",
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const OtpScreen(),
-                              ),
+                        BlocConsumer<SignUpCubit, SignUpStates>(
+                          listener: (context, state) {
+                            if (state is SignUpSuccessState) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => OtpScreen(
+                                    email: emailController.text.trim(),
+                                  ),
+                                ),
+                              );
+                            } else if (state is SignUpFailureState) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(state.errorMessage),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          },
+                          builder: (context, state) {
+                            return CustomPrimaryButton(
+                              label: state is SignUpLoadingState
+                                  ? "LOADING..."
+                                  : "CREATE ACCOUNT",
+                              onPressed: state is SignUpLoadingState
+                                  ? null
+                                  : _onSubmit,
                             );
                           },
                         ),

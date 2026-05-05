@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
