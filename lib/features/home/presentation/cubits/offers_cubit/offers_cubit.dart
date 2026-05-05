@@ -14,13 +14,7 @@ class OffersCubit extends Cubit<OffersStates> {
         emit(OffersSuccessState(offers: offersVal));
       },
       onError: (error) {
-        emit(
-          OffersErrorState(
-            errorMessage: error.toString().isNotEmpty
-                ? error.toString()
-                : "Something went wrong",
-          ),
-        );
+        emit(OffersErrorState(errorMessage: error.toString()));
       },
     );
   }

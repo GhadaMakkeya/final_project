@@ -7,6 +7,7 @@ import 'package:veloura/features/auth/otp/presentation/screens/otp_screen.dart';
 import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen.dart';
 import 'package:veloura/features/auth/forget_password/presentation/screens/forget_password.dart';
 import 'package:veloura/features/auth/reset_password/presentation/screens/reset_password_screen.dart';
+import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
 import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/features/contact_us/presentation/screens/contact_us_screen.dart';
