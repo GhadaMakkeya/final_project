@@ -7,10 +7,14 @@ class CustomPassTextField extends StatefulWidget {
     required this.fieldName,
     required this.hintName,
     this.isPassword = false,
+    this.controller,
+    this.validator,
   });
   final String fieldName;
   final String hintName;
   final bool isPassword;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
   @override
   State<CustomPassTextField> createState() => _CustomPassTextFieldState();
 }
@@ -27,9 +31,12 @@ class _CustomPassTextFieldState extends State<CustomPassTextField> {
         Text(widget.fieldName, style: textTheme.titleSmall),
         SizedBox(height: 10),
         TextFormField(
+          validator: widget.validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: widget.controller,
           obscureText: widget.isPassword ? obscure : false,
           cursorColor: colors.primary,
-          style: textTheme.bodyMedium,
+          style: textTheme.bodyMedium?.copyWith(color: colors.primary),
           decoration: InputDecoration(
             fillColor: colors.secondary,
             suffixIconColor: colors.textTertiary,

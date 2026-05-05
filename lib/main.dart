@@ -10,6 +10,10 @@ import 'package:veloura/features/auth/otp/presentation/cubits/cubit/otp_cubit.da
 import 'package:veloura/features/auth/signup/data/data_source/sign_up_remote_data_source.dart';
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_cubit.dart';
 import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen.dart';
+import 'package:veloura/features/auth/forget_password/presentation/screens/forget_password.dart';
+import 'package:veloura/features/auth/reset_password/presentation/screens/reset_password_screen.dart';
+import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
+import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
@@ -79,8 +83,7 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
-          home: ManagementScreen(),
-          home: const SignUpScreen(),
+          home: ForgetPassword(),
         );
       },
     );

@@ -26,6 +26,12 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   @override
+  State<OtpScreen> createState() => _OtpScreenState();
+}
+
+class _OtpScreenState extends State<OtpScreen> {
+  final otpController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
@@ -93,19 +99,42 @@ class _OtpScreenState extends State<OtpScreen> {
                       color: colors.primary,
                       letterSpacing: 6.0,
                     ),
-                  ),
-                  SizedBox(height: 40.h),
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(30.w),
-                    decoration: BoxDecoration(
-                      color: colors.authCardColor,
-                      borderRadius: BorderRadius.circular(20.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 20.r,
-                          offset: const Offset(0, 10),
+),
+SizedBox(height: 40.h),
+
+Container(
+  width: double.infinity,
+  padding: EdgeInsets.all(30.w),
+  decoration: BoxDecoration(
+    color: colors.authCardColor,
+    borderRadius: BorderRadius.circular(20.r),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.05),
+        blurRadius: 20.r,
+        offset: const Offset(0, 10),
+      ),
+    ],
+  ),
+  child: Column(
+    children: [
+      SizedBox(height: 10.h),
+
+      Pinput(
+        length: 4,
+        controller: otpController,
+        defaultPinTheme: defaultPinTheme,
+        focusedPinTheme: defaultPinTheme.copyWith(
+          decoration: defaultPinTheme.decoration!.copyWith(
+            border: Border.all(color: colors.primary, width: 2.w),
+          ),
+        ),
+      ),
+
+      SizedBox(height: 30.h),
+    ],
+  ),
+), main
                         ),
                       ],
                     ),

@@ -19,10 +19,12 @@ class RemoteDataSource {
       for (var element in data) {
         products.add(ProductDataModel.fromJson(element));
       }
-
       return products;
-    } catch (e) {
-      throw Exception("Error");
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data;
+      throw Exception("$errorMessage Error loading products");
+    } on Exception catch (e) {
+      throw Exception('Error: $e');
     }
   }
 
@@ -31,17 +33,18 @@ class RemoteDataSource {
       final response = await dio.get(
         'https://accessories-eshop.runasp.net/api/offers',
       );
-
       List<OffersData> offers = [];
-
       final data = response.data['offers']['items'];
 
       for (var item in data) {
         offers.add(OffersData.fromJson(item));
       }
       return offers;
-    } catch (e) {
-      throw Exception("Error loading offers");
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data;
+      throw Exception("$errorMessage Error loading offers");
+    } on Exception catch (e) {
+      throw Exception('Error: $e');
     }
   }
 }
