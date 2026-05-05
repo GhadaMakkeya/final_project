@@ -7,6 +7,7 @@ class BasicInformationSection extends StatelessWidget {
   final TextEditingController productNameController;
   final TextEditingController priceController;
   final TextEditingController descriptionController;
+  final TextEditingController coverPictureUrlController; // ✅
   final String? selectedCategory;
   final ValueChanged<String?> onCategoryChanged;
 
@@ -15,6 +16,7 @@ class BasicInformationSection extends StatelessWidget {
     required this.productNameController,
     required this.priceController,
     required this.descriptionController,
+    required this.coverPictureUrlController, // ✅
     required this.selectedCategory,
     required this.onCategoryChanged,
   });
@@ -28,6 +30,7 @@ class BasicInformationSection extends StatelessWidget {
       children: [
         Text('Basic Information', style: textTheme.headlineSmall),
         SizedBox(height: 20.h),
+
         Text("PRODUCT NAME", style: textTheme.titleSmall),
         SizedBox(height: 8.h),
         ProductFormField(
@@ -38,16 +41,32 @@ class BasicInformationSection extends StatelessWidget {
               : null,
         ),
         SizedBox(height: 20.h),
+
+        // ✅ Cover Picture URL
+        Text("COVER PICTURE URL", style: textTheme.titleSmall),
+        SizedBox(height: 8.h),
+        ProductFormField(
+          controller: coverPictureUrlController,
+          hintText: 'https://example.com/image.jpg',
+          prefixIcon: const Icon(Icons.image_outlined, size: 18),
+          keyboardType: TextInputType.url,
+          validator: (v) => (v == null || v.trim().isEmpty)
+              ? 'Cover picture URL is required'
+              : null,
+        ),
+        SizedBox(height: 20.h),
+
         Text("CATEGORY", style: textTheme.titleSmall),
         SizedBox(height: 8.h),
         CategoryDropdown(value: selectedCategory, onChanged: onCategoryChanged),
         SizedBox(height: 20.h),
+
         Text("PRICE (USD)", style: textTheme.titleSmall),
         SizedBox(height: 8.h),
         ProductFormField(
           controller: priceController,
           hintText: '0.00',
-          prefixIcon: Icon(Icons.attach_money, size: 18),
+          prefixIcon: const Icon(Icons.attach_money, size: 18),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           validator: (v) {
             if (v == null || v.trim().isEmpty) return 'Price is required';
@@ -55,9 +74,10 @@ class BasicInformationSection extends StatelessWidget {
             return null;
           },
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 20.h),
+
         Text("DESCRIPTION", style: textTheme.titleSmall),
-        const SizedBox(height: 8),
+        SizedBox(height: 8.h),
         ProductFormField(
           controller: descriptionController,
           hintText:

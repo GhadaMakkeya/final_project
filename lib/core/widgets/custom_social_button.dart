@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 
 class CustomSocialButton extends StatelessWidget {

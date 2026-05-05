@@ -15,5 +15,7 @@ class CategoryModel{
     this.isNew = false,
   });
 
+  static Object? fromJson(e) {}
+
 
 }

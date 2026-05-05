@@ -4,30 +4,22 @@ import 'package:veloura/core/widgets/custom_primary_button.dart';
 
 class BottomActionButtons extends StatelessWidget {
   final VoidCallback onPublish;
-  final VoidCallback onSaveDraft;
 
   const BottomActionButtons({
     super.key,
     required this.onPublish,
-    required this.onSaveDraft,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 35),
+      padding: EdgeInsets.only(bottom: 35.h),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           CustomPrimaryButton(
-            onPressed: () {},
+            onPressed: onPublish,
             label: "Publish Product",
-            letterSpacing: 1,
-          ),
-          SizedBox(height: 30.h),
-          CustomPrimaryButton(
-            onPressed: () {},
-            label: "Save Draft",
             letterSpacing: 1,
           ),
         ],

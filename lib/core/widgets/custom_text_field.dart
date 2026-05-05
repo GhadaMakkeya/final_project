@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final IconData? suffix;
   final VoidCallback? onSuffixTap;
+  final String? Function(String?)? validator;
 
   const CustomTextField({
     super.key,
@@ -20,8 +21,9 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.controller,
-    this.onSuffixTap,
     this.suffix,
+    this.onSuffixTap,
+    this.validator,
   });
 
   @override
@@ -32,18 +34,17 @@ class CustomTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: textTheme.titleSmall),
+       
         SizedBox(height: 8.h),
-        Container(
-          decoration: BoxDecoration(
-            color: colors.cardColor, // ← was Colors.white
-            borderRadius: BorderRadius.circular(16.r),
-            border: Border.all(color: colors.border, width: 1.w),
-          ),
-          child: TextFormField(
-            controller: controller,
-            obscureText: obscureText,
-            keyboardType: keyboardType,
-            style: TextStyle(fontSize: 15.sp, color: Colors.black87),
+        TextFormField(
+          controller: controller,
+          obscureText: obscureText,
+          keyboardType: keyboardType,
+
+          validator: validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          style: TextStyle(fontSize: 15.sp, color: Colors.black87),
+          
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: textTheme.bodyMedium?.copyWith(
@@ -53,12 +54,35 @@ class CustomTextField extends StatelessWidget {
                 prefixIcon,
                 color: colors.textSecondary,
                 size: 20.sp,
+                 ),
+            suffixIcon: suffix != null
+                ? InkWell(
+                    onTap: onSuffixTap,
+                    child: Icon(
+                      suffix,
+                      color: colors.textSecondary,
+                      size: 20.sp,
+                    ),
+                  )
+                : null,
+            filled: true,
+            fillColor:  colors.cardColor, 
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 16.h,
+            ),
+           
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.r),
+              borderSide: BorderSide(color: BaseColors.alert, width: 1.w),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.r),
+              borderSide: BorderSide(
+                color: BaseColors.alert,
+                width: 1.5.w,
               ),
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 16.w,
-                vertical: 16.h,
-              ),
+            ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16.r),
                 borderSide: BorderSide(color: colors.border, width: 1.w),
@@ -67,22 +91,9 @@ class CustomTextField extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16.r),
                 borderSide: BorderSide(color: colors.primary, width: 1.5.w),
-              ),
-              // ── Error ──────────────────────────────────────────────────────
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16.r),
-                borderSide: const BorderSide(color: Colors.redAccent, width: 1),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16.r),
-                borderSide: const BorderSide(
-                  color: Colors.redAccent,
-                  width: 1.5,
-                ),
-              ),
+              ),       
             ),
           ),
-        ),
         SizedBox(height: 8,)
       ],
     );
