@@ -3,12 +3,14 @@ class CategoryModel {
   final String name;
   final String description;
   final String coverPictureUrl;
+  bool isSelected;
 
   CategoryModel({
     required this.id,
     required this.name,
     required this.description,
     required this.coverPictureUrl,
+    this.isSelected = false,
   });
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) {

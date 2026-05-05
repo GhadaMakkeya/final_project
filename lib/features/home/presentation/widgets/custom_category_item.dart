@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/features/home/data/models/category_data.dart';
+import 'package:veloura/features/managment/data/models/category_model.dart';
 
 class CustomCategoryItem extends StatelessWidget {
   const CustomCategoryItem({
     super.key,
-    required this.categoryData,
     required this.onTap,
+    required this.categoryModel,
   });
-  final CategoryData categoryData;
+  final CategoryModel categoryModel;
   final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class CustomCategoryItem extends StatelessWidget {
         margin: EdgeInsets.only(right: 10.w),
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: categoryData.isSelected
+          color: categoryModel.isSelected
               ? colors.chipSelectedColor
               : Colors.transparent,
           border: Border.all(color: colors.border),
@@ -30,8 +30,8 @@ class CustomCategoryItem extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            categoryData.categoryName,
-            style: categoryData.isSelected
+            categoryModel.name,
+            style: categoryModel.isSelected
                 ? textTheme.labelMedium?.copyWith(
                     color: colors.chipSelectedText,
                   )

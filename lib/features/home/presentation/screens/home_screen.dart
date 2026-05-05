@@ -9,12 +9,12 @@ import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cu
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_states.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_states.dart';
-import 'package:veloura/features/home/data/models/category_data.dart';
 import 'package:veloura/features/home/data/models/offers_data.dart';
 import 'package:veloura/features/home/data/models/product_data_model.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_category_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_offer_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_product_card.dart';
+import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -29,24 +29,18 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     BlocProvider.of<ProductsCubit>(context).getProducts();
     BlocProvider.of<OffersCubit>(context).getOffers();
+    BlocProvider.of<CategoryCubit>(context).getAllCategories();
   }
 
   int currentPage = 0;
-  List<CategoryData> categories = [
-    CategoryData(categoryName: "All", isSelected: true),
-    CategoryData(categoryName: "jewelry"),
-    CategoryData(categoryName: "Perfumes"),
-    CategoryData(categoryName: "Bags"),
-    CategoryData(categoryName: "Shoes"),
-  ];
-  void selectCategory(int index) {
-    for (var element in categories) {
-      element.isSelected = false;
-    }
-    categories[index].isSelected = true;
+  // void selectCategory(int index) {
+  //   for (var element in categories) {
+  //     element.isSelected = false;
+  //   }
+  //   categories[index].isSelected = true;
 
-    setState(() {});
-  }
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -147,24 +141,34 @@ class _HomeScreenState extends State<HomeScreen> {
               //----------category---------
               SizedBox(
                 height: 40,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return CustomCategoryItem(
-                      categoryData: categories[index],
-                      onTap: () {
-                        selectCategory(index);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return CategoryScreen();
+                child: BlocBuilder<CategoryCubit, CategoryState>(
+                  builder: (context, state) {
+                    if (state is CategoryLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is CategorySuccess) {
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.categories.length,
+                        itemBuilder: (context, index) {
+                          return CustomCategoryItem(
+                            categoryModel: state.categories[index],
+                            onTap: () {
+                              //selectCategory(index);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return CategoryScreen();
+                                  },
+                                ),
+                              );
                             },
-                          ),
-                        );
-                      },
-                    );
+                          );
+                        },
+                      );
+                    } else {
+                      return SizedBox();
+                    }
                   },
                 ),
               ),

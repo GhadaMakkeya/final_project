@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:veloura/features/managment/data/models/category_model.dart';
 import 'package:veloura/features/managment/data/data_sources/add_product_remote_data_source.dart';
@@ -13,7 +15,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     emit(CategoryLoading());
     try {
       final categories = await productRemoteDataSource.getAllCategories();
-
+      log("Categories loaded: ${categories.length}");
       if (categories.isNotEmpty) {
         emit(CategorySuccess(categories));
       } else {
