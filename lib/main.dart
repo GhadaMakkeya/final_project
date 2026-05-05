@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
-          home: OnboardingScreen(),
+          home: ForgetPassword(),
         );
       },
     );

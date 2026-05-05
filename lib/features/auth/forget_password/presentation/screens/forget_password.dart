@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/features/auth/otp/presentation/screens/otp_screen.dart';
 import '../../../../../core/constants/app_font_families.dart';
 import '../../../../../core/widgets/auth_layout.dart';
 import '../../../../../core/widgets/custom_primary_button.dart';
 import '../../../../../core/widgets/custom_text_field.dart';
 
-class ForgetPassword extends StatelessWidget {
+class ForgetPassword extends StatefulWidget {
   ForgetPassword({super.key});
 
+  @override
+  State<ForgetPassword> createState() => _ForgetPasswordState();
+}
+
+class _ForgetPasswordState extends State<ForgetPassword> {
+  final TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -39,13 +46,14 @@ class ForgetPassword extends StatelessWidget {
           Text(
             'Enter your email to receive a\npassword reset link.',
             textAlign: TextAlign.center,
-             style: textTheme.bodyLarge?.copyWith(
+            style: textTheme.bodyLarge?.copyWith(
               color: colors.textSecondary,
               height: 1.4,
             ),
           ),
           SizedBox(height: 32.h),
           CustomTextField(
+            controller: emailController,
             label: 'Email Address',
             hintText: 'name@example.com',
             prefixIcon: Icons.mail_outline,
@@ -57,7 +65,14 @@ class ForgetPassword extends StatelessWidget {
             trailingIcon: Icons.arrow_forward,
             borderRadius: 16.r,
             letterSpacing: 0.5.w,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => OtpScreen(email: emailController.text),
+                ),
+              );
+            },
           ),
         ],
       ),

@@ -4,10 +4,18 @@ import 'package:pinput/pinput.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
+import 'package:veloura/features/auth/reset_password/presentation/screens/reset_password_screen.dart';
 
-class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key});
+class OtpScreen extends StatefulWidget {
+  const OtpScreen({super.key, required this.email});
+  final String email;
 
+  @override
+  State<OtpScreen> createState() => _OtpScreenState();
+}
+
+class _OtpScreenState extends State<OtpScreen> {
+  final otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -95,6 +103,7 @@ class OtpScreen extends StatelessWidget {
 
                     Pinput(
                       length: 4,
+                      controller: otpController,
                       defaultPinTheme: defaultPinTheme,
                       focusedPinTheme: defaultPinTheme.copyWith(
                         decoration: defaultPinTheme.decoration!.copyWith(
@@ -105,7 +114,20 @@ class OtpScreen extends StatelessWidget {
 
                     SizedBox(height: 40.h),
 
-                    CustomPrimaryButton(label: 'Verify', onPressed: () {}),
+                    CustomPrimaryButton(
+                      label: 'Verify',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ResetPasswordScreen(
+                              email: widget.email,
+                              otp: otpController.text,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
 
                     SizedBox(height: 25.h),
                     Row(
