@@ -57,7 +57,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             label: 'Email Address',
             hintText: 'name@example.com',
             prefixIcon: Icons.mail_outline,
-            // keyboardType: TextInputType.emailAddress,
+             keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(height: 32.h),
           CustomPrimaryButton(

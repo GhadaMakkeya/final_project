@@ -4,7 +4,7 @@ import 'package:veloura/core/theme/app_colors.dart';
 
 class CustomPrimaryButton extends StatelessWidget {
   final String label;
-  final VoidCallback onPressed;
+  final void Function()? onPressed;
   final double? width;
   final Color? color;
   final Color? buttonTextColor;
