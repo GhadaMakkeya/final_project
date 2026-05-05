@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ThemeSwitch extends StatefulWidget {
   const ThemeSwitch({super.key});
@@ -13,45 +14,35 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.grey.shade200,
-          width: 1,
-        ),
+        color: colors.cardColor,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: colors.border, width: 1.w),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Icon(Icons.wb_sunny_outlined, size: 18, color: AppColors.primary),
-              const SizedBox(width: 8),
-              const Text(
-                "Theme",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87,
-                ),
-              ),
+              Icon(Icons.wb_sunny_outlined, size: 18.sp, color: colors.textSecondary),
+              SizedBox(width: 8.w),
+              Text("Theme", style: textTheme.bodyLarge),
             ],
           ),
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: Colors.grey.shade100,
-              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(25.r),
+              color: colors.cardColor,
+              border: Border.all(color: colors.border),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                _item("Light"),
-                _item("Mark"),
-              ],
+              children: [_item("Light"), _item("Dark")],
             ),
           ),
         ],
@@ -60,28 +51,24 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
   }
 
   Widget _item(String text) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     final isSelected = selected == text;
 
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          selected = text;
-        });
-      },
+      onTap: () => setState(() => selected = text),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : Colors.transparent,
-          borderRadius: BorderRadius.circular(25),
+          color: isSelected ? colors.primary : BaseColors.transparent,
+          borderRadius: BorderRadius.circular(25.r),
         ),
         child: Text(
           text,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: isSelected ? Colors.white : Colors.black54,
-          ),
+          style: isSelected
+              ? textTheme.labelLarge?.copyWith(color: colors.chipSelectedText)
+              : textTheme.bodySmall?.copyWith(color: colors.chipUnSelectedText),
         ),
       ),
     );

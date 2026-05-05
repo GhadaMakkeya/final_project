@@ -1,74 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/constants/app_strings.dart';
 import '../theme/app_colors.dart';
-import '../constants/app_font_families.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AuthLayout extends StatelessWidget {
   final Widget child;
   final Widget? bottomLink;
 
-  const AuthLayout({
-    super.key,
-    required this.child,
-    this.bottomLink,
-  });
+  const AuthLayout({super.key, required this.child, this.bottomLink});
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: const Color(0xFFFDFCFB), // Very light background
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 40.0,
+              ),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight - 80, // Adjust for padding
+                  minHeight: constraints.maxHeight - 80,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Logo
-                    const Text(
-                      'Veloura',
-                      style: TextStyle(
-                        fontFamily: AppFontFamilies.georgia,
-                        fontSize: 48,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
-                        letterSpacing: -1,
+                    Text(
+                      AppStrings.appName,
+                      style: textTheme.headlineLarge?.copyWith(
+                        color: colors.primary,
+                        letterSpacing: 6.0,
                       ),
                     ),
-                    const SizedBox(height: 40),
-                    
+                    SizedBox(height: 40.h),
+
                     // Main Card
                     Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 48.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 32.0.w,
+                        vertical: 48.0.h,
+                      ),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: colors.authCardColor,
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.03),
-                            blurRadius: 20,
+                            blurRadius: 20.r,
                             offset: const Offset(0, 10),
                           ),
                         ],
-                        border: Border.all(
-                          color: Colors.grey.shade100,
-                          width: 1,
-                        )
+                        border: Border.all(color: colors.border, width: 1.w),
                       ),
                       child: child,
                     ),
-                    
+
                     // Optional bottom link
                     if (bottomLink != null) ...[
-                      const SizedBox(height: 40),
+                      SizedBox(height: 40.h),
                       bottomLink!,
-                    ]
+                    ],
                   ],
                 ),
               ),

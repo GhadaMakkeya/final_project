@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileTile extends StatelessWidget {
   final String title;
@@ -15,30 +17,22 @@ class ProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.grey.shade200,
-          width: 1,
-        ),
+        color: colors.cardColor,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: colors.border, width: 1.w),
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color: Colors.black87,
-          ),
-        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+        title: Text(title, style: textTheme.bodyLarge),
         trailing: showArrow
             ? Icon(
                 Icons.arrow_forward_ios,
-                size: 14,
-                color: AppColors.grey,
+                size: 14.sp,
+                color: colors.textSecondary,
               )
             : null,
         onTap: onTap,

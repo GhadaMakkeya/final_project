@@ -1,12 +1,11 @@
-import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/features/home/presentation/screens/bottom_nav_bar.dart';
-import 'package:veloura/features/home/presentation/screens/home_screen.dart';
+import 'package:veloura/core/widgets/bottom_nav_bar.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page_content.dart';
-import 'package:veloura/features/onboarding/presentation/widgets/onboarding_appbar.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -64,9 +63,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
+        final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
-      appBar: OnboardingAppBar(onSkip: _handleGetStarted),
-      backgroundColor: Color(0xFFF5EDE4),
+      appBar: CustomAppBar(
+        actions: [
+          TextButton(
+            onPressed: () {},
+              child: Text("SKIP", style: textTheme.labelMedium),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -99,7 +106,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               },
               onGetStarted: _handleGetStarted,
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h),
           ],
         ),
       ),
@@ -117,15 +124,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       context,
       MaterialPageRoute(
         builder: (context) {
-          return BottomNavBar();
+          return MainNavigation();
         },
-      ),
-    );
-    // TODO: navigation
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Welcome to VELOURA!'),
-        backgroundColor: Color(0xFF1A2233),
       ),
     );
   }

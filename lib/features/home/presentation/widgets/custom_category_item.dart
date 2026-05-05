@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/features/home/data/category_data.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/features/home/data/models/category_data.dart';
 
 class CustomCategoryItem extends StatelessWidget {
   const CustomCategoryItem({
@@ -11,24 +13,31 @@ class CustomCategoryItem extends StatelessWidget {
   final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
-        margin: EdgeInsets.only(right: 10),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: EdgeInsets.only(right: 10.w),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: categoryData.isSelected
-              ? Color(0xff1E1B16)
+              ? colors.chipSelectedColor
               : Colors.transparent,
-          border: Border.all(color: Color(0xffD1C5B4)),
-          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: colors.border),
+          borderRadius: BorderRadius.circular(20.r),
         ),
-        child: Text(
-          categoryData.categoryName,
-          style: TextStyle(
-            color: categoryData.isSelected ? Colors.white : Color(0xff4E4639),
-            fontWeight: FontWeight.w500,
+        child: Center(
+          child: Text(
+            categoryData.categoryName,
+            style: categoryData.isSelected
+                ? textTheme.labelMedium?.copyWith(
+                    color: colors.chipSelectedText,
+                  )
+                : textTheme.labelMedium?.copyWith(
+                    color: colors.chipUnSelectedText,
+                  ),
           ),
         ),
       ),

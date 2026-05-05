@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
@@ -7,6 +9,9 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final TextInputType keyboardType;
   final TextEditingController? controller;
+  final IconData? suffix;
+  final VoidCallback? onSuffixTap;
+  final String? Function(String?)? validator;
 
   const CustomTextField({
     super.key,
@@ -16,58 +21,80 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.controller,
+    this.suffix,
+    this.onSuffixTap,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: Colors.grey.shade300,
-              width: 1,
-            ),
-          ),
-          child: TextField(
-            controller: controller,
-            obscureText: obscureText,
-            keyboardType: keyboardType,
-            style: const TextStyle(
-              fontSize: 15,
-              color: Colors.black87,
-            ),
+        Text(label, style: textTheme.titleSmall),
+       
+        SizedBox(height: 8.h),
+        TextFormField(
+          controller: controller,
+          obscureText: obscureText,
+          keyboardType: keyboardType,
+
+          validator: validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          style: TextStyle(fontSize: 15.sp, color: Colors.black87),
+          
             decoration: InputDecoration(
               hintText: hintText,
-              hintStyle: TextStyle(
-                color: Colors.grey.shade400,
-                fontSize: 15,
+              hintStyle: textTheme.bodyMedium?.copyWith(
+                color: colors.textTertiary,
               ),
               prefixIcon: Icon(
                 prefixIcon,
-                color: Colors.grey.shade500,
-                size: 20,
-              ),
-              border: InputBorder.none,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 16,
+                color: colors.textSecondary,
+                size: 20.sp,
+                 ),
+            suffixIcon: suffix != null
+                ? InkWell(
+                    onTap: onSuffixTap,
+                    child: Icon(
+                      suffix,
+                      color: colors.textSecondary,
+                      size: 20.sp,
+                    ),
+                  )
+                : null,
+            filled: true,
+            fillColor:  colors.cardColor, 
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 16.h,
+            ),
+           
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.r),
+              borderSide: BorderSide(color: BaseColors.alert, width: 1.w),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.r),
+              borderSide: BorderSide(
+                color: BaseColors.alert,
+                width: 1.5.w,
               ),
             ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: BorderSide(color: colors.border, width: 1.w),
+              ),
+              // ── Focused ────────────────────────────────────────────────────
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: BorderSide(color: colors.primary, width: 1.5.w),
+              ),       
+            ),
           ),
-        ),
+        SizedBox(height: 8,)
       ],
     );
   }

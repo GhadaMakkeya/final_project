@@ -1,6 +1,7 @@
-import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/features/onboarding/domain/models/onboarding_page_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingPageContent extends StatelessWidget {
   final OnboardingPageModel page;
@@ -14,19 +15,21 @@ class OnboardingPageContent extends StatelessWidget {
     required this.slideAnimation,
   });
 
-  Widget _buildImage() {
-    return Image.asset(page.imageUrl, fit: BoxFit.cover, );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: EdgeInsets.symmetric(horizontal: 24.h),
       child: Column(
         children: [
           Expanded(flex: 1, child: SizedBox()),
-          _buildImage(),
-          const SizedBox(height: 36),
+          SizedBox(
+            height: 300.h,
+            width: double.infinity,
+            child: Image.asset(page.imageUrl, fit: BoxFit.cover),
+          ),
+          SizedBox(height: 36.h),
           Expanded(
             flex: 3,
             child: FadeTransition(
@@ -39,25 +42,15 @@ class OnboardingPageContent extends StatelessWidget {
                     Text(
                       page.title,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontFamily: AppFontFamilies.georgia,
-                        fontSize: 40,
-                        fontWeight: FontWeight.w400,
-                        height: 1.15,
-                        letterSpacing: -0.5,
-                        color: Color(0xFF1B2A4A),
-                      ),
+                      style: textTheme.headlineLarge?.copyWith(fontSize: 42,),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     Text(
                       page.subtitle,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w300,
-                        height: 1.65,
-                        letterSpacing: 0.2,
-                        color: Color(0xFF666666),
+                      style: textTheme.bodyLarge?.copyWith(
+                        color: colors.textSecondary,
+                        height: 2,
                       ),
                     ),
                   ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
@@ -8,19 +8,12 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(
-        padding: const EdgeInsets.only(left: 4),
-        child: Text(
-          title,
-          style: TextStyle(
-            color: AppColors.grey,
-            letterSpacing: 1.5,
-            fontWeight: FontWeight.w600,
-            fontSize: 12,
-          ),
-        ),
+        padding: EdgeInsets.only(left: 4.w),
+        child: Text(title, style: textTheme.titleSmall),
       ),
     );
   }

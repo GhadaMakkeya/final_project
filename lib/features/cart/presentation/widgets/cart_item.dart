@@ -1,89 +1,143 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/features/cart/data/models/cart_item_model.dart';
+import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 
-class CartItem extends StatelessWidget {
-  final String name, subtitle, image;
-  final double price;
-  final int quantity;
-  final VoidCallback onRemove, onIncrement, onDecrement;
-  const CartItem({
-    super.key,
-    required this.name,
-    required this.subtitle,
-    required this.image,
-    required this.price,
-    required this.quantity,
-    required this.onRemove,
-    required this.onIncrement,
-    required this.onDecrement,
-  });
+class CartItem extends StatefulWidget {
+  const CartItem({super.key, required this.items});
+  final CartItemModel items;
+  @override
+  State<CartItem> createState() => _CartItemState();
+}
+
+class _CartItemState extends State<CartItem> {
+  late int quantity;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    quantity = widget.items.quantity;
+  }
+
+  void onIncrement() {
+    setState(() => quantity++);
+    context.read<CartCubit>().incrementItem(widget.items);
+  }
+
+  void onDecrement() {
+    if (quantity == 1) {
+      context.read<CartCubit>().removeItem(widget.items.itemId);
+      return;
+    }
+    setState(() => quantity--);
+    context.read<CartCubit>().decrementItem(widget.items);
+  }
+
+  void onRemove() {
+    context.read<CartCubit>().removeItem(widget.items.itemId);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color(0xffF5F3F3),
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      color: Color(0xffF2EDE8),
+      elevation: 0.1,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: Image.asset(
-              image,
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.fitWidth,
+          Padding(
+            padding: EdgeInsets.only(left: 8.w, right: 8.w),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(24.r),
+              child: Image.network(
+                widget.items.productCoverUrl,
+                width: double.infinity,
+                height: 200.h,
+                fit: BoxFit.fitWidth,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  height: 200.h,
+                  color: Colors.grey[200],
+                  child: Icon(Icons.image_not_supported),
+                ),
+              ),
             ),
           ),
-          SizedBox(height: 10),
+
+          SizedBox(height: 10.h),
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.only(bottom: 24.h, left: 24.w, right: 24.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                    Expanded(
+                      child: Text(
+                        widget.items.productName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.sp,
+                          fontFamily: AppFontFamilies.georgia,
+                          color: Color(0xFF4E4639),
+                        ),
                       ),
                     ),
                     Text(
-                      '\$${price.toStringAsFixed(2)}',
+                      '\$${widget.items.finalPricePerUnit.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 16.sp,
+                        fontFamily: AppFontFamilies.georgia,
+                        color: Color(0xFF4E4639),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: TextStyle(fontSize: 13, color: Colors.grey),
-                ),
-                SizedBox(height: 10),
+
+                SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        _qtyButton(Icons.remove, onDecrement),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            '$quantity',
-                            style: TextStyle(fontSize: 15),
-                          ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color.fromARGB(255, 225, 221, 216),
                         ),
-                        _qtyButton(Icons.add, onIncrement),
-                      ],
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Row(
+                        children: [
+                          _qtyButton(Icons.remove, onDecrement),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12.w),
+                            child: Text(
+                              '$quantity',
+                              style: TextStyle(fontSize: 15.sp),
+                            ),
+                          ),
+                          _qtyButton(Icons.add, onIncrement),
+                        ],
+                      ),
                     ),
-                    IconButton(onPressed: onRemove, icon: Icon(Icons.delete)),
+                    InkWell(
+                      onTap: onRemove,
+                      child: Text(
+                        "REMOVE",
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -98,10 +152,9 @@ class CartItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 28,
-        height: 28,
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-        child: Icon(icon, size: 16),
+        width: 28.w,
+        height: 28.h,
+        child: Icon(icon, size: 16.sp),
       ),
     );
   }

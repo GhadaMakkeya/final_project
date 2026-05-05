@@ -1,27 +1,26 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class CustomPrimaryButton extends StatelessWidget {
   final String label;
-  final VoidCallback onPressed;
+  final void Function()? onPressed;
   final double? width;
-  final double height;
-  final Color color;
-  final Color buttonTextColor;
-  final Color borderColor;
+  final Color? color;
+  final Color? buttonTextColor;
+  final Color? borderColor;
   final IconData? trailingIcon;
   final double borderRadius;
   final double letterSpacing;
 
   const CustomPrimaryButton({
-    Key? key,
+    super.key,
     this.label = 'NEXT',
     required this.onPressed,
     this.width = double.infinity,
-    this.height = 58,
-    this.color = const Color(0xFF1B2A4A),
-    this.buttonTextColor = Colors.white,
-    this.borderColor = Colors.transparent,
+    this.color,
+    this.buttonTextColor,
+    this.borderColor,
     this.trailingIcon,
     this.borderRadius = 4,
     this.letterSpacing = 3.5,
@@ -29,28 +28,46 @@ class CustomPrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
+
     return SizedBox(
       width: width,
-      height: height,
+      height: 60.h,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          foregroundColor: Colors.white,
+          backgroundColor: color ?? colors.primary,
+          foregroundColor: buttonTextColor ?? colors.background,
           elevation: 4,
           shadowColor: Colors.black26,
-          side: BorderSide(color: Colors.black, width: 1),
+          side: BorderSide(
+            color: borderColor ?? Colors.transparent,
+            width: 1.w,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: buttonTextColor,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              label,
+              style: textTheme.labelLarge?.copyWith(
+                color: buttonTextColor ?? colors.background,
+                letterSpacing: letterSpacing,
+              ),
+            ),
+            if (trailingIcon != null) ...[
+              SizedBox(width: 8.w),
+              Icon(
+                trailingIcon,
+                size: 18.sp,
+                color: buttonTextColor ?? colors.background,
+              ),
+            ],
+          ],
         ),
       ),
     );
