@@ -43,7 +43,12 @@ class CustomProductCard extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 8.h),
-              Text(productDataModel.productName, style: textTheme.titleLarge),
+              Text(
+                productDataModel.productName,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.titleLarge,
+              ),
               Text(
                 productDataModel.price,
                 style: textTheme.bodyMedium?.copyWith(

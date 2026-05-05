@@ -33,7 +33,7 @@ class ContactInfo extends StatelessWidget {
                 title,
                 style: TextStyle(
                   color: AppColors.lightColors.textSecondary,
-                  fontSize: 12,
+                  fontSize: 14,
                 ),
               ),
               SizedBox(height: 4),
@@ -41,7 +41,7 @@ class ContactInfo extends StatelessWidget {
                 subtitle,
                 style: TextStyle(
                   color: AppColors.lightColors.primary,
-                  fontSize: 15,
+                  fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),
               ),
