@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/features/managment/data/models/category_model.dart';
+import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
 
 class CustomCategoryItem extends StatelessWidget {
   const CustomCategoryItem({
     super.key,
     required this.onTap,
     required this.categoryModel,
+    required this.index,
   });
   final CategoryModel categoryModel;
   final VoidCallback onTap;
+  final int index;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -22,7 +26,7 @@ class CustomCategoryItem extends StatelessWidget {
         margin: EdgeInsets.only(right: 10.w),
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: categoryModel.isSelected
+          color: context.read<CategoryCubit>().selectedIndex == index
               ? colors.chipSelectedColor
               : Colors.transparent,
           border: Border.all(color: colors.border),
@@ -31,7 +35,7 @@ class CustomCategoryItem extends StatelessWidget {
         child: Center(
           child: Text(
             categoryModel.name,
-            style: categoryModel.isSelected
+            style: context.read<CategoryCubit>().selectedIndex == index
                 ? textTheme.labelMedium?.copyWith(
                     color: colors.chipSelectedText,
                   )

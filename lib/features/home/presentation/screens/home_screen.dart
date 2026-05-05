@@ -29,19 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     BlocProvider.of<ProductsCubit>(context).getProducts();
     BlocProvider.of<OffersCubit>(context).getOffers();
-    BlocProvider.of<CategoryCubit>(context).getAllCategories();
+    final categoryCubit = context.read<CategoryCubit>();
+    if (categoryCubit.categories.isEmpty) {
+      categoryCubit.getAllCategories();
+    }
   }
 
   int currentPage = 0;
-  // void selectCategory(int index) {
-  //   for (var element in categories) {
-  //     element.isSelected = false;
-  //   }
-  //   categories[index].isSelected = true;
-
-  //   setState(() {});
-  // }
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -152,8 +146,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           return CustomCategoryItem(
                             categoryModel: state.categories[index],
+                            index: index,
                             onTap: () {
-                              //selectCategory(index);
+                              context.read<CategoryCubit>().selectCategory(
+                                index,
+                              );
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
