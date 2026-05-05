@@ -10,11 +10,13 @@ class ProductsCubit extends Cubit<ProductsStates> {
   Future<void> getProducts() async {
     emit(ProductsLoadingState());
 
-    try {
-      final products = await remoteDataSource.getProducts();
-      emit(ProductsSuccessState(products: products));
-    } catch (e) {
-      emit(ProductsErrorState(errorMessage: 'Unexpected error'));
-    }
+    await remoteDataSource.getProducts().then(
+      (productsVal) {
+        emit(ProductsSuccessState(products: productsVal));
+      },
+      onError: (error) {
+        emit(ProductsErrorState(errorMessage: error.toString()));
+      },
+    );
   }
 }

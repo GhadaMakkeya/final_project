@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     );
                   } else if (state is OffersErrorState) {
-                    return Center(child: Text("Error"));
+                    return Center(child: Text(state.errorMessage));
                   }
                   return SizedBox();
                 },

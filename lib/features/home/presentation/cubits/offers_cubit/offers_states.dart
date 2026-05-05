@@ -11,4 +11,7 @@ class OffersSuccessState extends OffersStates {
   OffersSuccessState({required this.offers});
 }
 
-class OffersErrorState extends OffersStates {}
+class OffersErrorState extends OffersStates {
+  final String errorMessage;
+  OffersErrorState({required this.errorMessage});
+}

@@ -9,12 +9,19 @@ class OffersCubit extends Cubit<OffersStates> {
 
   Future<void> getOffers() async {
     emit(OffersLoadingState());
-
-    try {
-      final offers = await remoteDataSource.getOffers();
-      emit(OffersSuccessState(offers: offers));
-    } catch (e) {
-      emit(OffersErrorState());
-    }
+    await remoteDataSource.getOffers().then(
+      (offersVal) {
+        emit(OffersSuccessState(offers: offersVal));
+      },
+      onError: (error) {
+        emit(
+          OffersErrorState(
+            errorMessage: error.toString().isNotEmpty
+                ? error.toString()
+                : "Something went wrong",
+          ),
+        );
+      },
+    );
   }
 }

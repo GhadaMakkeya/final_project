@@ -21,7 +21,7 @@ class RemoteDataSource {
       }
       return products;
     } catch (e) {
-      throw Exception();
+      throw Exception(throw Exception("Error loading products"));
     }
   }
 
@@ -30,9 +30,7 @@ class RemoteDataSource {
       final response = await dio.get(
         'https://accessories-eshop.runasp.net/api/offers',
       );
-
       List<OffersData> offers = [];
-
       final data = response.data['offers']['items'];
 
       for (var item in data) {
@@ -40,7 +38,7 @@ class RemoteDataSource {
       }
       return offers;
     } catch (e) {
-      throw Exception("Error loading offers");
+      throw Exception(throw Exception("Error loading offers"));
     }
   }
 }
