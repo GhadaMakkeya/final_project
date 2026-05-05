@@ -33,6 +33,11 @@ class Product {
           : 'General',
     );
   }
+
+}
+
+
+
 class ProductModel {
   final List<String> categoryIds;
   final String color;
