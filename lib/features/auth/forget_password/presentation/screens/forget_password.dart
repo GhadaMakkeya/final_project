@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import '../../../../../core/constants/app_font_families.dart';
 import '../../../../../core/widgets/auth_layout.dart';
 import '../../../../../core/widgets/custom_primary_button.dart';
 import '../../../../../core/widgets/custom_text_field.dart';
@@ -49,7 +48,7 @@ class ForgetPassword extends StatelessWidget {
             label: 'Email Address',
             hintText: 'name@example.com',
             prefixIcon: Icons.mail_outline,
-            // keyboardType: TextInputType.emailAddress,
+             keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(height: 32.h),
           CustomPrimaryButton(
