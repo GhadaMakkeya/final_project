@@ -14,7 +14,9 @@ import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cu
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/managment/presentation/screens/add_product_screen.dart';
+import 'package:veloura/features/managment/presentation/screens/management_screen.dart';
 import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 
 late double screenWidth;
 late double screenHeight;
@@ -25,6 +27,7 @@ void main() {
       providers: [
         BlocProvider(create: (context) => ProductsCubit()),
         BlocProvider(create: (context) => OffersCubit()),
+        BlocProvider(create: (context) => ManagementCubit()),
       ],
       child: const MyApp(),
     ),
@@ -48,7 +51,7 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
-          home: OnboardingScreen(),
+          home: ManagementScreen(),
         );
       },
     );
