@@ -19,10 +19,9 @@ class RemoteDataSource {
       for (var element in data) {
         products.add(ProductDataModel.fromJson(element));
       }
-
       return products;
     } catch (e) {
-      throw Exception("Error");
+      throw Exception();
     }
   }
 

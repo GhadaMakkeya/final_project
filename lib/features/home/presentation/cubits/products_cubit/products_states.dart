@@ -12,4 +12,7 @@ class ProductsSuccessState extends ProductsStates {
   ProductsSuccessState({required this.products});
 }
 
-class ProductsErrorState extends ProductsStates {}
+class ProductsErrorState extends ProductsStates {
+  final String errorMessage;
+  ProductsErrorState({required this.errorMessage});
+}

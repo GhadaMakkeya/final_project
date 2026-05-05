@@ -12,11 +12,9 @@ class ProductsCubit extends Cubit<ProductsStates> {
 
     try {
       final products = await remoteDataSource.getProducts();
-      print("PRODUCTS LENGTH: ${products.length}");
       emit(ProductsSuccessState(products: products));
     } catch (e) {
-      print("ERROR: $e");
-      emit(ProductsErrorState());
+      emit(ProductsErrorState(errorMessage: 'Unexpected error'));
     }
   }
 }

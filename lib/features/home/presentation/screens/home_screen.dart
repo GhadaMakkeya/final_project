@@ -137,6 +137,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     );
+                  } else if (state is OffersErrorState) {
+                    return Center(child: Text("Error"));
                   }
                   return SizedBox();
                 },
@@ -181,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       physics: NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: .5,
+                        childAspectRatio: .6,
                       ),
                       itemCount: products.length,
                       itemBuilder: (context, index) {
@@ -191,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     );
                   } else if (state is ProductsErrorState) {
-                    return Center(child: Text("Error"));
+                    return Center(child: Text(state.errorMessage));
                   }
 
                   return SizedBox();
