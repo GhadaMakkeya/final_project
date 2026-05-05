@@ -13,6 +13,11 @@ import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
+import 'package:veloura/features/home/presentation/screens/home_screen.dart';
+import 'package:veloura/features/managment/presentation/screens/add_product_screen.dart';
+import 'package:veloura/features/managment/presentation/screens/management_screen.dart';
+import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 import 'package:veloura/features/managment/data/data_sources/add_product_remote_data_source.dart';
 import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_cubit.dart';
 import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
@@ -30,6 +35,9 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => ProductsCubit()),
+        BlocProvider(create: (context) => OffersCubit()),
+        BlocProvider(create: (context) => ManagementCubit()),
         BlocProvider(create: (_) => ProductsCubit()),
         BlocProvider(create: (_) => OffersCubit()),
 
@@ -71,6 +79,7 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
+          home: ManagementScreen(),
           home: const SignUpScreen(),
         );
       },
