@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:veloura/features/managment/data/models/category_model.dart';
 import 'package:veloura/features/managment/data/data_sources/add_product_remote_data_source.dart';
@@ -8,12 +10,14 @@ class CategoryCubit extends Cubit<CategoryState> {
   final ProductRemoteDataSource productRemoteDataSource;
 
   CategoryCubit(this.productRemoteDataSource) : super(CategoryInitial());
-
+  int selectedIndex = 0;
+  List<CategoryModel> categories = [];
   Future<void> getAllCategories() async {
     emit(CategoryLoading());
     try {
       final categories = await productRemoteDataSource.getAllCategories();
-
+      log("Categories loaded: ${categories.length}");
+      this.categories = categories;
       if (categories.isNotEmpty) {
         emit(CategorySuccess(categories));
       } else {
@@ -22,5 +26,10 @@ class CategoryCubit extends Cubit<CategoryState> {
     } catch (e) {
       emit(CategoryError(e.toString()));
     }
+  }
+
+  void selectCategory(int index) {
+    selectedIndex = index;
+    emit(CategorySuccess(categories));
   }
 }
