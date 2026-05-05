@@ -18,7 +18,9 @@ class CartRemoteDataSource {
         options: _options,
       );
       log(response.data.toString(), name: 'CART RESPONSE');
+
       final List cartItems = response.data['cartItems'];
+
       return cartItems.map((e) => CartItemModel.fromJson(e)).toList();
     } on DioException catch (e) {
       String errMessage = e.response?.data['message'] ?? 'Failure';
