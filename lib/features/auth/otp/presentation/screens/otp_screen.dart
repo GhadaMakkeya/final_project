@@ -157,6 +157,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         SizedBox(height: 30.h),
 
                         CustomPrimaryButton(
+                          borderRadius: 16,
                           label: state is OtpLoadingState
                               ? 'VERIFYING...'
                               : 'VERIFY',

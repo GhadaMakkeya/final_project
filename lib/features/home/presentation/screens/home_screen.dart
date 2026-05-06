@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
-import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_states.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
@@ -12,6 +11,8 @@ import 'package:veloura/features/home/presentation/widgets/custom_category_item.
 import 'package:veloura/features/home/presentation/widgets/custom_offer_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_product_card.dart';
 import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
+
+import '../../../category/presentation/screens/category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});

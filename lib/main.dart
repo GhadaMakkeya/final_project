@@ -7,16 +7,16 @@ import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/core/theme/app_theme.dart';
 import 'package:veloura/core/theme/theme_cubit.dart';
 import 'package:veloura/core/theme/theme_states.dart';
+import 'package:veloura/features/auth/forget_password/presentation/screens/forget_password.dart';
 import 'package:veloura/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:veloura/features/auth/otp/data/data_sources/otp_remote_data_source.dart';
 import 'package:veloura/features/auth/otp/presentation/cubits/cubit/otp_cubit.dart';
+import 'package:veloura/features/auth/otp/presentation/screens/otp_screen.dart';
+import 'package:veloura/features/auth/reset_password/presentation/screens/reset_password_screen.dart';
 import 'package:veloura/features/auth/signup/data/data_source/sign_up_remote_data_source.dart';
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_cubit.dart';
-import 'package:veloura/features/cart/data/data_source/cart_remote_data_source.dart';
-import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
-import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:veloura/features/managment/data/data_sources/add_product_remote_data_source.dart';
@@ -92,7 +92,8 @@ class MyApp extends StatelessWidget {
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
 
-              home: LoginScreen(),
+              home: OnboardingScreen(),
+              //home: const SignUpScreen(),
             );
           },
         );

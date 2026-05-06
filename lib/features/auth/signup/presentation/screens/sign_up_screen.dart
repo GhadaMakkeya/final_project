@@ -9,6 +9,7 @@ import 'package:veloura/core/widgets/custom_social_button.dart';
 import 'package:veloura/core/widgets/custom_text_field.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:veloura/features/auth/otp/presentation/screens/otp_screen.dart';
+import 'package:veloura/core/widgets/custom_pass_text_field.dart';
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_cubit.dart';
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_states.dart';
 
@@ -75,10 +76,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 30.h),
 
                   Container(
-                    padding: EdgeInsets.all(20.w),
+                    padding: EdgeInsets.all(22.w),
                     decoration: BoxDecoration(
                       color: colors.authCardColor,
-                      borderRadius: BorderRadius.circular(12.r),
+                      borderRadius: BorderRadius.circular(25.r),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,42 +129,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         SizedBox(height: 14.h),
 
-                        CustomTextField(
+                        CustomPassTextField(
                           label: "PASSWORD",
                           hintText: "••••••••",
-                          prefixIcon: Icons.lock,
+                          isPassword: true,
                           controller: passwordController,
-                          obscureText: isPasswordHidden,
-                          suffix: isPasswordHidden
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
-                          onSuffixTap: () {
-                            setState(() {
-                              isPasswordHidden = !isPasswordHidden;
-                            });
-                          },
                           validator: (value) {
                             return Validator.validatePassword(value ?? '');
                           },
+                          prefixIcon: Icons.lock_outline,
                         ),
+
                         SizedBox(height: 14.h),
 
-                        CustomTextField(
-                          label: "CONFIRM PASSWORD",
+                        CustomPassTextField(
+                          label: "CONFIRM NEW PASSWORD",
                           hintText: "••••••••",
-                          prefixIcon: Icons.lock,
+                          isPassword: true,
                           controller: confirmPasswordController,
-                          obscureText: isConfirmPasswordHidden,
-                          suffix: isConfirmPasswordHidden
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
-                          onSuffixTap: () {
-                            setState(() {
-                              isConfirmPasswordHidden =
-                                  !isConfirmPasswordHidden;
-                            });
-                          },
-
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return AppStrings.fieldRequired;
@@ -173,7 +156,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
                             return null;
                           },
+                          prefixIcon: Icons.lock_outline,
                         ),
+
                         SizedBox(height: 20.h),
 
                         BlocConsumer<SignUpCubit, SignUpStates>(
@@ -204,6 +189,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onPressed: state is SignUpLoadingState
                                   ? null
                                   : _onSubmit,
+
+                              borderRadius: 16,
                             );
                           },
                         ),
