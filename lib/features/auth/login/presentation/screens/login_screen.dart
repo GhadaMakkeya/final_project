@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/utils/validators.dart';
 import 'package:veloura/core/widgets/bottom_nav_bar.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/widgets/custom_social_button.dart';
+import 'package:veloura/core/widgets/custom_text_field.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
-import 'package:veloura/features/auth/login/presentation/widgets/auth_text_field.dart';
+import 'package:veloura/core/widgets/custom_pass_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -39,8 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginSuccess) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(
-                  builder: (_) =>  MainNavigation()),
+              MaterialPageRoute(builder: (_) => MainNavigation()),
               (route) => false,
             );
           } else if (state is LoginFailure) {
@@ -55,8 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
         builder: (context, state) {
           return SafeArea(
             child: SingleChildScrollView(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 25, vertical: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 40),
               child: Column(
                 children: [
                   const SizedBox(height: 10),
@@ -91,26 +91,34 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Text('Sign In', style: textTheme.headlineMedium),
                         const SizedBox(height: 30),
-                        AuthField(
+                        CustomTextField(
                           label: 'EMAIL ADDRESS',
                           hintText: 'your@email.com',
-                          icon: Icons.email_outlined,
+                          prefixIcon: Icons.email_outlined,
                           controller: _emailController,
+                          validator: (value) {
+                            return Validator.validateEmail(value ?? '');
+                          },
                         ),
                         const SizedBox(height: 20),
-                        AuthField(
+                        CustomPassTextField(
                           label: 'PASSWORD',
                           hintText: '••••••••',
-                          icon: Icons.lock_outline,
+                          prefixIcon: Icons.lock_outline,
                           isPassword: true,
                           controller: _passwordController,
+                          validator: (value) {
+                            return Validator.validatePassword(value ?? '');
+                          },
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             InkWell(
-                              onTap: () => setState(() =>
-                                  isRememberMeChecked = !isRememberMeChecked),
+                              onTap: () => setState(
+                                () =>
+                                    isRememberMeChecked = !isRememberMeChecked,
+                              ),
                               borderRadius: BorderRadius.circular(4),
                               child: Row(
                                 children: [
@@ -124,21 +132,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       side: const BorderSide(
-                                          color: Colors.grey, width: 1.5),
+                                        color: Colors.grey,
+                                        width: 1.5,
+                                      ),
                                       onChanged: (value) => setState(
-                                          () => isRememberMeChecked = value!),
+                                        () => isRememberMeChecked = value!,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 8),
-                                  Text('Remember me',
-                                      style: textTheme.bodySmall),
+                                  Text(
+                                    'Remember me',
+                                    style: textTheme.bodySmall,
+                                  ),
                                 ],
                               ),
                             ),
                             TextButton(
                               onPressed: () {},
                               style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero),
+                                padding: EdgeInsets.zero,
+                              ),
                               child: Text(
                                 'Forgot password?',
                                 style: textTheme.bodySmall?.copyWith(
@@ -157,14 +171,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   if (_emailController.text.isNotEmpty &&
                                       _passwordController.text.isNotEmpty) {
                                     context.read<LoginCubit>().login(
-                                          email: _emailController.text.trim(),
-                                          password: _passwordController.text,
-                                        );
+                                      email: _emailController.text.trim(),
+                                      password: _passwordController.text,
+                                    );
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content:
-                                            Text('Please fill all fields'),
+                                        content: Text('Please fill all fields'),
                                         backgroundColor: Colors.orange,
                                       ),
                                     );
@@ -172,17 +185,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 label: 'SIGN IN',
                                 letterSpacing: 2.0,
+                                borderRadius: 16,
                               ),
                         SizedBox(height: 25.h),
                         Row(
                           children: [
                             const Expanded(child: Divider(thickness: 1)),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text('Or',
-                                  style: textTheme.bodySmall?.copyWith(
-                                      color: colors.textTertiary)),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              child: Text(
+                                'Or',
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: colors.textTertiary,
+                                ),
+                              ),
                             ),
                             const Expanded(child: Divider(thickness: 1)),
                           ],
@@ -216,8 +234,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Text(
                         "Don't have an account? ",
-                        style: textTheme.bodySmall
-                            ?.copyWith(color: colors.textSecondary),
+                        style: textTheme.bodySmall?.copyWith(
+                          color: colors.textSecondary,
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {},
