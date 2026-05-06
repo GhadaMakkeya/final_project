@@ -6,6 +6,7 @@ import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/bottom_nav_bar.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/widgets/custom_social_button.dart';
+import 'package:veloura/features/auth/forget_password/presentation/screens/forget_password.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
 import 'package:veloura/features/auth/login/presentation/widgets/auth_text_field.dart';
 
@@ -39,15 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginSuccess) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(
-                  builder: (_) =>  MainNavigation()),
+              MaterialPageRoute(builder: (_) => MainNavigation()),
               (route) => false,
             );
           } else if (state is LoginFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.errMessage),
-                backgroundColor: Colors.red,
+                backgroundColor: BaseColors.alert,
               ),
             );
           }
@@ -55,8 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
         builder: (context, state) {
           return SafeArea(
             child: SingleChildScrollView(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 25, vertical: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 40),
               child: Column(
                 children: [
                   const SizedBox(height: 10),
@@ -109,8 +108,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             InkWell(
-                              onTap: () => setState(() =>
-                                  isRememberMeChecked = !isRememberMeChecked),
+                              onTap: () => setState(
+                                () =>
+                                    isRememberMeChecked = !isRememberMeChecked,
+                              ),
                               borderRadius: BorderRadius.circular(4),
                               child: Row(
                                 children: [
@@ -124,21 +125,34 @@ class _LoginScreenState extends State<LoginScreen> {
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       side: const BorderSide(
-                                          color: Colors.grey, width: 1.5),
+                                        color: Colors.grey,
+                                        width: 1.5,
+                                      ),
                                       onChanged: (value) => setState(
-                                          () => isRememberMeChecked = value!),
+                                        () => isRememberMeChecked = value!,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 8),
-                                  Text('Remember me',
-                                      style: textTheme.bodySmall),
+                                  Text(
+                                    'Remember me',
+                                    style: textTheme.bodySmall,
+                                  ),
                                 ],
                               ),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => ForgetPassword(),
+                                  ),
+                                );
+                              },
                               style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero),
+                                padding: EdgeInsets.zero,
+                              ),
                               child: Text(
                                 'Forgot password?',
                                 style: textTheme.bodySmall?.copyWith(
@@ -157,14 +171,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   if (_emailController.text.isNotEmpty &&
                                       _passwordController.text.isNotEmpty) {
                                     context.read<LoginCubit>().login(
-                                          email: _emailController.text.trim(),
-                                          password: _passwordController.text,
-                                        );
+                                      email: _emailController.text.trim(),
+                                      password: _passwordController.text,
+                                    );
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content:
-                                            Text('Please fill all fields'),
+                                        content: Text('Please fill all fields'),
                                         backgroundColor: Colors.orange,
                                       ),
                                     );
@@ -178,11 +191,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             const Expanded(child: Divider(thickness: 1)),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text('Or',
-                                  style: textTheme.bodySmall?.copyWith(
-                                      color: colors.textTertiary)),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              child: Text(
+                                'Or',
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: colors.textTertiary,
+                                ),
+                              ),
                             ),
                             const Expanded(child: Divider(thickness: 1)),
                           ],
@@ -216,8 +233,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Text(
                         "Don't have an account? ",
-                        style: textTheme.bodySmall
-                            ?.copyWith(color: colors.textSecondary),
+                        style: textTheme.bodySmall?.copyWith(
+                          color: colors.textSecondary,
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {},

@@ -1,14 +1,14 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:veloura/core/services/secure_storage_services.dart';
+import 'package:veloura/features/managment/data/models/add_product_model.dart';
 import 'package:veloura/features/managment/data/models/category_model.dart';
-import 'package:veloura/features/managment/data/models/product_model.dart';
 
-class ProductRemoteDataSource {
+class AddProductRemoteDataSource {
   final Dio dio;
   final SecureStorageServices secureStorageService;
 
-  ProductRemoteDataSource(this.dio, this.secureStorageService);
+  AddProductRemoteDataSource(this.dio, this.secureStorageService);
 
 
   Future<String?> getToken() async {
@@ -81,7 +81,7 @@ class ProductRemoteDataSource {
 
 
   Future<bool> addProduct({
-    required ProductModel product,
+    required AddProductModel product,
   }) async {
     final token = await getToken();
 

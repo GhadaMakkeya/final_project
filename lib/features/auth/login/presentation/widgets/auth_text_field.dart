@@ -15,8 +15,8 @@ class AuthField extends StatefulWidget {
     required this.hintText,
     required this.icon,
     this.isPassword = false,
-    this.controller, // ✅
-    this.validator,  // ✅
+    this.controller,
+    this.validator,  
   });
 
   @override

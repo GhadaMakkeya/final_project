@@ -122,9 +122,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hintText: "jane@example.com",
                           prefixIcon: Icons.email,
                           controller: emailController,
-                          validator: (value) {
-                            return Validator.validateEmail(value ?? '');
-                          },
+                         // validator: (value) {
+                           // return Validator.validateEmail(value ?? '');
+                        //  },
                         ),
                         SizedBox(height: 14.h),
 
@@ -191,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(state.errorMessage),
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: BaseColors.alert,
                                 ),
                               );
                             }

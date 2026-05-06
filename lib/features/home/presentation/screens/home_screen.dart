@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/constants/app_strings.dart';
@@ -9,8 +8,6 @@ import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cu
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_states.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_states.dart';
-import 'package:veloura/features/home/data/models/offers_data.dart';
-import 'package:veloura/features/home/data/models/product_data_model.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_category_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_offer_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_product_card.dart';
@@ -188,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: products.length,
                       itemBuilder: (context, index) {
                         return CustomProductCard(
-                          productDataModel: products[index],
+                          product: products[index],
                         );
                       },
                     );

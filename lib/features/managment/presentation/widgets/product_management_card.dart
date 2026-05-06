@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/features/managment/data/models/product_model.dart';
+import 'package:veloura/core/models/product_model.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class ProductManagementCard extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
   final VoidCallback onDelete;
 
   const ProductManagementCard({Key? key, required this.product, required this.onDelete}) : super(key: key);
@@ -19,7 +20,7 @@ class ProductManagementCard extends StatelessWidget {
       title: Text(product.name),
       subtitle: Text('\$${product.price}'),
       trailing: IconButton(
-        icon: const Icon(Icons.delete, color: Colors.red),
+        icon: const Icon(Icons.delete, color: BaseColors.alert),
         onPressed: onDelete,
       ),
     );

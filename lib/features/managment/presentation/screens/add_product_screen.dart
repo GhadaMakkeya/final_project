@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/features/managment/data/models/product_model.dart';
+import 'package:veloura/features/managment/data/models/add_product_model.dart';
 import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_cubit.dart';
 import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_state.dart';
 import 'package:veloura/features/managment/presentation/widgets/basic_info_section.dart';
@@ -52,7 +52,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProductCubit, AddProductState>(
+    return BlocConsumer<AddProductCubit, AddProductState>(
       listener: (context, state) {
         if (state is AddProductSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -134,8 +134,8 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                         if (!_formKey.currentState!.validate()) {
                           return;
                         }
-                        context.read<ProductCubit>().addProduct(
-                          ProductModel(
+                        context.read<AddProductCubit>().addProduct(
+                          AddProductModel(
                             name: _productNameController.text.trim(),
                             nameArabic: "منتج جديد",
                             price: double.tryParse(_priceController.text) ?? 0.0,

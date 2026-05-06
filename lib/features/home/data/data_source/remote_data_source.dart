@@ -1,23 +1,21 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
+import 'package:veloura/core/models/product_model.dart';
 import 'package:veloura/features/home/data/models/offers_data.dart';
-import 'package:veloura/features/home/data/models/product_data_model.dart';
 
 class RemoteDataSource {
   final Dio dio = Dio();
 
-  Future<List<ProductDataModel>> getProducts() async {
+  Future<List<ProductModel>> getProducts() async {
     try {
       final response = await dio.get(
         'https://accessories-eshop.runasp.net/api/products',
       );
 
-      List<ProductDataModel> products = [];
+      List<ProductModel> products = [];
       final data = response.data['items'];
 
       for (var element in data) {
-        products.add(ProductDataModel.fromJson(element));
+        products.add(ProductModel.fromJson(element));
       }
       return products;
     } on DioException catch (e) {
