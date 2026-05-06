@@ -19,7 +19,7 @@ class CustomProductCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return ProductDetailsScreen();
+                return ProductDetailsScreen(productId: productDataModel.productId);
               },
             ),
           );

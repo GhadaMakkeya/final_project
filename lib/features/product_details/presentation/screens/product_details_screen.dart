@@ -1,14 +1,39 @@
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/services/secure_storage_services.dart';
+import 'package:veloura/features/product_details/data/add_review_remote_data_source.dart';
+import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
+import 'package:veloura/features/product_details/presentation/cubits/reviews_state.dart';
+import 'package:veloura/features/product_details/presentation/widgets/add_review_bottom_sheet.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_primary_button.dart';
-import '../widgets/review_card.dart';
 import '../widgets/product_features_list.dart';
+import '../widgets/review_card.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+class ProductDetailsScreen extends StatefulWidget {
+  final String? productId;
+  const ProductDetailsScreen({super.key, this.productId});
 
   @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  @override
+
+ void initState() {
+    super.initState();
+
+    final id = widget.productId ;
+
+    context.read<ReviewsCubit>().getReviews(id.toString());
+  }
+
+ 
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
@@ -113,27 +138,75 @@ class ProductDetailsScreen extends StatelessWidget {
                       SizedBox(height: 32.h),
                       Text('Reviews', style: textTheme.headlineSmall),
                       SizedBox(height: 20.h),
-                      const ReviewCard(
-                        name: 'Eleanor V.',
-                        date: 'Oct 12, 2023',
-                        rating: 5,
-                        comment:
-                            'Absolutely exquisite. The silk has a substantial weight to it that drapes beautifully, and the colors are even richer in person than in the photos.',
+                      BlocBuilder<ReviewsCubit, ReviewsStates>(
+                        builder: (context, state) {
+                          if(state is ReviewsLoading)
+                          {return Center(child: CircularProgressIndicator(),
+                          );}
+                          if(state is ReviewsFailure){
+                            return Text(state.message);
+                          }
+                          if(state is ReviewsSuccess){
+                            return Column(
+                              children: state.reviews.map((review){
+                                return ReviewCard(
+                                  
+ name: review["userName"] ?? "User",
+            date: review["createdAt"] ?? "",
+            rating: review["rating"] ?? 0,
+            comment: review["comment"] ?? "",
+
+                                     );
+                                     },
+                                     ).toList()
+                            );
+                          }
+                          return SizedBox();
+                        },
+                        
                       ),
-                      const ReviewCard(
-                        name: 'Sophia L.',
-                        date: 'Sep 28, 2023',
-                        rating: 4,
-                        comment:
-                            'A lovely piece, though slightly smaller than I anticipated. The hand-rolled edges are a testament to the craftsmanship.',
-                      ),
+                      // const ReviewCard(
+                      //   name: 'Eleanor V.',
+                      //   date: 'Oct 12, 2023',
+                      //   rating: 5,
+                      //   comment:
+                      //       'Absolutely exquisite. The silk has a substantial weight to it that drapes beautifully, and the colors are even richer in person than in the photos.',
+                      // ),
+                      // const ReviewCard(
+                      //   name: 'Sophia L.',
+                      //   date: 'Sep 28, 2023',
+                      //   rating: 4,
+                      //   comment:
+                      //       'A lovely piece, though slightly smaller than I anticipated. The hand-rolled edges are a testament to the craftsmanship.',
+                      // ),
                       SizedBox(height: 16.h),
                       CustomPrimaryButton(
                         onPressed: () {},
                         label: "Read All Reviews",
                         letterSpacing: 0.5,
                       ),
-                      SizedBox(height: 100.h),
+                      SizedBox(height: 50.h),
+                      CustomPrimaryButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+
+                            builder: (context) => AddReviewBottomSheet(
+                              productId: widget.productId ?? "20aa5193-abe8-4111-9776-a798df1c4461",
+                              parentContext: context,
+                              addReviewRemoteDataSource: AddReviewRemoteDataSource(
+      Dio(),
+      SecureStorageServices(),
+
+                            ),
+                          ));
+                        },
+                        label: "ADD REVIEW",
+                        letterSpacing: 0.5,
+                      ),
+                      SizedBox(height: 50.h),
                       CustomPrimaryButton(
                         onPressed: () {},
                         label: "ADD TO CART",

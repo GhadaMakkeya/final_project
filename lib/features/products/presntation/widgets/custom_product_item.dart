@@ -83,14 +83,12 @@ class CustomProductItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Flexible(
-                      child: Expanded(
-                        child: Text(
-                          productModel.name,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: textTheme.bodyLarge
-                        ),
+                    Expanded(
+                      child: Text(
+                        productModel.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: textTheme.bodyLarge
                       ),
                     ),
                     Text("4.8", style: textTheme.bodySmall),
