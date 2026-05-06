@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       physics: NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: .6,
+                        childAspectRatio: .5,
                       ),
                       itemCount: products.length,
                       itemBuilder: (context, index) {
