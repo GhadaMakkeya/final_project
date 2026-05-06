@@ -12,7 +12,12 @@ Future<Widget> getStartScreen() async {
   final secureStorage = SecureStorageServices();
   final String? token = await secureStorage.getAccessToken();
 
-  if (!seenOnboarding) return const OnboardingScreen();
-  if (token != null) return HomeScreen();
+  if (!seenOnboarding) {
+    return const OnboardingScreen();
+  }
+
+  if (token != null) {
+    return const HomeScreen();
+  }
   return const LoginScreen();
 }
