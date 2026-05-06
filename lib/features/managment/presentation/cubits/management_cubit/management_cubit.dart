@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 // استخدم الـ package import ده عشان يروح الإيرور الأحمر
-import 'package:veloura/features/managment/data/models/product_model.dart';
+
 import 'package:veloura/features/managment/data/services/product_service.dart';
+import 'package:veloura/features/managment/data/models/del_product_model.dart';
 
 part 'management_state.dart';
 

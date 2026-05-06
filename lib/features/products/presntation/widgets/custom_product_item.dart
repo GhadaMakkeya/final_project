@@ -1,172 +1,168 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/features/products/presntation/widgets/product_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/features/home/data/models/product_data_model.dart';
 
-class CustomProductItem extends StatelessWidget {
-  final Product productModel;
-  const CustomProductItem({super.key, required this.productModel});
+import 'package:veloura/features/home/presentation/cubits/actions_cubit/products_action_cubit.dart';
+import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
+import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
 
+class CustomProductItem extends StatefulWidget {
+  final ProductDataModel product;
+  const CustomProductItem({super.key, required this.product});
+
+  @override
+  State<CustomProductItem> createState() => _CustomProductItemState();
+}
+
+class _CustomProductItemState extends State<CustomProductItem> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
-    return Card(
-      elevation: 0.1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AspectRatio(
-            aspectRatio: 1 / 1.05,
-            child: Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 8.w, left: 8.w, top: 8.h),
-                  child: Container(
-                    decoration: BoxDecoration(
+
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailsScreen(product: widget.product),
+          ),
+        );
+      },
+      child: Card(
+        elevation: 0.5,
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AspectRatio(
+              aspectRatio: 1 / 1.1,
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.w),
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(4.r),
-                      image: DecorationImage(
-                        image: NetworkImage(productModel.imageUrl),
+                      child: Image.network(
+                        widget.product.imagePath,
                         fit: BoxFit.cover,
+                        width: double.infinity,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          color: Colors.grey[200],
+                          child: const Icon(
+                            Icons.broken_image,
+                            color: Colors.grey,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                if (productModel.label != null)
+
                   Positioned(
-                    top: 8.h,
-                    left: 8.w,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 6.w,
-                        vertical: 3.h,
-                      ),
-                      color: _getLabelColor(productModel.label!),
-                      child: Text(
-                        productModel.label!,
-                        style: textTheme.labelSmall?.copyWith(
-                          color: Colors.white,
+                    top: 10.h,
+                    right: 10.w,
+                    child:
+                        BlocBuilder<ProductsActionCubit, ProductsActionStates>(
+                          builder: (context, state) {
+                            final bool isFav = context
+                                .read<ProductsActionCubit>()
+                                .isFavorite(widget.product.id);
+
+                            return GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<ProductsActionCubit>()
+                                    .toggleFavorite(widget.product.id);
+                              },
+                              child: Container(
+                                width: 32.w,
+                                height: 32.h,
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withValues(alpha: 0.3),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  isFav
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: isFav ? Colors.red : Colors.white,
+                                  size: 18.sp,
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ),
-                    ),
                   ),
-                const SizedBox(),
-                Positioned(
-                  bottom: 8.h,
-                  right: 16.w,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 6.w,
-                      vertical: 6.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: BaseColors.white.withOpacity(0.4),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.favorite_border,
-                      size: 16.sp,
-                      color: BaseColors.white,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 16.h),
-          Padding(
-            padding: EdgeInsets.only(right: 12.w, left: 12.w, bottom: 12.h),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Expanded(
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
                         child: Text(
-                          productModel.name,
-                          maxLines: 2,
+                          widget.product.productName,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: textTheme.bodyLarge
+                          style: textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
-                    Text("4.8", style: textTheme.bodySmall),
-                  ],
-                ),
-                SizedBox(height: 6.h),
-                Row(
-                  children: [
-                    Text(productModel.price, style: textTheme.bodySmall),
-                    SizedBox(width: 8.w),
-                    Text(
-                      productModel.originalPrice ?? "",
-                      style: textTheme.labelSmall?.copyWith(
-                        decoration: TextDecoration.lineThrough,
+                      Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.amber, size: 14.sp),
+                          Text(" 4.8", style: textTheme.labelSmall),
+                        ],
                       ),
+                    ],
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    "${widget.product.price} EGP",
+                    style: textTheme.bodySmall?.copyWith(
+                      color: colors.primary,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
-                SizedBox(height: 6.h),
-                Divider(height: 1.h, thickness: 0.5, color: colors.border),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "MIDNIGHT",
-                          style: textTheme.labelSmall?.copyWith(
-                            color: colors.textSecondary,
-                          ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Divider(height: 1.h, thickness: 0.5, color: colors.border),
+                  SizedBox(height: 8.h),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "MIDNIGHT BLUE",
+                        style: textTheme.labelSmall?.copyWith(
+                          color: Colors.grey,
+                          fontSize: 8.sp,
                         ),
-                        Text(
-                          "BLUE",
-                          style: textTheme.labelSmall?.copyWith(
-                            color: colors.textSecondary,
-                          ),
+                      ),
+                      Text(
+                        "LIMITED STOCK",
+                        style: textTheme.labelSmall?.copyWith(
+                          color: Colors.red,
+                          fontSize: 8.sp,
                         ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "LIMITED",
-                          style: textTheme.labelSmall?.copyWith(
-                            color: BaseColors.alert,
-                          ),
-                        ),
-                        Text(
-                          "STOCK",
-                          style: textTheme.labelSmall?.copyWith(
-                            color: BaseColors.alert,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
-  }
-
-  Color _getLabelColor(String label) {
-    if (label == "NEW") {
-      return const Color(0xffD9534F);
-    } else if (label == "SOLD OUT") {
-      return Colors.grey;
-    } else {
-      return Colors.black;
-    }
   }
 }

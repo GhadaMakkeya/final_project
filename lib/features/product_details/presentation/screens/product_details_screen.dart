@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/features/home/data/models/product_data_model.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_primary_button.dart';
 import '../widgets/review_card.dart';
 import '../widgets/product_features_list.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required ProductDataModel product});
 
   @override
   Widget build(BuildContext context) {

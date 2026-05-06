@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/features/managment/data/models/product_model.dart';
+import 'package:veloura/features/managment/data/models/del_product_model.dart';
 
 class ProductManagementCard extends StatelessWidget {
   final Product product;
   final VoidCallback onDelete;
 
-  const ProductManagementCard({Key? key, required this.product, required this.onDelete}) : super(key: key);
+  const ProductManagementCard({
+    Key? key,
+    required this.product,
+    required this.onDelete,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +18,8 @@ class ProductManagementCard extends StatelessWidget {
         product.imageUrl,
         width: 50,
         height: 50,
-        errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image),
+        errorBuilder: (context, error, stackTrace) =>
+            const Icon(Icons.broken_image),
       ),
       title: Text(product.name),
       subtitle: Text('\$${product.price}'),

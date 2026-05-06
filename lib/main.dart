@@ -10,11 +10,9 @@ import 'package:veloura/features/auth/otp/presentation/cubits/cubit/otp_cubit.da
 import 'package:veloura/features/auth/signup/data/data_source/sign_up_remote_data_source.dart';
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_cubit.dart';
 import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen.dart';
-import 'package:veloura/features/auth/forget_password/presentation/screens/forget_password.dart';
-import 'package:veloura/features/auth/reset_password/presentation/screens/reset_password_screen.dart';
-import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
-import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/features/home/data/data_source/remote_data_source.dart';
+import 'package:veloura/features/home/presentation/cubits/actions_cubit/products_action_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
@@ -25,6 +23,7 @@ import 'package:veloura/features/managment/presentation/cubits/management_cubit/
 import 'package:veloura/features/managment/data/data_sources/add_product_remote_data_source.dart';
 import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_cubit.dart';
 import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
+import 'package:veloura/features/products/presntation/screens/products_screen.dart';
 
 late double screenWidth;
 late double screenHeight;
@@ -33,31 +32,42 @@ void main() {
   final Dio dio = Dio();
   final SecureStorageServices secureStorage = SecureStorageServices();
 
+  // تعريف الـ DataSources
   final ProductRemoteDataSource productRemoteDataSource =
       ProductRemoteDataSource(dio, secureStorage);
+  final SignUpRemoteDataSource signUpRemoteDataSource = SignUpRemoteDataSource(
+    dio,
+    secureStorage,
+  );
+  final OtpRemoteDataSource otpRemoteDataSource = OtpRemoteDataSource(dio);
+  final LoginRemoteDataSource loginRemoteDataSource = LoginRemoteDataSource(
+    dio,
+  );
 
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ProductsCubit()),
-        BlocProvider(create: (context) => OffersCubit()),
+        // 1. الكيوبت الأساسي للمنتجات (شغل زميلتك - سيبيه واحد بس)
+        BlocProvider(create: (context) => ProductsCubit()..getProducts()),
+
+        // 2. الكيوبت الجديد بتاعك (للأكشنز: قلب، سيرش، الخ)
+        BlocProvider(create: (context) => ProductsActionCubit()),
+
+        // 3. الكيوبت الخاص بالعروض
+        BlocProvider(create: (context) => OffersCubit()..getOffers()),
+
+        // 4. الكيوبت الخاص بالإدارة
         BlocProvider(create: (context) => ManagementCubit()),
-        BlocProvider(create: (_) => ProductsCubit()),
-        BlocProvider(create: (_) => OffersCubit()),
 
+        // 5. كيوبت الـ Auth
+        BlocProvider(create: (_) => SignUpCubit(signUpRemoteDataSource)),
+        BlocProvider(create: (_) => OtpCubit(otpRemoteDataSource)),
         BlocProvider(
-          create: (_) =>
-              SignUpCubit(SignUpRemoteDataSource(dio, secureStorage)),
+          create: (_) => LoginCubit(loginRemoteDataSource, secureStorage),
         ),
 
-        BlocProvider(create: (_) => OtpCubit(OtpRemoteDataSource(dio))),
-
-        BlocProvider(
-          create: (_) => LoginCubit(LoginRemoteDataSource(dio), secureStorage),
-        ),
-
+        // 6. كيوبت إضافة المنتجات والأصناف
         BlocProvider(create: (_) => ProductCubit(productRemoteDataSource)),
-
         BlocProvider(create: (_) => CategoryCubit(productRemoteDataSource)),
       ],
       child: const MyApp(),
@@ -83,7 +93,7 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
-          home: ForgetPassword(),
+          home: ProductScreen(),
         );
       },
     );

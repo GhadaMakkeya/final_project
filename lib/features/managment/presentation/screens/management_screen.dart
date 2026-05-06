@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:veloura/features/managment/data/models/product_model.dart';
+import 'package:veloura/features/managment/data/models/del_product_model.dart';
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
+
 import '../widgets/product_management_card.dart';
 
 class ManagementScreen extends StatefulWidget {
@@ -22,21 +23,32 @@ class _ManagementScreenState extends State<ManagementScreen> {
     });
   }
 
-  Future<void> _showDeleteDialog(BuildContext context, Product product, int index) async {
+  Future<void> _showDeleteDialog(
+    BuildContext context,
+    Product product,
+    int index,
+  ) async {
     final bool? confirm = await showDialog<bool>(
       context: context,
       builder: (BuildContext dialogContext) {
         return Dialog(
-          backgroundColor: const Color(0xFFFDECEB), 
+          backgroundColor: const Color(0xFFFDECEB),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.warning_amber_rounded, color: Color(0xFFC62828), size: 40),
+                const Icon(
+                  Icons.warning_amber_rounded,
+                  color: Color(0xFFC62828),
+                  size: 40,
+                ),
                 const SizedBox(height: 16),
-                const Text('Confirm Deletion?', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                const Text(
+                  'Confirm Deletion?',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
                 const SizedBox(height: 8),
                 Text(
                   '"${product.name}" will be permanently removed from the catalog.',
@@ -50,12 +62,17 @@ class _ManagementScreenState extends State<ManagementScreen> {
                       child: ElevatedButton(
                         onPressed: () => Navigator.of(dialogContext).pop(true),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFC62828), 
+                          backgroundColor: const Color(0xFFC62828),
                           foregroundColor: Colors.white,
                           elevation: 0,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(2),
+                          ),
                         ),
-                        child: const Text('DELETE', style: TextStyle(fontSize: 12)),
+                        child: const Text(
+                          'DELETE',
+                          style: TextStyle(fontSize: 12),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -65,9 +82,14 @@ class _ManagementScreenState extends State<ManagementScreen> {
                         style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.black87,
                           side: const BorderSide(color: Colors.grey),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(2),
+                          ),
                         ),
-                        child: const Text('CANCEL', style: TextStyle(fontSize: 12)),
+                        child: const Text(
+                          'CANCEL',
+                          style: TextStyle(fontSize: 12),
+                        ),
                       ),
                     ),
                   ],
@@ -110,8 +132,17 @@ class _ManagementScreenState extends State<ManagementScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: const [
-                  Text('Product Deleted Successfully', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                  Text('DATABASE HAS BEEN UPDATED', style: TextStyle(color: Colors.grey, fontSize: 10)),
+                  Text(
+                    'Product Deleted Successfully',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'DATABASE HAS BEEN UPDATED',
+                    style: TextStyle(color: Colors.grey, fontSize: 10),
+                  ),
                 ],
               ),
             ],
@@ -127,13 +158,23 @@ class _ManagementScreenState extends State<ManagementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFAF7F2), 
+      backgroundColor: const Color(0xFFFAF7F2),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: const Icon(Icons.menu, color: Colors.black87),
-        title: const Text('Product Management', style: TextStyle(color: Colors.black87, fontStyle: FontStyle.italic, fontSize: 18)),
-        actions: const [Icon(Icons.search, color: Colors.black87), SizedBox(width: 16)],
+        title: const Text(
+          'Product Management',
+          style: TextStyle(
+            color: Colors.black87,
+            fontStyle: FontStyle.italic,
+            fontSize: 18,
+          ),
+        ),
+        actions: const [
+          Icon(Icons.search, color: Colors.black87),
+          SizedBox(width: 16),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -141,9 +182,19 @@ class _ManagementScreenState extends State<ManagementScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-            const Text('CURATED COLLECTION', style: TextStyle(fontSize: 12, color: Colors.blueGrey, fontWeight: FontWeight.w600)),
+            const Text(
+              'CURATED COLLECTION',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.blueGrey,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             const SizedBox(height: 4),
-            const Text('Manage Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text(
+              'Manage Products',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(width: 40, height: 2, color: Colors.amber.shade200),
             const SizedBox(height: 20),
@@ -154,17 +205,20 @@ class _ManagementScreenState extends State<ManagementScreen> {
                     return const Center(
                       child: CircularProgressIndicator(color: Colors.brown),
                     );
-                  } 
-                  else if (state is ManagementError) {
+                  } else if (state is ManagementError) {
                     return Center(
-                      child: Text(state.message, style: const TextStyle(color: Colors.red)),
+                      child: Text(
+                        state.message,
+                        style: const TextStyle(color: Colors.red),
+                      ),
                     );
-                  } 
-                  else if (state is ManagementSuccess) {
+                  } else if (state is ManagementSuccess) {
                     final products = state.products;
-                    
+
                     if (products.isEmpty) {
-                      return const Center(child: Text('No products available right now.'));
+                      return const Center(
+                        child: Text('No products available right now.'),
+                      );
                     }
 
                     return AnimatedList(
@@ -176,13 +230,14 @@ class _ManagementScreenState extends State<ManagementScreen> {
                           sizeFactor: animation,
                           child: ProductManagementCard(
                             product: product,
-                            onDelete: () => _showDeleteDialog(context, product, index),
+                            onDelete: () =>
+                                _showDeleteDialog(context, product, index),
                           ),
                         );
                       },
                     );
                   }
-                  
+
                   return const Center(child: Text('Initializing...'));
                 },
               ),
