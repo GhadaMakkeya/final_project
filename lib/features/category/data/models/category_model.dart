@@ -1,4 +1,4 @@
-class CategoryModel{
+class CategoryModel {
   final String name;
   final String subtitle;
   final double price;
@@ -15,7 +15,15 @@ class CategoryModel{
     this.isNew = false,
   });
 
-  static Object? fromJson(e) {}
-
-
+  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+    return CategoryModel(
+      name: json['name'] ?? '',
+      subtitle: json['subtitle'] ?? '',
+      price: (json['price'] as num)
+          .toDouble(), // عشان نضمن إنه ميضربش لو جه رقم صحيح
+      image: json['image'] ?? '',
+      isFavorite: json['isFavorite'] ?? false,
+      isNew: json['isNew'] ?? false,
+    );
+  }
 }

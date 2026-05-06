@@ -4,6 +4,7 @@ class ProductDataModel {
   final String productName;
   final String price;
   final String description;
+  bool isFavorite;
 
   ProductDataModel({
     required this.id,
@@ -11,6 +12,7 @@ class ProductDataModel {
     required this.productName,
     required this.price,
     this.description = '',
+    this.isFavorite = false,
   });
   factory ProductDataModel.fromJson(Map<String, dynamic> json) {
     return ProductDataModel(
@@ -21,6 +23,7 @@ class ProductDataModel {
       productName: json['name']?.toString() ?? '',
       price: json['price']?.toString() ?? '0',
       description: json['description']?.toString() ?? '',
+      isFavorite: json['isFavorite'] ?? false,
     );
   }
 }

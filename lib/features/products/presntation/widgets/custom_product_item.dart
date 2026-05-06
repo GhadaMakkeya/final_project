@@ -67,23 +67,20 @@ class _CustomProductItemState extends State<CustomProductItem> {
                     child:
                         BlocBuilder<ProductsActionCubit, ProductsActionStates>(
                           builder: (context, state) {
-                            // هنا بنبعت الـ id بتاع المنتج اللي جوه الكارد ده بس
-                            // جوه الـ BlocBuilder في الكارد
                             final isFav = context
                                 .read<ProductsActionCubit>()
                                 .isProductFavorite(widget.product.id);
 
-                            return GestureDetector(
-                              onTap: () {
-                                // كدة بنغير حالة المنتج ده بس مش كل الشاشة
+                            return IconButton(
+                              icon: Icon(
+                                isFav ? Icons.favorite : Icons.favorite_border,
+                                color: isFav ? Colors.red : Colors.white,
+                              ),
+                              onPressed: () {
                                 context
                                     .read<ProductsActionCubit>()
                                     .toggleFavorite(widget.product.id);
                               },
-                              child: Icon(
-                                isFav ? Icons.favorite : Icons.favorite_border,
-                                color: isFav ? Colors.red : Colors.white,
-                              ),
                             );
                           },
                         ),

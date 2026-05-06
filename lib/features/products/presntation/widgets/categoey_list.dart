@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/features/category/domain/list_category.dart';
 import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 
 class CategoryList extends StatelessWidget {
@@ -8,26 +9,17 @@ class CategoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> categories = [
-      "COLLECTIONS",
-      "MAKEUP",
-      "FINE JEWELRY",
-      "PERFUMES",
-      "ACCESSORIES",
-      "SHOES",
-    ];
-
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 15.h),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Row(
-          children: categories.map((name) {
+          children: categoryList.map((product) {
             return _buildCategoryChip(
               context,
-              name,
-              isSelected: name == "COLLECTIONS",
+              product.name,
+              isSelected: product.name == "Aurelia Pendant",
             );
           }).toList(),
         ),
@@ -59,11 +51,11 @@ class CategoryList extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: isSelected
-              ? textTheme.labelMedium?.copyWith(color: colors.chipSelectedText)
-              : textTheme.labelMedium?.copyWith(
-                  color: colors.chipUnSelectedText,
-                ),
+          style: textTheme.labelMedium?.copyWith(
+            color: isSelected
+                ? colors.chipSelectedText
+                : colors.chipUnSelectedText,
+          ),
         ),
       ),
     );
