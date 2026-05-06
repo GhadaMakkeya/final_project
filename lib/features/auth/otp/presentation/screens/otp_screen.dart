@@ -7,6 +7,7 @@ import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:veloura/features/auth/otp/presentation/cubits/cubit/otp_cubit.dart';
+import 'package:veloura/features/auth/reset_password/presentation/screens/reset_password_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   final String email;
@@ -156,30 +157,57 @@ class _OtpScreenState extends State<OtpScreen> {
 
                         SizedBox(height: 30.h),
 
-                        CustomPrimaryButton(
-                          borderRadius: 16,
-                          label: state is OtpLoadingState
-                              ? 'VERIFYING...'
-                              : 'VERIFY',
-                          onPressed: state is OtpLoadingState
-                              ? null
-                              : () {
-                                  if (otpController.text.length == 6) {
-                                    context.read<OtpCubit>().validateOtp(
-                                      email: widget.email,
-                                      otp: otpController.text,
-                                    );
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Please enter the 6-digit code',
+                        BlocListener<OtpCubit, OtpStates>(
+                          listener: (context, state) {
+                            if (state is OtpSuccessState) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ResetPasswordScreen(
+                                    email: widget.email,
+                                    otp: otpController.text,
+                                  ),
+                                ),
+                              );
+                            }
+
+                            if (state is OtpFailureState) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(state.errorMessage),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          },
+
+                          child: CustomPrimaryButton(
+                            borderRadius: 16,
+                            label: state is OtpLoadingState
+                                ? 'VERIFYING...'
+                                : 'VERIFY',
+                            onPressed: state is OtpLoadingState
+                                ? null
+                                : () {
+                                    if (otpController.text.length == 6) {
+                                      context.read<OtpCubit>().validateOtp(
+                                        email: widget.email,
+                                        otp: otpController.text,
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Please enter the 6-digit code',
+                                          ),
+                                          backgroundColor: Colors.orange,
                                         ),
-                                        backgroundColor: Colors.orange,
-                                      ),
-                                    );
-                                  }
-                                },
+                                      );
+                                    }
+                                  },
+                          ),
                         ),
 
                         SizedBox(height: 20.h),
