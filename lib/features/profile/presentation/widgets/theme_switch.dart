@@ -81,8 +81,14 @@ class ThemeSwitch extends StatelessWidget {
         duration: const Duration(milliseconds: 250),
         padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: selected ? colors.primary : BaseColors.transparent,
+          color: isSelected
+              ? colors.chipSelectedColor
+              : colors.chipUnSelectedColor,
           borderRadius: BorderRadius.circular(25.r),
+          border: Border.all(
+            color: isSelected ? colors.chipSelectedColor : colors.border,
+            width: 1,
+          ),
         ),
         child: Text(
           text,

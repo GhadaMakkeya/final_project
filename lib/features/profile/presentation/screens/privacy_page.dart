@@ -1,136 +1,179 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/widgets/custom_app_bar.dart';
-import '../widgets/privacy_card.dart';
-import '../widgets/cookies_section.dart';
-import '../widgets/security_section.dart';
-import '../widgets/privacy_image.dart';
+import 'package:veloura/core/theme/app_colors.dart'; // تأكد من المسار
 
-class PrivacyPage extends StatefulWidget {
-  const PrivacyPage({super.key});
-
-  @override
-  State<PrivacyPage> createState() => _PrivacyPageState();
-}
-
-class _PrivacyPageState extends State<PrivacyPage> {
-  final ScrollController _scrollController = ScrollController();
-
-  void _scrollToTop() {
-    _scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
-  }
+class PrivacyPolicyScreen extends StatelessWidget {
+  const PrivacyPolicyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color(0xFFFDF8F5),
-        appBar: const CustomAppBar(),
-        body: SingleChildScrollView(
-          controller: _scrollController,
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              _buildHeader(),
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
 
-              const PrivacyImage(
-                imagePath:
-                    'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000',
-                imageUrl: '',
-              ),
-
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: const Column(
-                  children: [
-                    PrivacyCard(
-                      icon: Icons.assignment_outlined,
-                      title: 'Data Collection',
-                      body:
-                          'We collect information you provide directly to us...',
-                    ),
-                    SizedBox(height: 16),
-                    PrivacyCard(
-                      icon: Icons.person_outline,
-                      title: 'Your Rights',
-                      body:
-                          'You have the right to access, correct, or delete your data...',
-                    ),
-                  ],
+    return Scaffold(
+      backgroundColor: colors.background,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new, size: 20.sp),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          'Privacy Policy',
+          style: textTheme.headlineSmall?.copyWith(fontSize: 20.sp),
+        ),
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // --- Header Image ---
+            Container(
+              height: 220.h,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(color: colors.border, width: 0.5),
+                image: const DecorationImage(
+                  image: NetworkImage('https://images.unsplash.com/photo-1557683316-973673baf926'), 
+                  fit: BoxFit.cover,
                 ),
               ),
+            ),
 
-              const PrivacyImage(
-                imagePath:
-                    'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000',
-                imageUrl: '',
-              ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10.h),
+                  Text('LEGAL INFORMATION', style: textTheme.titleSmall),
+                  SizedBox(height: 8.h),
+                  Text('Your Privacy Matters', style: textTheme.headlineMedium),
+                  SizedBox(height: 8.h),
+                  Container(width: 40.w, height: 2.h, color: colors.gold),
+                  SizedBox(height: 24.h),
 
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: CookiesSection(),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(20),
-                child: SecuritySection(),
-              ),
+                  // --- Privacy Card 1 (Data Collection) ---
+                  _buildSectionCard(
+                    context,
+                    icon: Icons.security_outlined,
+                    title: 'Data Collection',
+                    body: 'We collect information to provide better services to all our users. This includes personal identifiers and browsing behavior within the application.',
+                  ),
+                  SizedBox(height: 16.h),
 
-              Padding(
-                padding: EdgeInsets.only(bottom: 30.h),
-                child: _buildContactButton(),
-              ),
+                  // --- Privacy Card 2 (User Rights) ---
+                  _buildSectionCard(
+                    context,
+                    icon: Icons.fingerprint_outlined,
+                    title: 'User Rights',
+                    body: 'You have the right to access, update, or delete your personal information at any time through your profile settings or by contacting support.',
+                  ),
+                  SizedBox(height: 24.h),
 
-              SizedBox(height: 50.h),
-            ],
-          ),
+                  // --- Cookies Policy Section ---
+                  Container(
+                    padding: EdgeInsets.all(20.w),
+                    decoration: BoxDecoration(
+                      color: colors.authCardColor,
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(color: colors.border),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.cookie_outlined, color: colors.gold, size: 24.sp),
+                            SizedBox(width: 12.w),
+                            Text('Cookies Policy', style: textTheme.headlineSmall),
+                          ],
+                        ),
+                        SizedBox(height: 12.h),
+                        Text(
+                          'We use cookies to enhance your experience, analyze site traffic, and serve personalized content. By continuing to use Veloura, you consent to our use of cookies.',
+                          style: textTheme.bodyMedium?.copyWith(height: 1.6),
+                        ),
+                        SizedBox(height: 20.h),
+                        Container(
+                          padding: EdgeInsets.all(16.w),
+                          decoration: BoxDecoration(
+                            color: colors.background,
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(color: colors.border),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('COOKIE PREFERENCES', style: textTheme.titleSmall),
+                              SizedBox(height: 8.h),
+                              Text(
+                                'You can choose to disable cookies through your browser settings, though some features may not function properly.',
+                                style: textTheme.bodySmall?.copyWith(color: colors.textSecondary),
+                              ),
+                              SizedBox(height: 12.h),
+                              GestureDetector(
+                                onTap: () {},
+                                child: Text(
+                                  'Manage Settings',
+                                  style: textTheme.labelMedium?.copyWith(
+                                    color: colors.gold,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 40.h),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildHeader() {
-    return Padding(
-      padding: EdgeInsets.all(30.w),
+  // Helper method inside the same class to keep the code clean but not in a separate file
+  Widget _buildSectionCard(BuildContext context, {required IconData icon, required String title, required String body}) {
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      padding: EdgeInsets.all(20.w),
+      decoration: BoxDecoration(
+        color: colors.authCardColor,
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: colors.border),
+      ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            padding: EdgeInsets.all(8.w),
+            decoration: BoxDecoration(
+              color: colors.gold.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8.r),
+            ),
+            child: Icon(icon, color: colors.gold, size: 24.sp),
+          ),
+          SizedBox(height: 16.h),
+          Text(title, style: textTheme.headlineSmall),
+          SizedBox(height: 10.h),
           Text(
-            'Privacy Policy',
-            style: TextStyle(
-              fontSize: 32.sp,
-              fontFamily: 'Georgia',
-              fontWeight: FontWeight.bold,
+            body,
+            style: textTheme.bodyMedium?.copyWith(
+              color: colors.textSecondary,
+              height: 1.6,
             ),
           ),
-          const SizedBox(height: 10),
-          const Text(
-            'Last updated: October 24, 2023',
-            style: TextStyle(color: Colors.grey),
-          ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildContactButton() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 40.w),
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF0D1B2A),
-          minimumSize: Size(double.infinity, 50.h),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.r),
-          ),
-        ),
-        child: const Text(
-          'CONTACT CONCIERGE',
-          style: TextStyle(color: Colors.white),
-        ),
       ),
     );
   }

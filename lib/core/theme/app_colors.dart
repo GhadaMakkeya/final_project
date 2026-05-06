@@ -88,9 +88,9 @@ class _LightColors extends MyColors {
   @override
   Color get chipSelectedColor => const Color(0xFF1A1F3D);
   @override
-  Color get chipUnSelectedColor => Colors.transparent;
+  Color get chipSelectedText => Colors.white;
   @override
-  Color get chipSelectedText => const Color(0xFFFFFFFF);
+  Color get chipUnSelectedColor => const Color(0xFFF5F2EE);
   @override
   Color get chipUnSelectedText => const Color(0xFF1A1F3D);
 }
@@ -129,11 +129,11 @@ class _DarkColors extends MyColors {
   @override
   Color get chipSelectedColor => const Color(0xFFC9A96E);
   @override
-  Color get chipUnSelectedColor => Colors.transparent;
-  @override
   Color get chipSelectedText => const Color(0xFF050F1E);
   @override
-  Color get chipUnSelectedText => const Color(0xFFC9A96E);
+  Color get chipUnSelectedColor => const Color(0xFF0C2340); 
+  @override
+  Color get chipUnSelectedText => const Color(0xFFC9A96E); 
 }
 
 extension ColorExt on BuildContext {

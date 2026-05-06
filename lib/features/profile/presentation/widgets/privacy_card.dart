@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class PrivacyCard extends StatelessWidget {
   final IconData icon;
@@ -15,12 +16,15 @@ class PrivacyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
+
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.authCardColor, // استخدمنا لون الكارت المخصص
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: const Color(0xFFE5E0DA).withOpacity(0.5)),
+        border: Border.all(color: colors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,26 +32,21 @@ class PrivacyCard extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
-              color: const Color(0xFFE8EAF6),
+              color: colors.gold.withOpacity(0.1), // لمسة ذهبية خفيفة للايقونة
               borderRadius: BorderRadius.circular(6.r),
             ),
-            child: Icon(icon, color: const Color(0xFF5C6BC0), size: 22.sp),
+            child: Icon(icon, color: colors.gold, size: 22.sp),
           ),
           SizedBox(height: 15.h),
           Text(
             title,
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontFamily: 'Georgia',
-              fontWeight: FontWeight.bold,
-            ),
+            style: textTheme.headlineSmall, // خط Georgia الفخم
           ),
           SizedBox(height: 10.h),
           Text(
             body,
-            style: TextStyle(
-              fontSize: 13.sp,
-              color: const Color(0xFF7A7570),
+            style: textTheme.bodyMedium?.copyWith(
+              color: colors.textSecondary,
               height: 1.6,
             ),
           ),

@@ -5,6 +5,8 @@ import 'package:veloura/features/about_us/presentation/screens/about_screen.dart
 import 'package:veloura/features/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:veloura/features/managment/presentation/screens/add_product_screen.dart';
 import 'package:veloura/features/managment/presentation/screens/management_screen.dart';
+import 'package:veloura/features/profile/presentation/screens/privacy_page.dart';
+import 'package:veloura/features/profile/presentation/widgets/privacy_card.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../widgets/logout_button.dart';
@@ -63,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => AboutScreen()),
+                  MaterialPageRoute(builder: (_) => PrivacyPolicyScreen()),
                 );
               },
             ),

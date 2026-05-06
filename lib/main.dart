@@ -24,6 +24,7 @@ import 'package:veloura/features/managment/data/data_sources/add_product_remote_
 import 'package:veloura/features/managment/data/services/product_service.dart';
 import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_cubit.dart';
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
+import 'package:veloura/features/profile/presentation/screens/profile_screen.dart';
 
 late double screenWidth;
 late double screenHeight;
@@ -102,7 +103,7 @@ class MyApp extends StatelessWidget {
               theme: AppTheme.light,
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
-              home: LoginScreen(),
+              home: ProfileScreen(),
             );
           },
         );
