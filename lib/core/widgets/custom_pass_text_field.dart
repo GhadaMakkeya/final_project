@@ -4,15 +4,17 @@ import 'package:veloura/core/theme/app_colors.dart';
 class CustomPassTextField extends StatefulWidget {
   const CustomPassTextField({
     super.key,
-    required this.fieldName,
-    required this.hintName,
+    required this.label,
+    required this.hintText,
     this.isPassword = false,
     this.controller,
     this.validator,
+    required this.prefixIcon,
   });
-  final String fieldName;
-  final String hintName;
+  final String label;
+  final String hintText;
   final bool isPassword;
+  final IconData prefixIcon;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   @override
@@ -28,7 +30,7 @@ class _CustomPassTextFieldState extends State<CustomPassTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.fieldName, style: textTheme.titleSmall),
+        Text(widget.label, style: textTheme.titleSmall),
         SizedBox(height: 10),
         TextFormField(
           validator: widget.validator,
@@ -39,12 +41,18 @@ class _CustomPassTextFieldState extends State<CustomPassTextField> {
           style: textTheme.bodyMedium?.copyWith(color: colors.primary),
           decoration: InputDecoration(
             fillColor: colors.secondary,
+            prefixIcon: Icon(
+              widget.prefixIcon,
+              color: colors.textTertiary,
+              size: 20,
+            ),
             suffixIconColor: colors.textTertiary,
             suffixIcon: widget.isPassword
                 ? IconButton(
                     icon: Icon(
                       obscure ? Icons.visibility_off : Icons.visibility,
                       color: colors.textTertiary,
+                      size: 20,
                     ),
                     onPressed: () {
                       setState(() {
@@ -54,10 +62,18 @@ class _CustomPassTextFieldState extends State<CustomPassTextField> {
                   )
                 : null,
             hint: Text(
-              widget.hintName,
+              widget.hintText,
               style: textTheme.bodyMedium?.copyWith(
                 color: colors.textTertiary, // ← was hardcoded
               ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: BaseColors.alert, width: 1),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: BaseColors.alert, width: 1.5),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),

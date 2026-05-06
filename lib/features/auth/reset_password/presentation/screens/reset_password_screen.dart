@@ -6,9 +6,11 @@ import 'package:veloura/core/constants/app_strings.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/utils/validators.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
+import 'package:veloura/core/widgets/custom_text_field.dart';
+import 'package:veloura/features/auth/login/presentation/widgets/auth_text_field.dart';
 import 'package:veloura/features/auth/reset_password/presentation/cubits/reset_password_cubit.dart';
 import 'package:veloura/features/auth/reset_password/presentation/cubits/reset_password_states.dart';
-import 'package:veloura/features/auth/reset_password/presentation/widgets/custom_pass_text_field.dart';
+import 'package:veloura/core/widgets/custom_pass_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 
@@ -111,8 +113,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   SizedBox(height: 32.h),
 
                                   CustomPassTextField(
-                                    fieldName: "NEW PASSWORD",
-                                    hintName: "••••••••",
+                                    label: "NEW PASSWORD",
+                                    hintText: "••••••••",
                                     isPassword: true,
                                     controller: passController,
                                     validator: (value) {
@@ -120,18 +122,24 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                         value ?? '',
                                       );
                                     },
+                                    prefixIcon: Icons.lock_outline,
                                   ),
 
                                   CustomPassTextField(
-                                    fieldName: "CONFIRM NEW PASSWORD",
-                                    hintName: "••••••••",
+                                    label: "CONFIRM NEW PASSWORD",
+                                    hintText: "••••••••",
                                     isPassword: true,
                                     controller: confirmPassController,
                                     validator: (value) {
-                                      return Validator.validatePassword(
-                                        value ?? '',
-                                      );
+                                      if (value == null || value.isEmpty) {
+                                        return AppStrings.fieldRequired;
+                                      }
+                                      if (value != passController.text) {
+                                        return AppStrings.passwordNotTheSame;
+                                      }
+                                      return null;
                                     },
+                                    prefixIcon: Icons.lock_outline,
                                   ),
 
                                   SizedBox(height: 26.h),
