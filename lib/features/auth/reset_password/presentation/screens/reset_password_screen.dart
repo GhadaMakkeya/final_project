@@ -7,6 +7,7 @@ import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/utils/validators.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/widgets/custom_text_field.dart';
+import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:veloura/features/auth/reset_password/presentation/cubits/reset_password_cubit.dart';
 import 'package:veloura/features/auth/reset_password/presentation/cubits/reset_password_states.dart';
 import 'package:veloura/core/widgets/custom_pass_text_field.dart';
@@ -158,7 +159,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                         ).showSnackBar(
                                           const SnackBar(
                                             content: Text(
-                                              "Password reset successfully 🎉",
+                                              "Password reset successfully",
                                             ),
                                             backgroundColor: Colors.green,
                                           ),
@@ -167,12 +168,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) {
-                                              return HomeScreen();
+                                              return LoginScreen();
                                             },
                                           ),
                                         );
                                       }
-
                                       if (state is ResetPasswordErrorState) {
                                         ScaffoldMessenger.of(
                                           context,

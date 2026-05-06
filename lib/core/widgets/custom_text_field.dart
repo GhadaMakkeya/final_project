@@ -59,7 +59,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             prefixIcon: Icon(
               widget.prefixIcon,
               color: colors.textTertiary,
-              size: 20.sp,
+              size: 20,
             ),
             suffixIcon: widget.suffix != null
                 ? InkWell(

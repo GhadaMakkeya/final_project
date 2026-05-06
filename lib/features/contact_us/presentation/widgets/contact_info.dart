@@ -13,6 +13,8 @@ class ContactInfo extends StatelessWidget {
   final IconData icon;
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Row(
       children: [
         Container(
@@ -37,14 +39,7 @@ class ContactInfo extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 4),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  color: AppColors.lightColors.primary,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              Text(subtitle, style: textTheme.bodySmall?.copyWith()),
             ],
           ),
         ),
