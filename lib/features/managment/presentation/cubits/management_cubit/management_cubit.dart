@@ -1,15 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-// استخدم الـ package import ده عشان يروح الإيرور الأحمر
-import 'package:veloura/features/managment/data/models/product_model.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/managment/data/services/product_service.dart';
 
 part 'management_state.dart';
 
 class ManagementCubit extends Cubit<ManagementState> {
-  final ProductService _service = ProductService();
-  List<Product> products = [];
+  final ProductService _service;
+  List<ProductModel> products = [];
 
-  ManagementCubit() : super(ManagementInitial());
+  ManagementCubit({required ProductService service}) : _service = service, super(ManagementInitial());
 
   Future<void> fetchAllProducts() async {
     emit(ManagementLoading());

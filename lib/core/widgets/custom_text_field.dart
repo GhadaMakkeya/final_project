@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String label;
   final String hintText;
   final IconData prefixIcon;
@@ -27,74 +27,73 @@ class CustomTextField extends StatelessWidget {
   });
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool isObscure = true;
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: textTheme.titleSmall),
-       
-        SizedBox(height: 8.h),
-        TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          keyboardType: keyboardType,
+        Text(widget.label, style: textTheme.titleSmall),
 
-          validator: validator,
+        SizedBox(height: 10.h),
+        TextFormField(
+          controller: widget.controller,
+          obscureText: widget.obscureText ? isObscure : false,
+          keyboardType: widget.keyboardType,
+
+          validator: widget.validator,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          style: TextStyle(fontSize: 15.sp, color: Colors.black87),
-          
-            decoration: InputDecoration(
-              hintText: hintText,
-              hintStyle: textTheme.bodyMedium?.copyWith(
-                color: colors.textTertiary,
-              ),
-              prefixIcon: Icon(
-                prefixIcon,
-                color: colors.textSecondary,
-                size: 20.sp,
-                 ),
-            suffixIcon: suffix != null
+
+          //style: TextStyle(fontSize: 15.sp, color: Colors.black87),
+          decoration: InputDecoration(
+            hintText: widget.hintText,
+            hintStyle: textTheme.bodyMedium?.copyWith(
+              color: colors.textTertiary,
+            ),
+            prefixIcon: Icon(
+              widget.prefixIcon,
+              color: colors.textTertiary,
+              size: 20,
+            ),
+            suffixIcon: widget.suffix != null
                 ? InkWell(
-                    onTap: onSuffixTap,
+                    onTap: widget.onSuffixTap,
                     child: Icon(
-                      suffix,
+                      widget.suffix,
                       color: colors.textSecondary,
                       size: 20.sp,
                     ),
                   )
                 : null,
             filled: true,
-            fillColor:  colors.cardColor, 
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 16.w,
-              vertical: 16.h,
-            ),
-           
+            fillColor: colors.secondary,
+
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.r),
               borderSide: BorderSide(color: BaseColors.alert, width: 1.w),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.r),
-              borderSide: BorderSide(
-                color: BaseColors.alert,
-                width: 1.5.w,
-              ),
+              borderSide: BorderSide(color: BaseColors.alert, width: 1.5.w),
             ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16.r),
-                borderSide: BorderSide(color: colors.border, width: 1.w),
-              ),
-              // ── Focused ────────────────────────────────────────────────────
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16.r),
-                borderSide: BorderSide(color: colors.primary, width: 1.5.w),
-              ),       
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.r),
+              borderSide: BorderSide.none,
+            ),
+            // ── Focused ────────────────────────────────────────────────────
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.r),
+              borderSide: BorderSide(color: colors.primary, width: 1.5.w),
             ),
           ),
-        SizedBox(height: 8,)
+        ),
+        SizedBox(height: 8),
       ],
     );
   }

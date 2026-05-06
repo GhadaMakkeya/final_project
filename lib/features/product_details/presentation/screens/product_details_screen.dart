@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
+import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_primary_button.dart';
 import '../widgets/review_card.dart';
 import '../widgets/product_features_list.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  final ProductModel product;
+  const ProductDetailsScreen({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +26,8 @@ class ProductDetailsScreen extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    Image.asset(
-                      'assets/images/scarf.png',
+                    Image.network(
+                      product.imageUrl,
                       height: 400.h,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -37,7 +41,6 @@ class ProductDetailsScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //_buildCircleIcon(Icons.arrow_back),
                             Container(
                               decoration: BoxDecoration(
                                 color: colors.background,
@@ -76,14 +79,12 @@ class ProductDetailsScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('HERITAGE COLLECTION', style: textTheme.titleSmall),
+                      Text(product.category, style: textTheme.titleSmall),
                       SizedBox(height: 8.h),
-                      Text(
-                        'Midnight Bloom Silk Scarf',
-                        style: textTheme.headlineMedium,
-                      ),
+                      Text(product.name, style: textTheme.headlineMedium),
+
                       SizedBox(height: 12.h),
-                      Text('\$345.00', style: textTheme.titleMedium),
+                      Text('\$${product.price}', style: textTheme.titleMedium),
                       SizedBox(height: 16.h),
                       Row(
                         children: [
@@ -103,7 +104,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 24.h),
                       Text(
-                        'Woven from the finest mulberry silk, the Midnight Bloom scarf features a meticulously hand-rolled hem and an exclusive archival floral print. Its generous proportions allow for versatile styling, offering an effortless touch of evening elegance to any ensemble.',
+                        product.description,
                         style: textTheme.bodyLarge,
                       ),
                       SizedBox(height: 20.h),
@@ -135,7 +136,9 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 100.h),
                       CustomPrimaryButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.read<CartCubit>().addToCart(product.id, 1);
+                        },
                         label: "ADD TO CART",
                         letterSpacing: 0,
                       ),

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:veloura/features/auth/otp/data/data_sources/otp_remote_data_source.dart';
+
+import '../../../data/data_sources/otp_remote_data_source.dart';
 
 part 'otp_state.dart';
 
