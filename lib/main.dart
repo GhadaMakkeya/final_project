@@ -6,6 +6,7 @@ import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/core/theme/app_theme.dart';
 import 'package:veloura/core/theme/theme_cubit.dart';
 import 'package:veloura/core/theme/theme_states.dart';
+import 'package:veloura/features/about_us/presentation/screens/about_screen.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
 import 'package:veloura/features/auth/otp/presentation/cubits/cubit/otp_cubit.dart';
 import 'package:veloura/features/auth/reset_password/presentation/screens/reset_password_screen.dart';
@@ -81,7 +82,7 @@ class MyApp extends StatelessWidget {
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
 
-              home: ResetPasswordScreen(email: '', otp: ''),
+              home:  AboutScreen(),
               //home: const SignUpScreen(),
             );
           },

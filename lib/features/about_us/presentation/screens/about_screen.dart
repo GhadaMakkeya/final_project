@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
+import 'package:veloura/features/profile/presentation/screens/profile_screen.dart';
 
-import '../widgets/custom_header _about.dart';
 import '../widgets/hero_section_about.dart';
 import '../widgets/info_card_about.dart';
 import '../widgets/philosophy_card.dart';
@@ -14,14 +14,26 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ProfileScreen(),
+              ),
+            );
+
+          },
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+        ),
+
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(height: 10.h),
-
-              CustomHeaderAbout(),
 
               SizedBox(height: 35.h),
 
@@ -29,7 +41,7 @@ class AboutScreen extends StatelessWidget {
 
               SizedBox(height: 30.h),
 
-              Divider(color: Colors.grey.shade300),
+              Divider(thickness: 1, height: 1, color: Colors.grey.shade300),
 
               SizedBox(height: 35.h),
 
