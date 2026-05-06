@@ -43,11 +43,9 @@ class ContactUsScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 Text(
                   'Contact Us',
-                  style: TextStyle(
-                    fontFamily: AppFontFamilies.georgia,
-                    color: Color(0xFF1A1A1A),
-                    fontSize: 28,
-                    fontWeight: FontWeight.w600,
+                  style: textTheme.headlineMedium?.copyWith(
+                    letterSpacing: 3.5,
+                    color: colors.primary,
                   ),
                 ),
 
@@ -108,11 +106,7 @@ class ContactUsScreen extends StatelessWidget {
                   children: [
                     Text(
                       "Concierge Inquiry",
-                      style: TextStyle(
-                        color: AppColors.lightColors.primary,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: textTheme.headlineMedium?.copyWith(),
                     ),
                     Divider(color: AppColors.lightColors.primary),
                     ContactInfo(

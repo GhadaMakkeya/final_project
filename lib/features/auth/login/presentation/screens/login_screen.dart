@@ -16,6 +16,7 @@ import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/features/auth/forget_password/presentation/screens/forget_password.dart';
 import 'package:veloura/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
+import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,10 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
     return BlocProvider(
-      create: (context) => LoginCubit(
-        LoginRemoteDataSource(Dio()), 
-        SecureStorageServices(),
-      ),
+      create: (context) =>
+          LoginCubit(LoginRemoteDataSource(Dio()), SecureStorageServices()),
       child: Scaffold(
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
@@ -109,9 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               hintText: 'your@email.com',
                               prefixIcon: Icons.email_outlined,
                               controller: _emailController,
-                            //  validator: (value) =>
-                           //       Validator.validateEmail(value ?? ''),
-                         //   )
+                              //  validator: (value) =>
+                              //       Validator.validateEmail(value ?? ''),
+                              //   )
                             ),
                             SizedBox(height: 20.h),
                             CustomPassTextField(
@@ -126,8 +125,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 InkWell(
-                                  onTap: () => setState(() =>
-                                      isRememberMeChecked = !isRememberMeChecked),
+                                  onTap: () => setState(
+                                    () => isRememberMeChecked =
+                                        !isRememberMeChecked,
+                                  ),
                                   borderRadius: BorderRadius.circular(4),
                                   child: Row(
                                     children: [
@@ -138,17 +139,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                           value: isRememberMeChecked,
                                           activeColor: const Color(0xFF061F3D),
                                           shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(4)),
+                                            borderRadius: BorderRadius.circular(
+                                              4,
+                                            ),
+                                          ),
                                           side: const BorderSide(
-                                              color: Colors.grey, width: 1.5),
-                                          onChanged: (value) => setState(() =>
-                                              isRememberMeChecked = value!),
+                                            color: Colors.grey,
+                                            width: 1.5,
+                                          ),
+                                          onChanged: (value) => setState(
+                                            () => isRememberMeChecked = value!,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(width: 8.w),
-                                      Text('Remember me',
-                                          style: textTheme.bodySmall),
+                                      Text(
+                                        'Remember me',
+                                        style: textTheme.bodySmall,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -157,12 +165,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (_) =>
-                                              const ForgetPassword()),
+                                        builder: (_) => const ForgetPassword(),
+                                      ),
                                     );
                                   },
                                   style: TextButton.styleFrom(
-                                      padding: EdgeInsets.zero),
+                                    padding: EdgeInsets.zero,
+                                  ),
                                   child: Text(
                                     'Forgot password?',
                                     style: textTheme.bodySmall?.copyWith(
@@ -175,14 +184,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: 25.h),
                             state is LoginLoading
-                                ? const Center(child: CircularProgressIndicator())
+                                ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
                                 : CustomPrimaryButton(
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
                                         context.read<LoginCubit>().login(
-                                              email: _emailController.text.trim(),
-                                              password: _passwordController.text,
-                                            );
+                                          email: _emailController.text.trim(),
+                                          password: _passwordController.text,
+                                        );
                                       }
                                     },
                                     label: 'SIGN IN',
@@ -194,11 +205,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               children: [
                                 const Expanded(child: Divider(thickness: 1)),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 10.w,
+                                  ),
                                   child: Text(
                                     'Or',
                                     style: textTheme.bodySmall?.copyWith(
-                                        color: colors.textTertiary),
+                                      color: colors.textTertiary,
+                                    ),
                                   ),
                                 ),
                                 const Expanded(child: Divider(thickness: 1)),
@@ -233,12 +247,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Text(
                             "Don't have an account? ",
-                            style: textTheme.bodySmall
-                                ?.copyWith(color: colors.textSecondary),
+                            style: textTheme.bodySmall?.copyWith(
+                              color: colors.textSecondary,
+                            ),
                           ),
                           GestureDetector(
                             onTap: () {
-                              // أضيفي التنقل لصفحة التسجيل (Register) هنا
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return SignUpScreen();
+                                  },
+                                ),
+                              );
                             },
                             child: Text(
                               'Register',
