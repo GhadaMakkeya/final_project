@@ -4,10 +4,9 @@ import 'package:veloura/features/auth/reset_password/presentation/cubits/reset_p
 import '../../data/data_source/reset_pass_remote_data_source.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordStates> {
-  ResetPasswordCubit() : super(ResetPasswordInitialState());
+  final ResetPassRemoteDataSource resetPassRemoteDataSource;
 
-  final ResetPassRemoteDataSource resetPassRemoteDataSource =
-      ResetPassRemoteDataSource();
+  ResetPasswordCubit(this.resetPassRemoteDataSource) : super(ResetPasswordInitialState());
 
   Future<void> resetPassword({
     required String email,
@@ -22,9 +21,16 @@ class ResetPasswordCubit extends Cubit<ResetPasswordStates> {
         newPassword: newPassword,
       );
 
-      emit(ResetPasswordSuccessState());
+      emit(ResetPasswordSuccessState(
+        'Password reset successfully',
+      ));
     } catch (e) {
-      emit(ResetPasswordErrorState(e.toString()));
+      String message = e.toString();
+      if (message.startsWith('Exception: ')) {
+        message = message.replaceFirst('Exception: ', '');
+      }
+      emit(ResetPasswordErrorState(message));
     }
   }
 }
+

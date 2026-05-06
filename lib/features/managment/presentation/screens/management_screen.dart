@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/features/managment/data/models/product_model.dart';
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 import '../widgets/product_management_card.dart';
 
 class ManagementScreen extends StatefulWidget {
-  const ManagementScreen({Key? key}) : super(key: key);
+  const ManagementScreen({super.key});
 
   @override
   State<ManagementScreen> createState() => _ManagementScreenState();
@@ -22,52 +24,85 @@ class _ManagementScreenState extends State<ManagementScreen> {
     });
   }
 
-  Future<void> _showDeleteDialog(BuildContext context, Product product, int index) async {
+  Future<void> _showDeleteDialog(
+    BuildContext context,
+    Product product,
+    int index,
+  ) async {
+    // Capture ALL context-dependent values before ANY async gap (incl. showDialog)
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
+    final cubit = context.read<ManagementCubit>();
+    final messenger = ScaffoldMessenger.of(context);
+    final goldColor = colors.gold;
+    final cardColor = colors.cardColor;
+    final secondaryColor = colors.textSecondary;
+    final labelMediumStyle = textTheme.labelMedium;
+    final labelSmallStyle = textTheme.labelSmall;
+    final listKey = _listKey;
+
     final bool? confirm = await showDialog<bool>(
       context: context,
       builder: (BuildContext dialogContext) {
         return Dialog(
-          backgroundColor: const Color(0xFFFDECEB), 
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          backgroundColor: colors.cardColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.r),
+          ),
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(24.w),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.warning_amber_rounded, color: Color(0xFFC62828), size: 40),
-                const SizedBox(height: 16),
-                const Text('Confirm Deletion?', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                const SizedBox(height: 8),
+                Icon(
+                  Icons.warning_amber_rounded,
+                  color: colors.gold,
+                  size: 40.sp,
+                ),
+                SizedBox(height: 16.h),
+                Text(
+                  'Confirm Deletion',
+                  style: textTheme.headlineSmall,
+                ),
+                SizedBox(height: 8.h),
                 Text(
                   '"${product.name}" will be permanently removed from the catalog.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 13, color: Colors.grey.shade800),
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colors.textSecondary,
+                  ),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
                 Row(
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () => Navigator.of(dialogContext).pop(true),
+                        onPressed: () =>
+                            Navigator.of(dialogContext).pop(true),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFC62828), 
+                          backgroundColor: Colors.red.shade700,
                           foregroundColor: Colors.white,
                           elevation: 0,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
                         ),
-                        child: const Text('DELETE', style: TextStyle(fontSize: 12)),
+                        child: const Text('DELETE'),
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    SizedBox(width: 12.w),
                     Expanded(
                       child: OutlinedButton(
-                        onPressed: () => Navigator.of(dialogContext).pop(false),
+                        onPressed: () =>
+                            Navigator.of(dialogContext).pop(false),
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.black87,
-                          side: const BorderSide(color: Colors.grey),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+                          foregroundColor: colors.textPrimary,
+                          side: BorderSide(color: colors.border),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
                         ),
-                        child: const Text('CANCEL', style: TextStyle(fontSize: 12)),
+                        child: const Text('CANCEL'),
                       ),
                     ),
                   ],
@@ -79,17 +114,14 @@ class _ManagementScreenState extends State<ManagementScreen> {
       },
     );
 
-    if (confirm != true) return;
+    if (confirm != true || !mounted) return;
 
-    if (!mounted) return;
-
-    final cubit = context.read<ManagementCubit>();
     final success = await cubit.deleteProduct(product.id);
 
     if (!mounted) return;
 
     if (success) {
-      _listKey.currentState?.removeItem(
+      listKey.currentState?.removeItem(
         index,
         (context, animation) => SizeTransition(
           sizeFactor: animation,
@@ -100,25 +132,38 @@ class _ManagementScreenState extends State<ManagementScreen> {
         ),
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.showSnackBar(
         SnackBar(
           content: Row(
             children: [
-              const Icon(Icons.check_circle_outline, color: Colors.brown),
+              Icon(Icons.check_circle_outline, color: goldColor),
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Text('Product Deleted Successfully', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                  Text('DATABASE HAS BEEN UPDATED', style: TextStyle(color: Colors.grey, fontSize: 10)),
+                children: [
+                  Text(
+                    'Product Deleted',
+                    style: labelMediumStyle?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'CATALOG HAS BEEN UPDATED',
+                    style: labelSmallStyle?.copyWith(
+                      color: secondaryColor,
+                      fontSize: 10.sp,
+                    ),
+                  ),
                 ],
               ),
             ],
           ),
-          backgroundColor: const Color(0xFFEBE5DB),
+          backgroundColor: cardColor,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r),
+          ),
         ),
       );
     }
@@ -126,45 +171,79 @@ class _ManagementScreenState extends State<ManagementScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFFAF7F2), 
+      backgroundColor: colors.background,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: colors.background,
         elevation: 0,
-        leading: const Icon(Icons.menu, color: Colors.black87),
-        title: const Text('Product Management', style: TextStyle(color: Colors.black87, fontStyle: FontStyle.italic, fontSize: 18)),
-        actions: const [Icon(Icons.search, color: Colors.black87), SizedBox(width: 16)],
+        leading: Icon(Icons.menu, color: colors.textPrimary),
+        title: Text(
+          'Product Management',
+          style: textTheme.titleLarge?.copyWith(
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        actions: [
+          Icon(Icons.search, color: colors.textPrimary),
+          SizedBox(width: 16.w),
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 16),
-            const Text('CURATED COLLECTION', style: TextStyle(fontSize: 12, color: Colors.blueGrey, fontWeight: FontWeight.w600)),
-            const SizedBox(height: 4),
-            const Text('Manage Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Container(width: 40, height: 2, color: Colors.amber.shade200),
-            const SizedBox(height: 20),
+            SizedBox(height: 16.h),
+            Text(
+              'CURATED COLLECTION',
+              style: textTheme.labelMedium?.copyWith(
+                color: colors.textSecondary,
+                letterSpacing: 1.5,
+              ),
+            ),
+            SizedBox(height: 4.h),
+            Text(
+              'Manage Products',
+              style: textTheme.headlineSmall,
+            ),
+            SizedBox(height: 8.h),
+            Container(
+              width: 40.w,
+              height: 2.h,
+              color: colors.gold,
+            ),
+            SizedBox(height: 20.h),
             Expanded(
               child: BlocBuilder<ManagementCubit, ManagementState>(
                 builder: (context, state) {
                   if (state is ManagementLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(color: Colors.brown),
-                    );
-                  } 
-                  else if (state is ManagementError) {
                     return Center(
-                      child: Text(state.message, style: const TextStyle(color: Colors.red)),
+                      child: CircularProgressIndicator(color: colors.primary),
                     );
-                  } 
-                  else if (state is ManagementSuccess) {
+                  } else if (state is ManagementError) {
+                    return Center(
+                      child: Text(
+                        state.message,
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: Colors.red,
+                        ),
+                      ),
+                    );
+                  } else if (state is ManagementSuccess) {
                     final products = state.products;
-                    
+
                     if (products.isEmpty) {
-                      return const Center(child: Text('No products available right now.'));
+                      return Center(
+                        child: Text(
+                          'No products available right now.',
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: colors.textSecondary,
+                          ),
+                        ),
+                      );
                     }
 
                     return AnimatedList(
@@ -176,14 +255,22 @@ class _ManagementScreenState extends State<ManagementScreen> {
                           sizeFactor: animation,
                           child: ProductManagementCard(
                             product: product,
-                            onDelete: () => _showDeleteDialog(context, product, index),
+                            onDelete: () =>
+                                _showDeleteDialog(context, product, index),
                           ),
                         );
                       },
                     );
                   }
-                  
-                  return const Center(child: Text('Initializing...'));
+
+                  return Center(
+                    child: Text(
+                      'Initializing...',
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: colors.textSecondary,
+                      ),
+                    ),
+                  );
                 },
               ),
             ),

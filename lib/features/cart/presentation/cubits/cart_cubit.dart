@@ -7,48 +7,46 @@ import 'package:veloura/features/cart/presentation/cubits/cart_state.dart';
 import '../../data/data_source/cart_remote_data_source.dart';
 
 class CartCubit extends Cubit<CartState> {
-  CartCubit() : super(CartInitialState());
+  final CartRemoteDataSource cartRemoteDataSource;
 
-  CartRemoteDataSource cartRemoteDataSource = CartRemoteDataSource();
+  CartCubit(this.cartRemoteDataSource) : super(CartInitialState());
 
   List<CartItemModel> cartItems = [];
 
   Future<void> getCart() async {
     emit(CartLoadingState());
-    await cartRemoteDataSource.getCart().then(
-      (value) {
-        log('Items: $value', name: 'cart cubit');
-        cartItems = value;
-        emit(CartSuccessState(cartItems: cartItems));
-      },
-      onError: (error) {
-        emit(CartFailureState(errorMessage: error.toString()));
-      },
-    );
+    try {
+      cartItems = await cartRemoteDataSource.getCart();
+      log('Items count: ${cartItems.length}', name: 'CartCubit');
+      emit(CartSuccessState(cartItems: cartItems));
+    } catch (e) {
+      emit(CartFailureState(errorMessage: e.toString()));
+    }
   }
 
   Future<void> incrementItem(CartItemModel item) async {
     item.quantity++;
-    emit(CartitemUpdatingState(cartItems: cartItems));
+    emit(CartitemUpdatingState(cartItems: List.from(cartItems)));
     await cartRemoteDataSource.updatedItem(item.itemId, item.quantity);
   }
 
   Future<void> decrementItem(CartItemModel item) async {
+    if (item.quantity <= 1) return;
     item.quantity--;
-    emit(CartitemUpdatingState(cartItems: cartItems));
+    emit(CartitemUpdatingState(cartItems: List.from(cartItems)));
     await cartRemoteDataSource.decrementItem(item.itemId);
   }
 
   Future<void> removeItem(String itemId) async {
     cartItems.removeWhere((e) => e.itemId == itemId);
-    emit(CartitemUpdatingState(cartItems: cartItems));
+    emit(CartitemUpdatingState(cartItems: List.from(cartItems)));
     await cartRemoteDataSource.removeItem(itemId);
   }
 
   double get subtotal => cartItems.fold(
-    0,
-    (sum, item) => sum + (item.finalPricePerUnit * item.quantity),
-  );
+        0,
+        (sum, item) => sum + (item.finalPricePerUnit * item.quantity),
+      );
 
   double get tax => subtotal * 0.08;
 

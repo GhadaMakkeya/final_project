@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/constants/app_strings.dart';
@@ -8,8 +7,6 @@ import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cu
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_states.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_states.dart';
-import 'package:veloura/features/home/data/models/offers_data.dart';
-import 'package:veloura/features/home/data/models/product_data_model.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_category_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_offer_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_product_card.dart';
@@ -18,7 +15,7 @@ import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cu
 import '../../../category/presentation/screens/category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -82,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
               BlocBuilder<OffersCubit, OffersStates>(
                 builder: (context, state) {
                   if (state is OffersLoadingState) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if ((state is OffersSuccessState)) {
                     final offers = state.offers;
                     return Column(
@@ -116,8 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 6,
                               decoration: BoxDecoration(
                                 color: currentPage == index
-                                    ? AppColors.lightColors.chipSelectedColor
-                                    : Colors.grey,
+                                    ? colors.chipSelectedColor
+                                    : colors.textTertiary,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             );
@@ -175,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
               BlocBuilder<ProductsCubit, ProductsStates>(
                 builder: (context, state) {
                   if (state is ProductsLoadingState) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (state is ProductsSuccessState) {
                     final products = state.products;
 

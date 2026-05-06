@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 
 import '../../data/models/category_model.dart';
 import '../../data/services/category_service.dart';

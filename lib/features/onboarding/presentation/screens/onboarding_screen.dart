@@ -1,4 +1,4 @@
-import 'package:veloura/core/widgets/bottom_nav_bar.dart';
+import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page_content.dart';
@@ -56,7 +56,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _removeSplash() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 2));
 
     FlutterNativeSplash.remove();
   }
@@ -69,8 +69,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       appBar: CustomAppBar(
         actions: [
           TextButton(
-            onPressed: () {},
-              child: Text("SKIP", style: textTheme.labelMedium),
+            onPressed: () => Navigator.pushReplacementNamed(
+              context,
+              AppRoutes.login,
+            ),
+            child: Text('SKIP', style: textTheme.labelMedium),
           ),
         ],
       ),
@@ -120,13 +123,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _handleGetStarted() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return MainNavigation();
-        },
-      ),
-    );
+    Navigator.pushReplacementNamed(context, AppRoutes.login);
   }
 }

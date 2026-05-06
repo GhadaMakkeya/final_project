@@ -8,6 +8,7 @@ class ContactForm extends StatelessWidget {
     required this.hint,
     required this.maxLines,
   });
+
   final String label;
   final String hint;
   final int maxLines;
@@ -16,29 +17,30 @@ class ContactForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: textTheme.titleSmall),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         TextField(
           maxLines: maxLines,
+          style: textTheme.bodyMedium,
           decoration: InputDecoration(
-            fillColor: AppColors.lightColors.authCardColor,
+            fillColor: colors.authCardColor,
             hintText: hint,
-            hintStyle: TextStyle(color: AppColors.lightColors.textTertiary),
-            border: UnderlineInputBorder(),
+            hintStyle: textTheme.bodyMedium?.copyWith(
+              color: colors.textTertiary,
+            ),
+            filled: true,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(color: colors.border),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(
-                color: AppColors.lightColors.primary,
-                width: 1.2,
-              ),
+              borderSide: BorderSide(color: colors.primary, width: 1.2),
             ),
-            filled: true,
           ),
         ),
       ],

@@ -62,7 +62,7 @@ class CustomProductItem extends StatelessWidget {
                       vertical: 6.h,
                     ),
                     decoration: BoxDecoration(
-                      color: BaseColors.white.withOpacity(0.4),
+                      color: BaseColors.white.withValues(alpha: 0.4),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(

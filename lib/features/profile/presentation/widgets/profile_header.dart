@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String name;
@@ -31,7 +31,7 @@ class ProfileHeader extends StatelessWidget {
                   radius: 65.r,
                   backgroundColor: Colors.black26,
                   backgroundImage: const NetworkImage(
-                    "https://i.pravatar.cc/150?img=3",
+                    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop",
                   ),
                 ),
               ),

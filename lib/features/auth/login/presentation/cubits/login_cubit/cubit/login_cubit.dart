@@ -24,8 +24,6 @@ class LoginCubit extends Cubit<LoginState> {
         password: password,
       );
 
-      log("Login Response: ${response.accessToken}");
-
       await secureStorage.saveAuthData(
         accessToken: response.accessToken,
         refreshToken: response.refreshToken,
@@ -33,22 +31,17 @@ class LoginCubit extends Cubit<LoginState> {
       );
 
       final token = await secureStorage.getAccessToken();
-      log("Token Saved: $token");
-
       if (token == null || token.isEmpty) {
-        throw Exception("Token not saved properly");
+        throw Exception('Token not saved properly');
       }
 
       emit(LoginSuccess());
     } catch (e) {
-      log("Login Error: $e");
-      
+      log('Login Error: $e');
       String message = e.toString();
-
-      if (message.startsWith("Exception: ")) {
-        message = message.replaceFirst("Exception: ", "");
+      if (message.startsWith('Exception: ')) {
+        message = message.replaceFirst('Exception: ', '');
       }
-
       emit(LoginFailure(message));
     }
   }

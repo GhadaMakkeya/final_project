@@ -151,7 +151,7 @@ class _CartItemState extends State<CartItem> {
   Widget _qtyButton(IconData icon, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: SizedBox(
         width: 28.w,
         height: 28.h,
         child: Icon(icon, size: 16.sp),
