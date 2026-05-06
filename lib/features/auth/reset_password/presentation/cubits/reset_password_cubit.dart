@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:veloura/features/auth/reset_password/data/data_source/reset_pass_remote_data_source.dart';
 import 'package:veloura/features/auth/reset_password/presentation/cubits/reset_password_states.dart';
+
+import '../../data/data_source/reset_pass_remote_data_source.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordStates> {
   ResetPasswordCubit() : super(ResetPasswordInitialState());
