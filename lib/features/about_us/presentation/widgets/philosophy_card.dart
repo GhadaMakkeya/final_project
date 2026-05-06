@@ -13,6 +13,7 @@ class PhilosophyCard extends StatelessWidget {
         vertical: 60.h,
       ),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(54.r),
         color: Colors.white,
         border: Border.all(color: Colors.grey.shade200),
       ),
