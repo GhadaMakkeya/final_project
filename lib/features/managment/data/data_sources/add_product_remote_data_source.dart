@@ -1,15 +1,13 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:veloura/features/managment/data/models/product_model.dart';
+import 'package:veloura/core/services/secure_storage_services.dart';
+import 'package:veloura/features/managment/data/models/add_product_model.dart';
 
-import '../../../../core/services/secure_storage_services.dart';
-import '../../../category/data/models/category_model.dart';
-
-class ProductRemoteDataSource {
+class AddProductRemoteDataSource {
   final Dio dio;
   final SecureStorageServices secureStorageService;
 
-  ProductRemoteDataSource(this.dio, this.secureStorageService);
+  AddProductRemoteDataSource(this.dio, this.secureStorageService);
 
 
   Future<String?> getToken() async {
@@ -54,35 +52,8 @@ class ProductRemoteDataSource {
   }
 
 
-  Future<List<CategoryModel>> getAllCategories() async {
-    final token = await getToken();
-
-    if (token == null || token.isEmpty) {
-      log("No valid token found");
-      return [];
-    }
-
-    try {
-      final response = await dio.get(
-        'https://accessories-eshop.runasp.net/api/categories',
-        options: Options(headers: {"Authorization": "Bearer $token"}),
-      );
-
-      final data = response.data;
-      final List categoriesJson = (data is Map && data['categories'] != null)
-          ? data['categories']
-          : [];
-
-      return categoriesJson.map((e) => CategoryModel.fromJson(e)).toList();
-    } catch (e) {
-      log("Get Categories Error: $e");
-      return [];
-    }
-  }
-
-
   Future<bool> addProduct({
-    required ProductModel product,
+    required AddProductModel product,
   }) async {
     final token = await getToken();
 

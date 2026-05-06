@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
+import 'package:veloura/features/category/presentation/controller/category_cubit.dart';
 
 class CategoryDropdown extends StatefulWidget {
   final String? value;
@@ -22,7 +22,6 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
   @override
   void initState() {
     super.initState();
-    // جلب التصنيفات عند بدء تشغيل الـ Widget
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CategoryCubit>().getAllCategories();
     });
@@ -41,7 +40,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
         if (state is CategoryError) {
           return Center(
             child: Text(
-              state.errMessage,
+              state.message,
               style: TextStyle(color: Colors.red, fontSize: 13.sp),
             ),
           );

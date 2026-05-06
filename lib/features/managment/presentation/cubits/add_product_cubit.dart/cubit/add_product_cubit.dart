@@ -1,15 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:veloura/features/managment/data/models/product_model.dart';
+import 'package:veloura/features/managment/data/data_sources/add_product_remote_data_source.dart';
+import 'package:veloura/features/managment/data/models/add_product_model.dart';
 import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_state.dart';
 
-import '../../../../data/data_sources/add_product_remote_data_source.dart';
+class AddProductCubit extends Cubit<AddProductState> {
+  final AddProductRemoteDataSource remoteDataSource;
 
-class ProductCubit extends Cubit<AddProductState> {
-  final ProductRemoteDataSource remoteDataSource;
+  AddProductCubit(this.remoteDataSource) : super(AddProductInitial());
 
-  ProductCubit(this.remoteDataSource) : super(AddProductInitial());
-
-  Future<void> addProduct(ProductModel product) async {
+  Future<void> addProduct(AddProductModel product) async {
     emit(AddProductLoading());
 
     try {
