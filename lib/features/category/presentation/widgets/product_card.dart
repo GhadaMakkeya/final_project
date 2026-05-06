@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/features/category/data/models/category_model.dart';
 
 import '../../../../core/utils/responsive.dart';
+import '../../data/models/category_model.dart';
 
 class ProductCard extends StatelessWidget {
   final CategoryModel category;

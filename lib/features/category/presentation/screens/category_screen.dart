@@ -144,7 +144,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
                             itemBuilder: (context, index) {
                               return ProductCard(
-                                category: state.categories[index],
+                                category: state.categories[index] ,
                               );
                             },
                           )

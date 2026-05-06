@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../managment/data/models/category_model.dart';
+import '../../data/models/category_model.dart';
 import '../../data/services/category_service.dart';
 
 part 'category_state.dart';

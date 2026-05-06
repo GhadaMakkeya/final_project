@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../../../../core/services/secure_storage_services.dart';
-import '../../../managment/data/models/category_model.dart';
+import '../models/category_model.dart';
 
 class CategoryService {
   final SecureStorageServices secureStorage;
