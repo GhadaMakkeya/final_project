@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/managment/data/models/product_model.dart';
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 import '../widgets/product_management_card.dart';
@@ -22,7 +23,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
     });
   }
 
-  Future<void> _showDeleteDialog(BuildContext context, Product product, int index) async {
+  Future<void> _showDeleteDialog(BuildContext context, ProductModel product, int index) async {
     final bool? confirm = await showDialog<bool>(
       context: context,
       builder: (BuildContext dialogContext) {

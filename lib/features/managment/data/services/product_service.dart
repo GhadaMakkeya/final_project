@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/managment/data/models/product_model.dart'; 
 
 class ProductService {
@@ -10,13 +11,13 @@ class ProductService {
     ),
   );
 
-  Future<List<Product>> getProducts() async {
+  Future<List<ProductModel>> getProducts() async {
     try {
       final response = await _dio.get('/products');
       if (response.statusCode == 200) {
         // لازم ندخل جوه الـ items لأن السيرفر باعت Object مش List
         List<dynamic> data = response.data['items']; 
-        return data.map((json) => Product.fromJson(json)).toList();
+        return data.map((json) => ProductModel.fromJson(json)).toList();
       } else {
         throw Exception('Failed to load products');
       }

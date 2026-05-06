@@ -8,7 +8,7 @@ class ProductCubit extends Cubit<AddProductState> {
 
   ProductCubit(this.remoteDataSource) : super(AddProductInitial());
 
-  Future<void> addProduct(ProductModel product) async {
+  Future<void> addProduct(AddProductModel product) async {
     emit(AddProductLoading());
 
     try {

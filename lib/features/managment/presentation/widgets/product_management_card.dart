@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/managment/data/models/product_model.dart';
 
 class ProductManagementCard extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
   final VoidCallback onDelete;
 
   const ProductManagementCard({Key? key, required this.product, required this.onDelete}) : super(key: key);

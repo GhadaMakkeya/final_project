@@ -1,9 +1,9 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/services/secure_storage_services.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/product_details/data/add_review_remote_data_source.dart';
 import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
 import 'package:veloura/features/product_details/presentation/cubits/reviews_state.dart';
@@ -15,8 +15,9 @@ import '../widgets/product_features_list.dart';
 import '../widgets/review_card.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
+  final ProductModel product;
   final String? productId;
-  const ProductDetailsScreen({super.key, this.productId});
+  const ProductDetailsScreen({super.key, this.productId, required this.product});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -24,16 +25,14 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
-
- void initState() {
+  void initState() {
     super.initState();
 
-    final id = widget.productId ;
+    final id = widget.productId;
 
     context.read<ReviewsCubit>().getReviews(id.toString());
   }
 
- 
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
@@ -62,7 +61,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //_buildCircleIcon(Icons.arrow_back),
                             Container(
                               decoration: BoxDecoration(
                                 color: colors.background,
@@ -101,14 +99,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('HERITAGE COLLECTION', style: textTheme.titleSmall),
+                      Text(
+                        widget.product.category,
+                        style: textTheme.titleSmall,
+                      ),
                       SizedBox(height: 8.h),
                       Text(
-                        'Midnight Bloom Silk Scarf',
+                        widget.product.name,
                         style: textTheme.headlineMedium,
                       ),
                       SizedBox(height: 12.h),
-                      Text('\$345.00', style: textTheme.titleMedium),
+                      Text(
+                        '\$${widget.product.price.toStringAsFixed(2)}',
+                        style: textTheme.titleMedium,
+                      ),
                       SizedBox(height: 16.h),
                       Row(
                         children: [
@@ -128,7 +132,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                       SizedBox(height: 24.h),
                       Text(
-                        'Woven from the finest mulberry silk, the Midnight Bloom scarf features a meticulously hand-rolled hem and an exclusive archival floral print. Its generous proportions allow for versatile styling, offering an effortless touch of evening elegance to any ensemble.',
+                        widget.product.description,
                         style: textTheme.bodyLarge,
                       ),
                       SizedBox(height: 20.h),
@@ -140,30 +144,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       SizedBox(height: 20.h),
                       BlocBuilder<ReviewsCubit, ReviewsStates>(
                         builder: (context, state) {
-                          if(state is ReviewsLoading)
-                          {return Center(child: CircularProgressIndicator(),
-                          );}
-                          if(state is ReviewsFailure){
+                          if (state is ReviewsLoading) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                          if (state is ReviewsFailure) {
                             return Text(state.message);
                           }
-                          if(state is ReviewsSuccess){
+                          if (state is ReviewsSuccess) {
                             return Column(
-                              children: state.reviews.map((review){
+                              children: state.reviews.map((review) {
                                 return ReviewCard(
-                                  
- name: review["userName"] ?? "User",
-            date: review["createdAt"] ?? "",
-            rating: review["rating"] ?? 0,
-            comment: review["comment"] ?? "",
-
-                                     );
-                                     },
-                                     ).toList()
+                                  name: review["userName"] ?? "User",
+                                  date: review["createdAt"] ?? "",
+                                  rating: review["rating"] ?? 0,
+                                  comment: review["comment"] ?? "",
+                                );
+                              }).toList(),
                             );
                           }
                           return SizedBox();
                         },
-                        
                       ),
                       // const ReviewCard(
                       //   name: 'Eleanor V.',
@@ -194,14 +194,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             backgroundColor: Colors.transparent,
 
                             builder: (context) => AddReviewBottomSheet(
-                              productId: widget.productId ?? "20aa5193-abe8-4111-9776-a798df1c4461",
+                              productId:
+                                  widget.productId ??
+                                  "20aa5193-abe8-4111-9776-a798df1c4461",
                               parentContext: context,
-                              addReviewRemoteDataSource: AddReviewRemoteDataSource(
-      Dio(),
-      SecureStorageServices(),
-
+                              addReviewRemoteDataSource:
+                                  AddReviewRemoteDataSource(
+                                    Dio(),
+                                    SecureStorageServices(),
+                                  ),
                             ),
-                          ));
+                          );
                         },
                         label: "ADD REVIEW",
                         letterSpacing: 0.5,
