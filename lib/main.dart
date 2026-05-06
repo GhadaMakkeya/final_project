@@ -16,12 +16,13 @@ import 'package:veloura/features/auth/signup/data/data_source/sign_up_remote_dat
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_cubit.dart';
 import 'package:veloura/features/cart/data/data_source/cart_remote_data_source.dart';
 import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
+import 'package:veloura/features/category/data/services/category_service.dart';
+import 'package:veloura/features/category/presentation/controller/category_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:veloura/features/managment/data/data_sources/add_product_remote_data_source.dart';
 import 'package:veloura/features/managment/data/services/product_service.dart';
 import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_cubit.dart';
-import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 
 late double screenWidth;
@@ -40,6 +41,10 @@ void main() async {
 
   final AddProductRemoteDataSource addProductRemoteDataSource =
       AddProductRemoteDataSource(dio, secureStorage);
+  final CategoryService categoryService = CategoryService(
+    dio: dio,
+    secureStorage: secureStorage,
+  );
 
   runApp(
     MultiBlocProvider(
@@ -52,29 +57,21 @@ void main() async {
           create: (context) =>
               ManagementCubit(service: ProductService(dio, secureStorage)),
         ),
-BlocProvider(
-          create: (_) => SignUpCubit(
-            SignUpRemoteDataSource(dio, secureStorage),
-          ),
+        BlocProvider(
+          create: (_) =>
+              SignUpCubit(SignUpRemoteDataSource(dio, secureStorage)),
         ),
-       BlocProvider(
-          create: (_) => OtpCubit(
-            OtpRemoteDataSource(dio),
-          ),
-        ),
+        BlocProvider(create: (_) => OtpCubit(OtpRemoteDataSource(dio))),
 
-       BlocProvider(
-          create: (_) => LoginCubit(
-            LoginRemoteDataSource(dio), 
-            secureStorage,
-          ),
+        BlocProvider(
+          create: (_) => LoginCubit(LoginRemoteDataSource(dio), secureStorage),
         ),
 
         BlocProvider(
           create: (_) => AddProductCubit(addProductRemoteDataSource),
         ),
 
-        BlocProvider(create: (_) => CategoryCubit(addProductRemoteDataSource)),
+        BlocProvider(create: (_) => CategoryCubit(categoryService)),
         BlocProvider(
           create: (_) => CartCubit(CartRemoteDataSource(dio, secureStorage)),
         ),

@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/features/managment/data/models/add_product_model.dart';
-import 'package:veloura/features/managment/data/models/category_model.dart';
 
 class AddProductRemoteDataSource {
   final Dio dio;
@@ -49,33 +48,6 @@ class AddProductRemoteDataSource {
     } catch (e) {
       log("Refresh Token Error: $e");
       return null;
-    }
-  }
-
-
-  Future<List<CategoryModel>> getAllCategories() async {
-    final token = await getToken();
-
-    if (token == null || token.isEmpty) {
-      log("No valid token found");
-      return [];
-    }
-
-    try {
-      final response = await dio.get(
-        'https://accessories-eshop.runasp.net/api/categories',
-        options: Options(headers: {"Authorization": "Bearer $token"}),
-      );
-
-      final data = response.data;
-      final List categoriesJson = (data is Map && data['categories'] != null)
-          ? data['categories']
-          : [];
-
-      return categoriesJson.map((e) => CategoryModel.fromJson(e)).toList();
-    } catch (e) {
-      log("Get Categories Error: $e");
-      return [];
     }
   }
 

@@ -105,7 +105,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                         children: [
                           Text(
                             "Summary",
-                            style: Theme.of(context).textTheme.headlineSmall,
+                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: BaseColors.black),
                           ),
                           SizedBox(height: 16.h),
                           Divider(height: 24.h, color: context.colors.border),

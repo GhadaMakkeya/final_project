@@ -39,11 +39,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
-
-    // تغليف الشاشة بالـ BlocProvider لضمان حقن الـ Cubit والـ Dependencies
     return BlocProvider(
       create: (context) => LoginCubit(
-        LoginRemoteDataSource(Dio()), // استخدام Dio خام لعملية تسجيل الدخول
+        LoginRemoteDataSource(Dio()), 
         SecureStorageServices(),
       ),
       child: Scaffold(
@@ -109,8 +107,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               hintText: 'your@email.com',
                               prefixIcon: Icons.email_outlined,
                               controller: _emailController,
-                              validator: (value) =>
-                                  Validator.validateEmail(value ?? ''),
+                            //  validator: (value) =>
+                           //       Validator.validateEmail(value ?? ''),
+                         //   )
                             ),
                             SizedBox(height: 20.h),
                             CustomPassTextField(
@@ -173,7 +172,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                             SizedBox(height: 25.h),
-                            // التعامل مع حالة التحميل
                             state is LoginLoading
                                 ? const Center(child: CircularProgressIndicator())
                                 : CustomPrimaryButton(
@@ -214,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     text: 'Google',
                                   ),
                                 ),
-                                SizedBox(width: 10.w),
+                                SizedBox(width: 5.w),
                                 Expanded(
                                   child: CustomSocialButton(
                                     iconPath: 'assets/images/facebook.png',
