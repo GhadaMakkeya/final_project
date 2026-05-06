@@ -18,28 +18,35 @@ class CustomSocialButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
+
     return SizedBox(
-      width: 140.w,
+      // شيلنا الـ width الثابت عشان الـ Expanded اللي بره يشتغل صح
       height: 48.h,
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
-          backgroundColor: colors.cardColor, // ← was Colors.white
+          backgroundColor: colors.cardColor,
           side: BorderSide(color: colors.border),
+          // قللي الـ padding الداخلي شوية عشان الكلام ميزقش الحواف
+          padding: EdgeInsets.symmetric(horizontal: 8.w), 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.r),
           ),
         ),
         child: Row(
-          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(iconPath, height: 22.h),
-            SizedBox(width: 4.w),
-            Text(
-              text,
-              style: textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
+            SizedBox(width: 8.w),
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  text,
+                  style: textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             ),
           ],

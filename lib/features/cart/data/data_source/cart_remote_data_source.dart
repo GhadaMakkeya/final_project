@@ -1,25 +1,99 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 
 class CartRemoteDataSource {
-  final Dio dio = Dio();
+  final Dio dio;
+  final SecureStorageServices secureStorageService;
 
-  static const String _token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNDU5NjA0Yy1kMTk3LTQ5MGEtNmE5OC0wOGRlYTdlYzQ1MTEiLCJqdGkiOiI3NTdiNDc3NS03YmQzLTQwMTYtYTk3Ny1kYTRiNzA4NWNhNzYiLCJlbWFpbCI6ImVuZy5iYWRhd3k3N0BnbWFpbC5jb20iLCJuYW1lIjoiQWhtZWQgQmFkYXd5Iiwicm9sZXMiOiIiLCJwaWN0dXJlIjoiIiwiZXhwIjoxNzc3OTg3NTc0LCJpc3MiOiJlc2hvcC5uZXQiLCJhdWQiOiJlc2hvcC5uZXQifQ.i71XWuhuv9-BYC-znjNp0302cWbkYuuWtEIUzDqa7as';
+  CartRemoteDataSource(this.dio, this.secureStorageService);
 
-  Options get _options => Options(headers: {'Authorization': 'Bearer $_token'});
+  Future<String?> getToken() async {
+    final accessToken = await secureStorageService.getAccessToken();
+    final refreshToken = await secureStorageService.getRefreshToken();
+    final expiresAt = await secureStorageService.getExpiresAt();
+
+  log('AccessToken: $accessToken', name: 'TOKEN');
+  log('ExpiresAt: $expiresAt', name: 'TOKEN');
+  log('Now: ${DateTime.now().toUtc()}', name: 'TOKEN');
+  log('IsExpired: ${expiresAt?.isBefore(DateTime.now().toUtc())}', name: 'TOKEN');
+
+    if (accessToken != null &&
+        accessToken.isNotEmpty &&
+        expiresAt != null &&
+        expiresAt.isAfter(DateTime.now().toUtc())) {
+      return accessToken;
+    }
+
+    if (refreshToken == null) return null;
+    return await _refreshToken(refreshToken);
+  }
+
+  Future<String?> _refreshToken(String refreshToken) async {
+    try {
+      final response = await dio.post(
+        'https://accessories-eshop.runasp.net/api/auth/refresh-token',
+        data: {"refreshToken": refreshToken, "useCookies": false},
+      );
+
+      final newAccessToken = response.data['accessToken'];
+      final newRefreshToken = response.data['refreshToken'];
+      final newExpiresAt = response.data['expiresAtUtc'];
+
+      await secureStorageService.saveAuthData(
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+        expiresAt: DateTime.parse(newExpiresAt),
+      );
+
+      return newAccessToken;
+    } catch (e) {
+      log("Refresh Token Error: $e");
+      return null;
+    }
+  }
+
+  Future<void> addToCart(String productId, int quantity) async {
+    final token = await getToken();
+    try {
+      await dio.post(
+        'https://accessories-eshop.runasp.net/api/cart/items',
+        data: {'productId': productId, 'quantity': quantity},
+        options: Options(headers: {"Authorization": "Bearer $token"}),
+      );
+    } on DioException catch (e) {
+      String errMessage = e.response?.data['message'] ?? 'Failure';
+      throw Exception(errMessage);
+    }
+  }
 
   Future<List<CartItemModel>> getCart() async {
+    final token = await getToken();
+
+    if (token == null || token.isEmpty) {
+      log("No valid token found");
+      return [];
+    }
     try {
+      log('Starting getCart request...', name: 'CART');
+
       final response = await dio.get(
         'https://accessories-eshop.runasp.net/api/cart',
-        options: _options,
+        options: Options(headers: {"Authorization": "Bearer $token"}),
       );
+      log('Status: ${response.statusCode}', name: 'CART');
+      log('Type: ${response.data.runtimeType}', name: 'CART');
+      log('Data: ${response.data}', name: 'CART');
+
       log(response.data.toString(), name: 'CART RESPONSE');
 
-      final List cartItems = response.data['cartItems'];
+      final List cartItems = response.data is List
+          ? response.data
+          : response.data['cartItems'];
+      log(response.data.runtimeType.toString(), name: 'CART TYPE');
+      log(response.data.toString(), name: 'CART RESPONSE');
 
       return cartItems.map((e) => CartItemModel.fromJson(e)).toList();
     } on DioException catch (e) {
@@ -31,11 +105,12 @@ class CartRemoteDataSource {
   }
 
   Future<void> updatedItem(String itemId, int quantity) async {
+    final token = await getToken();
     try {
       await dio.put(
         'https://accessories-eshop.runasp.net/api/cart/items/$itemId',
         data: {'id': itemId, 'quantity': quantity},
-        options: _options,
+        options: Options(headers: {"Authorization": "Bearer $token"}),
       );
     } on DioException catch (e) {
       String errMessage = e.response?.data['message'] ?? 'Failure';
@@ -44,11 +119,12 @@ class CartRemoteDataSource {
   }
 
   Future<void> decrementItem(String itemId) async {
+    final token = await getToken();
     try {
       await dio.post(
         'https://accessories-eshop.runasp.net/api/cart/items/decrement',
         data: {'itemId': itemId, 'quantity': 1},
-        options: _options,
+        options: Options(headers: {"Authorization": "Bearer $token"}),
       );
     } on DioException catch (e) {
       String errMessage = e.response?.data['message'] ?? 'Failure';
@@ -57,11 +133,12 @@ class CartRemoteDataSource {
   }
 
   Future<void> removeItem(String itemId) async {
+    final token = await getToken();
     try {
       await dio.delete(
         'https://accessories-eshop.runasp.net/api/cart/items/$itemId',
         data: {'id': itemId},
-        options: _options,
+        options: Options(headers: {"Authorization": "Bearer $token"}),
       );
     } on DioException catch (e) {
       String errMessage = e.response?.data['message'] ?? 'Failure';

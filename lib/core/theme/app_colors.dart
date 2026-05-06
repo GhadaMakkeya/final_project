@@ -118,10 +118,10 @@ class _DarkColors extends MyColors {
   Color get border => const Color(0xFF1E3A5F);
 
   @override
-  Color get textPrimary => const Color(0xFFEDE8E0);
+  Color get textPrimary => const Color.fromARGB(255, 88, 80, 67);
 
   @override
-  Color get textSecondary => const Color(0xFFB0A898);
+  Color get textSecondary => const Color.fromARGB(255, 180, 155, 105);
 
   @override
   Color get textTertiary => const Color(0xFF7A7268);

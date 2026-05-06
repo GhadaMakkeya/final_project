@@ -4,11 +4,10 @@ import '../../../../core/services/secure_storage_services.dart';
 import '../models/category_model.dart';
 
 class CategoryService {
+  final Dio dio;
   final SecureStorageServices secureStorage;
 
-  final Dio dio = Dio();
-
-  CategoryService(this.secureStorage);
+  CategoryService({required this.dio, required this.secureStorage});
 
   Future<List<CategoryModel>> getCategories() async {
     final token = await secureStorage.getAccessToken();

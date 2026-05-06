@@ -1,4 +1,5 @@
 import 'package:veloura/core/widgets/bottom_nav_bar.dart';
+import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page_content.dart';
@@ -124,7 +125,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       context,
       MaterialPageRoute(
         builder: (context) {
-          return MainNavigation();
+          return SignUpScreen();
         },
       ),
     );
