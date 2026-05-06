@@ -24,6 +24,9 @@ import 'package:veloura/features/managment/data/data_sources/add_product_remote_
 import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_cubit.dart';
 import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
 import 'package:veloura/features/products/presntation/screens/products_screen.dart';
+import 'package:veloura/features/profile/data/privacy_remote_data_source.dart';
+import 'package:veloura/features/profile/presentation/screens/cubits/privacy_cubit.dart';
+import 'package:veloura/features/profile/presentation/screens/privacy_page.dart';
 
 late double screenWidth;
 late double screenHeight;
@@ -49,7 +52,10 @@ void main() {
       providers: [
         // 1. الكيوبت الأساسي للمنتجات (شغل زميلتك - سيبيه واحد بس)
         BlocProvider(create: (context) => ProductsCubit()..getProducts()),
-
+        BlocProvider(
+          create: (context) =>
+              PrivacyCubit(privacyDataSource: PrivacyRemoteDataSource()),
+        ),
         // 2. الكيوبت الجديد بتاعك (للأكشنز: قلب، سيرش، الخ)
         BlocProvider(create: (context) => ProductsActionCubit()),
 
@@ -93,7 +99,7 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
-          home: ProductScreen(),
+          home: PrivacyPage(),
         );
       },
     );

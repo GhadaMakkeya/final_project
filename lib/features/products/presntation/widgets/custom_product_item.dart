@@ -67,30 +67,22 @@ class _CustomProductItemState extends State<CustomProductItem> {
                     child:
                         BlocBuilder<ProductsActionCubit, ProductsActionStates>(
                           builder: (context, state) {
-                            final bool isFav = context
+                            // هنا بنبعت الـ id بتاع المنتج اللي جوه الكارد ده بس
+                            // جوه الـ BlocBuilder في الكارد
+                            final isFav = context
                                 .read<ProductsActionCubit>()
-                                .isFavorite(widget.product.id);
+                                .isProductFavorite(widget.product.id);
 
                             return GestureDetector(
                               onTap: () {
+                                // كدة بنغير حالة المنتج ده بس مش كل الشاشة
                                 context
                                     .read<ProductsActionCubit>()
                                     .toggleFavorite(widget.product.id);
                               },
-                              child: Container(
-                                width: 32.w,
-                                height: 32.h,
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withValues(alpha: 0.3),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  isFav
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: isFav ? Colors.red : Colors.white,
-                                  size: 18.sp,
-                                ),
+                              child: Icon(
+                                isFav ? Icons.favorite : Icons.favorite_border,
+                                color: isFav ? Colors.red : Colors.white,
                               ),
                             );
                           },
