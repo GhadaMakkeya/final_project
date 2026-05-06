@@ -47,7 +47,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Stack(
                   children: [
                     Image.asset(
-                      'assets/images/scarf.png',
+                      widget.product.imageUrl,
                       height: 400.h,
                       width: double.infinity,
                       fit: BoxFit.cover,
