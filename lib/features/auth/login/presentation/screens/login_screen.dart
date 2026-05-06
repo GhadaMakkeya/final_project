@@ -116,6 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             CustomPassTextField(
                               label: 'PASSWORD',
                               hintText: '••••••••',
+                              isPassword: true,
                               prefixIcon: Icons.lock_outline,
                               controller: _passwordController,
                               validator: (value) =>
