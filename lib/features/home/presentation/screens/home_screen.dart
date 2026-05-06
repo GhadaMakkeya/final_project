@@ -27,10 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // جلب كل البيانات عند بدء الشاشة
     context.read<ProductsCubit>().getProducts();
     context.read<OffersCubit>().getOffers();
-    
+
     final categoryCubit = context.read<CategoryCubit>();
     if (categoryCubit.categoriesList.isEmpty) {
       categoryCubit.getAllCategories();
@@ -89,31 +88,42 @@ class _HomeScreenState extends State<HomeScreen> {
               BlocBuilder<OffersCubit, OffersStates>(
                 builder: (context, state) {
                   if (state is OffersLoadingState) {
-                    return SizedBox(height: 180.h, child: const Center(child: CircularProgressIndicator()));
+                    return SizedBox(
+                      height: 180.h,
+                      child: const Center(child: CircularProgressIndicator()),
+                    );
                   } else if (state is OffersSuccessState) {
                     return Column(
                       children: [
                         SizedBox(
                           height: 180.h,
                           child: PageView.builder(
-                            onPageChanged: (index) => setState(() => currentPage = index),
+                            onPageChanged: (index) =>
+                                setState(() => currentPage = index),
                             itemCount: state.offers.length,
-                            itemBuilder: (context, index) => CustomOfferIteam(offersData: state.offers[index]),
+                            itemBuilder: (context, index) => CustomOfferIteam(
+                              offersData: state.offers[index],
+                            ),
                           ),
                         ),
                         SizedBox(height: 12.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(state.offers.length, (index) => AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            margin: const EdgeInsets.symmetric(horizontal: 4),
-                            width: currentPage == index ? 12 : 6,
-                            height: 6,
-                            decoration: BoxDecoration(
-                              color: currentPage == index ? colors.chipSelectedColor : Colors.grey.shade400,
-                              borderRadius: BorderRadius.circular(10),
+                          children: List.generate(
+                            state.offers.length,
+                            (index) => AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              width: currentPage == index ? 12 : 6,
+                              height: 6,
+                              decoration: BoxDecoration(
+                                color: currentPage == index
+                                    ? colors.chipSelectedColor
+                                    : Colors.grey.shade400,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
-                          )),
+                          ),
                         ),
                       ],
                     );
@@ -142,11 +152,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             categoryModel: state.categories[index],
                             index: index,
                             onTap: () {
-                              context.read<CategoryCubit>().selectCategoryByIndex(index);
-                              
+                              context
+                                  .read<CategoryCubit>()
+                                  .selectCategoryByIndex(index);
+
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  CategoryScreen()),
+                                MaterialPageRoute(
+                                  builder: (context) => CategoryScreen(),
+                                ),
                               );
                             },
                           );
@@ -178,7 +192,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisSpacing: 15.h,
                       ),
                       itemCount: state.products.length,
-                      itemBuilder: (context, index) => CustomProductCard(product: state.products[index]),
+                      itemBuilder: (context, index) =>
+                          CustomProductCard(product: state.products[index]),
                     );
                   } else if (state is ProductsErrorState) {
                     return Center(child: Text(state.errorMessage));
