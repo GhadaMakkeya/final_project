@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:veloura/features/cart/data/data_source/cart_remote_data_source.dart';
+import 'package:veloura/features/cart/data/data_source/cart_services.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 import 'package:veloura/features/cart/presentation/cubits/cart_state.dart';
 
