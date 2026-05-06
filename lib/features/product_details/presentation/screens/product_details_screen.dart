@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/core/models/product_model.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_primary_button.dart';

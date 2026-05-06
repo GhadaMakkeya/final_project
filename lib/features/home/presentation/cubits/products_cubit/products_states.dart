@@ -1,4 +1,4 @@
-import 'package:veloura/core/models/product_model.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 
 abstract class ProductsStates {}
 

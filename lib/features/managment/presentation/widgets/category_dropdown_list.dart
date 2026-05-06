@@ -22,7 +22,6 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
   @override
   void initState() {
     super.initState();
-    // جلب التصنيفات عند بدء تشغيل الـ Widget
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CategoryCubit>().getAllCategories();
     });

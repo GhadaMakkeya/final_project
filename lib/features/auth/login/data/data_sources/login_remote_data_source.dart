@@ -34,37 +34,18 @@ class LoginRemoteDataSource {
       final response = await dio.post(
         'https://accessories-eshop.runasp.net/api/auth/login',
         data: {"email": email, "password": password},
-        options: Options(headers: {"Content-Type": "application/json"}),
       );
 
       log("LOGIN RESPONSE => ${response.data}");
       return LoginResponse.fromJson(response.data);
-
     } on DioException catch (e) {
-      log("Status Code: ${e.response?.statusCode}");
-      log("Full Response: ${e.response?.data}");
-
+      // استخراج رسالة الخطأ بشكل احترافي
       final data = e.response?.data;
       String message = "Login failed";
-
-      if (data != null) {
-        if (data is Map) {
-          if (data['errors'] != null) {
-            final errors = data['errors'];
-            if (errors is Map && errors.isNotEmpty) {
-              final first = errors.values.first;
-              message = first is List ? first[0].toString() : first.toString();
-            }
-          } else if (data['message'] != null) {
-            message = data['message'].toString();
-          } else if (data['title'] != null) {
-            message = data['title'].toString();
-          }
-        } else {
-          message = data.toString();
-        }
+      
+      if (data != null && data is Map) {
+        message = data['message'] ?? data['title'] ?? "Invalid credentials";
       }
-
       throw Exception(message);
     }
   }

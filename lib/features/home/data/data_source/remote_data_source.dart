@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:veloura/core/models/product_model.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/home/data/models/offers_data.dart';
 
 class RemoteDataSource {

@@ -1,4 +1,3 @@
-
 class AddProductModel {
   final List<String> categoryIds;
   final String color;

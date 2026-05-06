@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/models/product_model.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';

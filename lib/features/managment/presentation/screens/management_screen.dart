@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:veloura/core/models/product_model.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 import '../widgets/product_management_card.dart';
 
