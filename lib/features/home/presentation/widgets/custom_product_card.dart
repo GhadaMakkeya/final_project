@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/features/home/data/models/product_data_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
 
 class CustomProductCard extends StatelessWidget {
-  const CustomProductCard({super.key, required this.productDataModel});
-  final ProductDataModel productDataModel;
+  const CustomProductCard({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -19,13 +19,13 @@ class CustomProductCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return ProductDetailsScreen();
+                return ProductDetailsScreen(product: product);
               },
             ),
           );
         },
         child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,9 +33,9 @@ class CustomProductCard extends StatelessWidget {
                 child: AspectRatio(
                   aspectRatio: .9,
                   child: ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(8.r),
+                    borderRadius: BorderRadius.circular(8.r),
                     child: Image.network(
-                      productDataModel.imagePath,
+                      product.imageUrl,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -44,13 +44,13 @@ class CustomProductCard extends StatelessWidget {
               ),
               SizedBox(height: 8.h),
               Text(
-                productDataModel.productName,
+                product.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.titleLarge,
               ),
               Text(
-                productDataModel.price,
+                '\$${product.price.toStringAsFixed(2)}',
                 style: textTheme.bodyMedium?.copyWith(
                   color: colors.textSecondary,
                 ),

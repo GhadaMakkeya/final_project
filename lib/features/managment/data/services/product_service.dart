@@ -20,15 +20,16 @@ class ProductService {
     return Options(headers: {'Authorization': 'Bearer $token'});
   }
 
-  Future<List<Product>> getProducts() async {
+  Future<List<ProductModel>> getProducts() async {
     try {
       final response = await _dio.get(
         '/products',
         options: await _authOptions,
       );
       if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['items'];
-        return data.map((json) => Product.fromJson(json)).toList();
+        // لازم ندخل جوه الـ items لأن السيرفر باعت Object مش List
+        List<dynamic> data = response.data['items']; 
+        return data.map((json) => ProductModel.fromJson(json)).toList();
       } else {
         throw Exception('Failed to load products');
       }

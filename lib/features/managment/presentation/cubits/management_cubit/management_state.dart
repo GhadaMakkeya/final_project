@@ -7,7 +7,7 @@ class ManagementInitial extends ManagementState {}
 class ManagementLoading extends ManagementState {}
 
 class ManagementSuccess extends ManagementState {
-  final List<Product> products;
+  final List<ProductModel> products;
   ManagementSuccess(this.products);
 }
 

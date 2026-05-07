@@ -23,6 +23,7 @@ class ReviewCard extends StatelessWidget {
 
     return Card(
       margin: EdgeInsets.only(bottom: 16.h),
+      
       color: colors.cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.r),
@@ -38,13 +39,15 @@ class ReviewCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(name, style: textTheme.titleLarge),
-                    SizedBox(height: 4.h),
-                    Text('Verified Buyer • $date', style: textTheme.bodySmall),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(name, style: textTheme.titleLarge),
+                      SizedBox(height: 4.h),
+                      Text('Verified Buyer • $date', style: textTheme.bodySmall?.copyWith(color: colors.textSecondary)),
+                    ],
+                  ),
                 ),
                 Row(
                   children: List.generate(

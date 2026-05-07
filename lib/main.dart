@@ -7,7 +7,6 @@ import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/core/theme/app_theme.dart';
 import 'package:veloura/core/theme/theme_cubit.dart';
 import 'package:veloura/core/theme/theme_states.dart';
-import 'package:veloura/core/widgets/bottom_nav_bar.dart';
 import 'package:veloura/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
@@ -19,15 +18,20 @@ import 'package:veloura/features/cart/data/data_source/cart_remote_data_source.d
 import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
+import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/managment/data/data_sources/add_product_remote_data_source.dart';
 import 'package:veloura/features/managment/data/services/product_service.dart';
 import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_cubit.dart';
 import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
-import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:veloura/features/managment/presentation/screens/management_screen.dart';
+import 'package:veloura/features/product_details/data/add_review_remote_data_source.dart';
+import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+late double screenWidth;
+late double screenHeight;
+late Widget startScreen;
+
 
   final Dio dio = Dio();
   final SecureStorageServices secureStorage = SecureStorageServices();
@@ -48,6 +52,12 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (_) => ReviewsCubit(
+            AddReviewRemoteDataSource(Dio(), SecureStorageServices()),
+          ),
+        ),
+
         BlocProvider(create: (_) => ThemeCubit()..loadTheme()),
         BlocProvider(create: (_) => ProductsCubit()),
         BlocProvider(create: (_) => OffersCubit()),
@@ -89,12 +99,8 @@ class MyApp extends StatelessWidget {
               theme: AppTheme.light,
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
-              initialRoute: isLoggedIn ? AppRoutes.main : AppRoutes.onboarding,
-              routes: {
-                AppRoutes.onboarding: (_) => const OnboardingScreen(),
-                AppRoutes.login: (_) => const LoginScreen(),
-                AppRoutes.main: (_) => const MainNavigation(),
-              },
+
+              home: startScreen,
             );
           },
         );

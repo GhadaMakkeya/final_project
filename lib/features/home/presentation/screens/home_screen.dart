@@ -11,6 +11,8 @@ import 'package:veloura/features/home/presentation/widgets/custom_category_item.
 import 'package:veloura/features/home/presentation/widgets/custom_offer_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_product_card.dart';
 import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 import '../../../category/presentation/screens/category_screen.dart';
 
@@ -43,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: CustomAppBar(
         title: AppStrings.appName,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 24),
+          padding:  EdgeInsets.only(left: 24.w),
           child: IconButton(
             onPressed: () {},
             icon: Icon(Icons.search, color: colors.primary),
@@ -51,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 24),
+            padding:  EdgeInsets.only(right: 24.w),
             child: IconButton(
               onPressed: () {},
               icon: Icon(Icons.notifications_none, color: colors.primary),
@@ -60,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -85,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return Column(
                       children: [
                         SizedBox(
-                          height: 180,
+                          height: 180.h,
                           child: PageView.builder(
                             onPageChanged: (index) {
                               setState(() {
@@ -101,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
 
-                        SizedBox(height: 15),
+                        SizedBox(height: 15.h),
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -129,10 +131,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
 
-              SizedBox(height: 30),
-              //----------category---------
+              SizedBox(height: 30.h),
               SizedBox(
-                height: 40,
+                height: 40.h,
                 child: BlocBuilder<CategoryCubit, CategoryState>(
                   builder: (context, state) {
                     if (state is CategoryLoading) {
@@ -167,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 15.h),
               //----------products--------
               BlocBuilder<ProductsCubit, ProductsStates>(
                 builder: (context, state) {
@@ -186,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: products.length,
                       itemBuilder: (context, index) {
                         return CustomProductCard(
-                          productDataModel: products[index],
+                          product: products[index],
                         );
                       },
                     );

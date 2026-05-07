@@ -135,7 +135,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           return;
                         }
                         context.read<ProductCubit>().addProduct(
-                          ProductModel(
+                          AddProductModel(
                             name: _productNameController.text.trim(),
                             nameArabic: "منتج جديد",
                             price: double.tryParse(_priceController.text) ?? 0.0,

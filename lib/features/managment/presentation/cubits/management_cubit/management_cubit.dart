@@ -5,8 +5,8 @@ import 'package:veloura/features/managment/data/services/product_service.dart';
 part 'management_state.dart';
 
 class ManagementCubit extends Cubit<ManagementState> {
-  final ProductService _service;
-  List<Product> products = [];
+  final ProductService _service = ProductService();
+  List<ProductModel> products = [];
 
   ManagementCubit(this._service) : super(ManagementInitial());
 

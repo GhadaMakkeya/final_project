@@ -24,53 +24,32 @@ class _ManagementScreenState extends State<ManagementScreen> {
     });
   }
 
-  Future<void> _showDeleteDialog(
-    BuildContext context,
-    Product product,
-    int index,
-  ) async {
-    // Capture ALL context-dependent values before ANY async gap (incl. showDialog)
+  Future<void> _showDeleteDialog(BuildContext context, ProductModel product, int index) async {
     final colors = context.colors;
     final textTheme = Theme.of(context).textTheme;
-    final cubit = context.read<ManagementCubit>();
-    final messenger = ScaffoldMessenger.of(context);
-    final goldColor = colors.gold;
-    final cardColor = colors.cardColor;
-    final secondaryColor = colors.textSecondary;
-    final labelMediumStyle = textTheme.labelMedium;
-    final labelSmallStyle = textTheme.labelSmall;
-    final listKey = _listKey;
 
     final bool? confirm = await showDialog<bool>(
       context: context,
       builder: (BuildContext dialogContext) {
         return Dialog(
-          backgroundColor: colors.cardColor,
+          backgroundColor: colors.background,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(8.r),
+            side: BorderSide(color: colors.border, width: 0.5),
           ),
           child: Padding(
             padding: EdgeInsets.all(24.w),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.warning_amber_rounded,
-                  color: colors.gold,
-                  size: 40.sp,
-                ),
+                Icon(Icons.warning_amber_rounded, color: BaseColors.alert, size: 40.sp),
                 SizedBox(height: 16.h),
-                Text(
-                  'Confirm Deletion',
-                  style: textTheme.headlineSmall,
-                ),
+                Text('Confirm Deletion?', style: textTheme.headlineSmall),
                 SizedBox(height: 8.h),
                 Text(
                   '"${product.name}" will be permanently removed from the catalog.',
                   textAlign: TextAlign.center,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: colors.textSecondary,
-                  ),
+                  style: textTheme.bodyMedium,
                 ),
                 SizedBox(height: 24.h),
                 Row(
@@ -80,14 +59,12 @@ class _ManagementScreenState extends State<ManagementScreen> {
                         onPressed: () =>
                             Navigator.of(dialogContext).pop(true),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red.shade700,
+                          backgroundColor: BaseColors.alert,
                           foregroundColor: Colors.white,
                           elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
                         ),
-                        child: const Text('DELETE'),
+                        child: Text('DELETE', style: textTheme.labelLarge?.copyWith(color: Colors.white)),
                       ),
                     ),
                     SizedBox(width: 12.w),
@@ -98,11 +75,9 @@ class _ManagementScreenState extends State<ManagementScreen> {
                         style: OutlinedButton.styleFrom(
                           foregroundColor: colors.textPrimary,
                           side: BorderSide(color: colors.border),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
                         ),
-                        child: const Text('CANCEL'),
+                        child: Text('CANCEL', style: textTheme.labelLarge),
                       ),
                     ),
                   ],
@@ -114,8 +89,10 @@ class _ManagementScreenState extends State<ManagementScreen> {
       },
     );
 
-    if (confirm != true || !mounted) return;
+    if (confirm != true) return;
+    if (!mounted) return;
 
+    final cubit = context.read<ManagementCubit>();
     final success = await cubit.deleteProduct(product.id);
 
     if (!mounted) return;
@@ -136,34 +113,23 @@ class _ManagementScreenState extends State<ManagementScreen> {
         SnackBar(
           content: Row(
             children: [
-              Icon(Icons.check_circle_outline, color: goldColor),
-              const SizedBox(width: 12),
+              Icon(Icons.check_circle_outline, color: colors.gold),
+              SizedBox(width: 12.w),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    'Product Deleted',
-                    style: labelMediumStyle?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'CATALOG HAS BEEN UPDATED',
-                    style: labelSmallStyle?.copyWith(
-                      color: secondaryColor,
-                      fontSize: 10.sp,
-                    ),
-                  ),
+                  Text('Product Deleted Successfully', 
+                    style: textTheme.titleMedium?.copyWith(fontSize: 13.sp)),
+                  Text('DATABASE HAS BEEN UPDATED', 
+                    style: textTheme.labelSmall?.copyWith(color: colors.textSecondary)),
                 ],
               ),
             ],
           ),
-          backgroundColor: cardColor,
+          backgroundColor: colors.cardColor,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r), side: BorderSide(color: colors.border)),
         ),
       );
     }
@@ -177,19 +143,9 @@ class _ManagementScreenState extends State<ManagementScreen> {
     return Scaffold(
       backgroundColor: colors.background,
       appBar: AppBar(
-        backgroundColor: colors.background,
-        elevation: 0,
-        leading: Icon(Icons.menu, color: colors.textPrimary),
-        title: Text(
-          'Product Management',
-          style: textTheme.titleLarge?.copyWith(
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        actions: [
-          Icon(Icons.search, color: colors.textPrimary),
-          SizedBox(width: 16.w),
-        ],
+        leading: Icon(Icons.menu, color: colors.primary),
+        title: Text('Product Management', style: textTheme.headlineSmall?.copyWith(fontStyle: FontStyle.italic)),
+        actions: [Icon(Icons.search, color: colors.primary), SizedBox(width: 16.w)],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -197,80 +153,43 @@ class _ManagementScreenState extends State<ManagementScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 16.h),
-            Text(
-              'CURATED COLLECTION',
-              style: textTheme.labelMedium?.copyWith(
-                color: colors.textSecondary,
-                letterSpacing: 1.5,
-              ),
-            ),
+            Text('CURATED COLLECTION', style: textTheme.titleSmall),
             SizedBox(height: 4.h),
-            Text(
-              'Manage Products',
-              style: textTheme.headlineSmall,
-            ),
+            Text('Manage Products', style: textTheme.headlineMedium),
             SizedBox(height: 8.h),
-            Container(
-              width: 40.w,
-              height: 2.h,
-              color: colors.gold,
-            ),
+            Container(width: 40.w, height: 2.h, color: colors.gold),
             SizedBox(height: 20.h),
             Expanded(
               child: BlocBuilder<ManagementCubit, ManagementState>(
                 builder: (context, state) {
                   if (state is ManagementLoading) {
-                    return Center(
-                      child: CircularProgressIndicator(color: colors.primary),
-                    );
-                  } else if (state is ManagementError) {
-                    return Center(
-                      child: Text(
-                        state.message,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: Colors.red,
-                        ),
-                      ),
-                    );
-                  } else if (state is ManagementSuccess) {
+                    return Center(child: CircularProgressIndicator(color: colors.gold));
+                  } 
+                  else if (state is ManagementError) {
+                    return Center(child: Text(state.message, style: TextStyle(color: BaseColors.alert)));
+                  } 
+                  else if (state is ManagementSuccess) {
                     final products = state.products;
-
                     if (products.isEmpty) {
-                      return Center(
-                        child: Text(
-                          'No products available right now.',
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: colors.textSecondary,
-                          ),
-                        ),
-                      );
+                      return Center(child: Text('No products available right now.', style: textTheme.bodyLarge));
                     }
 
                     return AnimatedList(
                       key: _listKey,
                       initialItemCount: products.length,
+                      padding: EdgeInsets.only(bottom: 20.h),
                       itemBuilder: (context, index, animation) {
-                        final product = products[index];
                         return SizeTransition(
                           sizeFactor: animation,
                           child: ProductManagementCard(
-                            product: product,
-                            onDelete: () =>
-                                _showDeleteDialog(context, product, index),
+                            product: products[index],
+                            onDelete: () => _showDeleteDialog(context, products[index], index),
                           ),
                         );
                       },
                     );
                   }
-
-                  return Center(
-                    child: Text(
-                      'Initializing...',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colors.textSecondary,
-                      ),
-                    ),
-                  );
+                  return Center(child: Text('Initializing...', style: textTheme.bodySmall));
                 },
               ),
             ),

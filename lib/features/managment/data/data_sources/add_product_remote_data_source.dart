@@ -82,7 +82,7 @@ class ProductRemoteDataSource {
 
 
   Future<bool> addProduct({
-    required ProductModel product,
+    required AddProductModel product,
   }) async {
     final token = await getToken();
 

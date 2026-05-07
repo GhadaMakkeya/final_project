@@ -1,4 +1,4 @@
-import 'package:veloura/features/home/data/models/product_data_model.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
 
 abstract class ProductsStates {}
 
@@ -7,7 +7,7 @@ class ProductsInitialState extends ProductsStates {}
 class ProductsLoadingState extends ProductsStates {}
 
 class ProductsSuccessState extends ProductsStates {
-  final List<ProductDataModel> products;
+  final List<ProductModel> products;
 
   ProductsSuccessState({required this.products});
 }
