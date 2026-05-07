@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
 
-              home: ManagementScreen(),
+              home: HomeScreen(),
             );
           },
         );
