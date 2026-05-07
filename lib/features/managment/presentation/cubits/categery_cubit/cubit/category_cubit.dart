@@ -7,7 +7,7 @@ import 'package:veloura/features/managment/data/data_sources/add_product_remote_
 part 'category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
-  final ProductRemoteDataSource productRemoteDataSource;
+  final AddProductRemoteDataSource productRemoteDataSource;
 
   CategoryCubit(this.productRemoteDataSource) : super(CategoryInitial());
   int selectedIndex = 0;

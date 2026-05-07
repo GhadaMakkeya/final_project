@@ -6,6 +6,7 @@ import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/core/theme/app_theme.dart';
 import 'package:veloura/core/theme/theme_cubit.dart';
 import 'package:veloura/core/theme/theme_states.dart';
+import 'package:veloura/features/app_starting/app_startup.dart';
 import 'package:veloura/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
@@ -22,6 +23,7 @@ import 'package:veloura/features/managment/presentation/cubits/add_product_cubit
 import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 import 'package:veloura/features/managment/presentation/screens/management_screen.dart';
+import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:veloura/features/product_details/data/add_review_remote_data_source.dart';
 import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
 
@@ -30,12 +32,15 @@ late double screenHeight;
 late Widget startScreen;
 
 
-void main() {
+void main() async{
+    WidgetsFlutterBinding.ensureInitialized();
+
+  startScreen = await getStartScreen();
   final Dio dio = Dio();
   final SecureStorageServices secureStorage = SecureStorageServices();
 
-  final ProductRemoteDataSource productRemoteDataSource =
-      ProductRemoteDataSource(dio, secureStorage);
+  final AddProductRemoteDataSource productRemoteDataSource =
+      AddProductRemoteDataSource(dio, secureStorage);
 
   runApp(
     MultiBlocProvider(
@@ -92,8 +97,7 @@ class MyApp extends StatelessWidget {
               theme: AppTheme.light,
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
-
-              home: startScreen,
+              home: OnboardingScreen(),
             );
           },
         );

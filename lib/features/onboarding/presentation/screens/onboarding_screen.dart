@@ -1,6 +1,4 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:veloura/core/widgets/bottom_nav_bar.dart';
-import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
@@ -66,12 +64,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: CustomAppBar(
         actions: [
-           TextButton(
+          TextButton(
             onPressed: () async {
               // حفظ الحالة عند الضغط على Skip
               final prefs = await SharedPreferences.getInstance();
@@ -133,14 +130,19 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     _fadeController.forward();
   }
 
-  Future<void> _handleGetStarted() async {
+  void _handleGetStarted() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('seen_onboarding', true);
 
-    if (!mounted) return;
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
+    if (context.mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return const SignUpScreen();
+          },
+        ),
+      );
+    }
   }
 }

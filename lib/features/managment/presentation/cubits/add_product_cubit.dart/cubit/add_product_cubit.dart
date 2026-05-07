@@ -4,7 +4,7 @@ import 'package:veloura/features/managment/data/models/product_model.dart';
 import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_state.dart';
 
 class ProductCubit extends Cubit<AddProductState> {
-  final ProductRemoteDataSource remoteDataSource;
+  final AddProductRemoteDataSource remoteDataSource;
 
   ProductCubit(this.remoteDataSource) : super(AddProductInitial());
 

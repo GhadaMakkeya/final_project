@@ -4,8 +4,8 @@ import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/widgets/custom_social_button.dart';
-import 'package:veloura/features/contact_us/presentation/widgets/contact_form.dart';
-import 'package:veloura/features/contact_us/presentation/widgets/contact_info.dart';
+import 'package:veloura/features/profile/presentation/widgets/contact_form.dart';
+import 'package:veloura/features/profile/presentation/widgets/contact_info.dart';
 
 class ContactUsScreen extends StatelessWidget {
   const ContactUsScreen({super.key});

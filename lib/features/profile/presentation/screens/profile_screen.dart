@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
-import 'package:veloura/features/contact_us/presentation/screens/contact_us_screen.dart';
+import 'package:veloura/features/profile/presentation/screens/contact_us_screen.dart';
 import 'package:veloura/features/managment/presentation/screens/add_product_screen.dart';
 import 'package:veloura/features/managment/presentation/screens/management_screen.dart';
 import 'package:veloura/features/profile/presentation/screens/about_us_screen.dart';
