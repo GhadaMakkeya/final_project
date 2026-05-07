@@ -27,6 +27,8 @@ import 'package:veloura/features/product_details/presentation/cubits/reviews_cub
 
 late double screenWidth;
 late double screenHeight;
+late Widget startScreen;
+
 
 void main() {
   final Dio dio = Dio();
@@ -91,7 +93,7 @@ class MyApp extends StatelessWidget {
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
 
-              home: HomeScreen(),
+              home: startScreen,
             );
           },
         );
