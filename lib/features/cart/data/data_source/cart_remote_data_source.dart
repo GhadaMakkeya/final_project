@@ -1,30 +1,34 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 
 class CartRemoteDataSource {
-  final Dio dio = Dio();
+  final Dio dio;
+  final SecureStorageServices secureStorage;
 
-  static const String _token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNDU5NjA0Yy1kMTk3LTQ5MGEtNmE5OC0wOGRlYTdlYzQ1MTEiLCJqdGkiOiI3NTdiNDc3NS03YmQzLTQwMTYtYTk3Ny1kYTRiNzA4NWNhNzYiLCJlbWFpbCI6ImVuZy5iYWRhd3k3N0BnbWFpbC5jb20iLCJuYW1lIjoiQWhtZWQgQmFkYXd5Iiwicm9sZXMiOiIiLCJwaWN0dXJlIjoiIiwiZXhwIjoxNzc3OTg3NTc0LCJpc3MiOiJlc2hvcC5uZXQiLCJhdWQiOiJlc2hvcC5uZXQifQ.i71XWuhuv9-BYC-znjNp0302cWbkYuuWtEIUzDqa7as';
+  CartRemoteDataSource(this.dio, this.secureStorage);
 
-  Options get _options => Options(headers: {'Authorization': 'Bearer $_token'});
+  Future<Options> get _authOptions async {
+    final token = await secureStorage.getAccessToken();
+    return Options(headers: {'Authorization': 'Bearer $token'});
+  }
 
   Future<List<CartItemModel>> getCart() async {
     try {
       final response = await dio.get(
         'https://accessories-eshop.runasp.net/api/cart',
-        options: _options,
+        options: await _authOptions,
       );
       log(response.data.toString(), name: 'CART RESPONSE');
 
       final List cartItems = response.data['cartItems'];
-
       return cartItems.map((e) => CartItemModel.fromJson(e)).toList();
     } on DioException catch (e) {
-      String errMessage = e.response?.data['message'] ?? 'Failure';
-      throw Exception(errMessage);
+      final data = e.response?.data;
+      final message = (data is Map ? data['message'] : null) ?? 'Failed to load cart';
+      throw Exception(message);
     } on Exception catch (e) {
       throw Exception('Error: $e');
     }
@@ -35,11 +39,12 @@ class CartRemoteDataSource {
       await dio.put(
         'https://accessories-eshop.runasp.net/api/cart/items/$itemId',
         data: {'id': itemId, 'quantity': quantity},
-        options: _options,
+        options: await _authOptions,
       );
     } on DioException catch (e) {
-      String errMessage = e.response?.data['message'] ?? 'Failure';
-      throw Exception(errMessage);
+      final data = e.response?.data;
+      final message = (data is Map ? data['message'] : null) ?? 'Failed to update item';
+      throw Exception(message);
     }
   }
 
@@ -48,11 +53,12 @@ class CartRemoteDataSource {
       await dio.post(
         'https://accessories-eshop.runasp.net/api/cart/items/decrement',
         data: {'itemId': itemId, 'quantity': 1},
-        options: _options,
+        options: await _authOptions,
       );
     } on DioException catch (e) {
-      String errMessage = e.response?.data['message'] ?? 'Failure';
-      throw Exception(errMessage);
+      final data = e.response?.data;
+      final message = (data is Map ? data['message'] : null) ?? 'Failed to decrement item';
+      throw Exception(message);
     }
   }
 
@@ -61,11 +67,12 @@ class CartRemoteDataSource {
       await dio.delete(
         'https://accessories-eshop.runasp.net/api/cart/items/$itemId',
         data: {'id': itemId},
-        options: _options,
+        options: await _authOptions,
       );
     } on DioException catch (e) {
-      String errMessage = e.response?.data['message'] ?? 'Failure';
-      throw Exception(errMessage);
+      final data = e.response?.data;
+      final message = (data is Map ? data['message'] : null) ?? 'Failed to remove item';
+      throw Exception(message);
     }
   }
 }

@@ -16,8 +16,6 @@ class AppColors {
   static final lightColors = _LightColors();
   static final darkColors = _DarkColors();
 
-  static Color? get backgroundColor => null;
-
   static MyColors colors(BuildContext context) =>
       Theme.of(context).extension<MyColors>() ?? AppColors.lightColors;
 }

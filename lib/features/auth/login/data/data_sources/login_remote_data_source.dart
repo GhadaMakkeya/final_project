@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:dio/dio.dart';
 
 class LoginResponse {
@@ -37,13 +36,9 @@ class LoginRemoteDataSource {
         options: Options(headers: {"Content-Type": "application/json"}),
       );
 
-      log("LOGIN RESPONSE => ${response.data}");
       return LoginResponse.fromJson(response.data);
 
     } on DioException catch (e) {
-      log("Status Code: ${e.response?.statusCode}");
-      log("Full Response: ${e.response?.data}");
-
       final data = e.response?.data;
       String message = "Login failed";
 

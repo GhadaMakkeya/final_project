@@ -59,7 +59,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _removeSplash() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 2));
 
     FlutterNativeSplash.remove();
   }

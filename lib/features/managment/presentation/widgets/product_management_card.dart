@@ -6,7 +6,7 @@ class ProductManagementCard extends StatelessWidget {
   final ProductModel product;
   final VoidCallback onDelete;
 
-  const ProductManagementCard({Key? key, required this.product, required this.onDelete}) : super(key: key);
+  const ProductManagementCard({super.key, required this.product, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {

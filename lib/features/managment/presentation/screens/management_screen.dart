@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/core/theme/app_colors.dart'; // تأكد من المسار الصحيح
-import 'package:veloura/features/home/data/models/product_model.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/features/managment/data/models/product_model.dart';
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 import '../widgets/product_management_card.dart';
 
 class ManagementScreen extends StatefulWidget {
-  const ManagementScreen({Key? key}) : super(key: key);
+  const ManagementScreen({super.key});
 
   @override
   State<ManagementScreen> createState() => _ManagementScreenState();
@@ -56,7 +56,8 @@ class _ManagementScreenState extends State<ManagementScreen> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () => Navigator.of(dialogContext).pop(true),
+                        onPressed: () =>
+                            Navigator.of(dialogContext).pop(true),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: BaseColors.alert,
                           foregroundColor: Colors.white,
@@ -69,7 +70,8 @@ class _ManagementScreenState extends State<ManagementScreen> {
                     SizedBox(width: 12.w),
                     Expanded(
                       child: OutlinedButton(
-                        onPressed: () => Navigator.of(dialogContext).pop(false),
+                        onPressed: () =>
+                            Navigator.of(dialogContext).pop(false),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: colors.textPrimary,
                           side: BorderSide(color: colors.border),
@@ -96,7 +98,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
     if (!mounted) return;
 
     if (success) {
-      _listKey.currentState?.removeItem(
+      listKey.currentState?.removeItem(
         index,
         (context, animation) => SizeTransition(
           sizeFactor: animation,
@@ -107,7 +109,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
         ),
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.showSnackBar(
         SnackBar(
           content: Row(
             children: [

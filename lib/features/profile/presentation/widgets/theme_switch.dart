@@ -73,8 +73,6 @@ class ThemeSwitch extends StatelessWidget {
   }) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
-    final isSelected = selected == text;
-
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -86,7 +84,7 @@ class ThemeSwitch extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: isSelected
+          style: selected
               ? textTheme.labelLarge?.copyWith(color: colors.chipSelectedText)
               : textTheme.bodySmall?.copyWith(color: colors.chipUnSelectedText),
         ),

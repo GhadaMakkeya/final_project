@@ -1,8 +1,9 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:veloura/core/services/secure_storage_services.dart';
-import 'package:veloura/features/managment/data/models/category_model.dart';
 import 'package:veloura/features/managment/data/models/product_model.dart';
+
+import '../../../../core/services/secure_storage_services.dart';
+import '../../../category/data/models/category_model.dart';
 
 class ProductRemoteDataSource {
   final Dio dio;

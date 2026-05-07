@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/features/managment/data/models/category_model.dart';
 import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
+
+import '../../../category/data/models/category_model.dart';
 
 class CustomCategoryItem extends StatelessWidget {
   const CustomCategoryItem({
