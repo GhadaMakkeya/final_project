@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
+import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:veloura/features/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:veloura/features/managment/presentation/screens/add_product_screen.dart';
+import 'package:veloura/features/managment/presentation/screens/management_screen.dart';
+import 'package:veloura/features/profile/presentation/screens/about_us_screen.dart';
+import 'package:veloura/features/profile/presentation/screens/privacy_page.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../widgets/logout_button.dart';
@@ -61,6 +66,36 @@ class ProfileScreen extends StatelessWidget {
             ProfileTile(title: AppStrings.contactUs, onTap: () {}),
             SizedBox(height: 20.h),
             ProfileTile(
+              title: AppStrings.privacyPolicy,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => PrivacyPolicyScreen()),
+                );
+              },
+            ),
+            SizedBox(height: 8.h),
+            ProfileTile(
+              title: AppStrings.aboutUs,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => AboutScreen()),
+                );
+              },
+            ),
+            SizedBox(height: 8.h),
+            ProfileTile(
+              title: AppStrings.contactUs,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => ContactUsScreen()),
+                );
+              },
+            ),
+            SizedBox(height: 20.h),
+            ProfileTile(
               title: "Add Product",
               onTap: () {
                 Navigator.push(
@@ -77,9 +112,7 @@ class ProfileScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => AddNewProductScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => ManagementScreen()),
                 );
               },
             ),
@@ -88,7 +121,10 @@ class ProfileScreen extends StatelessWidget {
 
             LogoutButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/login');
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
               },
             ),
             SizedBox(height: 30.h),
