@@ -32,15 +32,23 @@ class ResetPassRemoteDataSource {
       );
 
       log('ResetPassword — raw response.data: ${response.data}');
+
+      // ✅ FIX: response.data may be a plain String (server omits
+      // Content-Type: application/json), which makes Dio skip JSON
+      // decoding. Indexing a String with a String key crashes:
+      //   "type 'String' is not a subtype of type 'int' of 'index'"
+      // That crash was caught below and emitted as an error state —
+      // even though the reset had already succeeded on the backend.
+      // Solution: normalise to a Map before any field access.
       final data = _toMap(response.data);
 
-      final message =
-          data?['message']?.toString() ??
+      final message = data?['message']?.toString() ??
           (response.data is String ? response.data as String : null) ??
           'Password reset successfully';
 
       log('ResetPassword — success: $message');
       return message;
+
     } on DioException catch (e) {
       log('ResetPassword — error: ${e.response?.data}');
 
@@ -56,14 +64,15 @@ class ResetPassRemoteDataSource {
         throw Exception(firstError);
       }
 
-      final message =
-          data?['message']?.toString() ??
+      final message = data?['message']?.toString() ??
           (e.response?.data is String ? e.response?.data as String : null) ??
           'Password reset failed';
       throw Exception(message);
     }
   }
 
+  /// Safely converts [raw] to a Map regardless of whether Dio decoded it.
+  /// Returns null if the value is neither a Map nor valid JSON String.
   Map<String, dynamic>? _toMap(dynamic raw) {
     if (raw is Map) return Map<String, dynamic>.from(raw);
     if (raw is String && raw.isNotEmpty) {

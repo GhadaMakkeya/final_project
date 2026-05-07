@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/core/theme/app_colors.dart'; // تأكد من المسار الصحيح
+import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 import '../widgets/product_management_card.dart';
 
 class ManagementScreen extends StatefulWidget {
-  const ManagementScreen({Key? key}) : super(key: key);
+  const ManagementScreen({super.key});
 
   @override
   State<ManagementScreen> createState() => _ManagementScreenState();
@@ -24,7 +24,11 @@ class _ManagementScreenState extends State<ManagementScreen> {
     });
   }
 
-  Future<void> _showDeleteDialog(BuildContext context, ProductModel product, int index) async {
+  Future<void> _showDeleteDialog(
+    BuildContext context,
+    ProductModel product,
+    int index,
+  ) async {
     final colors = context.colors;
     final textTheme = Theme.of(context).textTheme;
 
@@ -42,7 +46,11 @@ class _ManagementScreenState extends State<ManagementScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.warning_amber_rounded, color: BaseColors.alert, size: 40.sp),
+                Icon(
+                  Icons.warning_amber_rounded,
+                  color: BaseColors.alert,
+                  size: 40.sp,
+                ),
                 SizedBox(height: 16.h),
                 Text('Confirm Deletion?', style: textTheme.headlineSmall),
                 SizedBox(height: 8.h),
@@ -59,11 +67,18 @@ class _ManagementScreenState extends State<ManagementScreen> {
                         onPressed: () => Navigator.of(dialogContext).pop(true),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: BaseColors.alert,
-                          foregroundColor: Colors.white,
+                          foregroundColor: BaseColors.white,
                           elevation: 0,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.r),
+                          ),
                         ),
-                        child: Text('DELETE', style: textTheme.labelLarge?.copyWith(color: Colors.white)),
+                        child: Text(
+                          'DELETE',
+                          style: textTheme.labelLarge?.copyWith(
+                            color: BaseColors.white,
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(width: 12.w),
@@ -73,7 +88,9 @@ class _ManagementScreenState extends State<ManagementScreen> {
                         style: OutlinedButton.styleFrom(
                           foregroundColor: colors.textPrimary,
                           side: BorderSide(color: colors.border),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.r),
+                          ),
                         ),
                         child: Text('CANCEL', style: textTheme.labelLarge),
                       ),
@@ -106,8 +123,8 @@ class _ManagementScreenState extends State<ManagementScreen> {
           ),
         ),
       );
-
-      ScaffoldMessenger.of(context).showSnackBar(
+      final messenger = ScaffoldMessenger.of(context);
+      messenger.showSnackBar(
         SnackBar(
           content: Row(
             children: [
@@ -117,17 +134,26 @@ class _ManagementScreenState extends State<ManagementScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Product Deleted Successfully', 
-                    style: textTheme.titleMedium?.copyWith(fontSize: 13.sp)),
-                  Text('DATABASE HAS BEEN UPDATED', 
-                    style: textTheme.labelSmall?.copyWith(color: colors.textSecondary)),
+                  Text(
+                    'Product Deleted Successfully',
+                    style: textTheme.titleMedium?.copyWith(fontSize: 13.sp),
+                  ),
+                  Text(
+                    'DATABASE HAS BEEN UPDATED',
+                    style: textTheme.labelSmall?.copyWith(
+                      color: colors.textSecondary,
+                    ),
+                  ),
                 ],
               ),
             ],
           ),
           backgroundColor: colors.cardColor,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r), side: BorderSide(color: colors.border)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r),
+            side: BorderSide(color: colors.border),
+          ),
         ),
       );
     }
@@ -142,8 +168,14 @@ class _ManagementScreenState extends State<ManagementScreen> {
       backgroundColor: colors.background,
       appBar: AppBar(
         leading: Icon(Icons.menu, color: colors.primary),
-        title: Text('Product Management', style: textTheme.headlineSmall?.copyWith(fontStyle: FontStyle.italic)),
-        actions: [Icon(Icons.search, color: colors.primary), SizedBox(width: 16.w)],
+        title: Text(
+          'Product Management',
+          style: textTheme.headlineSmall?.copyWith(fontStyle: FontStyle.italic),
+        ),
+        actions: [
+          Icon(Icons.search, color: colors.primary),
+          SizedBox(width: 16.w),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -161,15 +193,25 @@ class _ManagementScreenState extends State<ManagementScreen> {
               child: BlocBuilder<ManagementCubit, ManagementState>(
                 builder: (context, state) {
                   if (state is ManagementLoading) {
-                    return Center(child: CircularProgressIndicator(color: colors.gold));
-                  } 
-                  else if (state is ManagementError) {
-                    return Center(child: Text(state.message, style: TextStyle(color: BaseColors.alert)));
-                  } 
-                  else if (state is ManagementSuccess) {
+                    return Center(
+                      child: CircularProgressIndicator(color: colors.gold),
+                    );
+                  } else if (state is ManagementError) {
+                    return Center(
+                      child: Text(
+                        state.message,
+                        style: TextStyle(color: BaseColors.alert),
+                      ),
+                    );
+                  } else if (state is ManagementSuccess) {
                     final products = state.products;
                     if (products.isEmpty) {
-                      return Center(child: Text('No products available right now.', style: textTheme.bodyLarge));
+                      return Center(
+                        child: Text(
+                          'No products available right now.',
+                          style: textTheme.bodyLarge,
+                        ),
+                      );
                     }
 
                     return AnimatedList(
@@ -181,13 +223,19 @@ class _ManagementScreenState extends State<ManagementScreen> {
                           sizeFactor: animation,
                           child: ProductManagementCard(
                             product: products[index],
-                            onDelete: () => _showDeleteDialog(context, products[index], index),
+                            onDelete: () => _showDeleteDialog(
+                              context,
+                              products[index],
+                              index,
+                            ),
                           ),
                         );
                       },
                     );
                   }
-                  return Center(child: Text('Initializing...', style: textTheme.bodySmall));
+                  return Center(
+                    child: Text('Initializing...', style: textTheme.bodySmall),
+                  );
                 },
               ),
             ),

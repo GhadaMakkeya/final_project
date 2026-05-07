@@ -46,7 +46,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               children: [
                 Stack(
                   children: [
-                    Image.asset(
+                    Image.network(
                       widget.product.imageUrl,
                       height: 400.h,
                       width: double.infinity,

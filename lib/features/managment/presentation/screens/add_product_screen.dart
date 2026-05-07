@@ -52,7 +52,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProductCubit, AddProductState>(
+    return BlocConsumer<AddProductCubit, AddProductState>(
       listener: (context, state) {
         if (state is AddProductSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -134,7 +134,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                         if (!_formKey.currentState!.validate()) {
                           return;
                         }
-                        context.read<ProductCubit>().addProduct(
+                        context.read<AddProductCubit>().addProduct(
                           AddProductModel(
                             name: _productNameController.text.trim(),
                             nameArabic: "منتج جديد",

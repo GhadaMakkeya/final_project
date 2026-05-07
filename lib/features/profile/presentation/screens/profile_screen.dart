@@ -16,12 +16,13 @@ import '../widgets/theme_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatelessWidget {
-  ProfileScreen({super.key});
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
     final padding = MediaQuery.of(context).size.width * 0.05;
+
     return Scaffold(
       appBar: CustomAppBar(
         leading: IconButton(
@@ -53,18 +54,34 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(height: 24.h),
             SectionTitle(title: AppStrings.preferences),
             SizedBox(height: 8.h),
-            ThemeSwitch(),
-
+            const ThemeSwitch(),
             SizedBox(height: 24.h),
-
             SectionTitle(title: AppStrings.information),
             SizedBox(height: 8.h),
             ProfileTile(title: AppStrings.privacyPolicy, onTap: () {}),
             SizedBox(height: 8.h),
-            ProfileTile(title: AppStrings.aboutUs, onTap: () {}),
+            ProfileTile(
+              title: AppStrings.aboutUs,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => AboutScreen()),
+                );
+              },
+            ),
             SizedBox(height: 8.h),
-            ProfileTile(title: AppStrings.contactUs, onTap: () {}),
-            SizedBox(height: 20.h),
+            ProfileTile(
+              title: AppStrings.contactUs,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => ContactUsScreen()),
+                );
+              },
+            ),
+            SizedBox(height: 24.h),
+            SectionTitle(title: 'Seller Tools'),
+            SizedBox(height: 8.h),
             ProfileTile(
               title: AppStrings.privacyPolicy,
               onTap: () {
@@ -101,14 +118,14 @@ class ProfileScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddNewProductScreen(),
+                    builder: (_) => const AddNewProductScreen(),
                   ),
                 );
               },
             ),
             SizedBox(height: 8.h),
             ProfileTile(
-              title: "Delete Product",
+              title: 'Manage Products',
               onTap: () {
                 Navigator.push(
                   context,
@@ -116,9 +133,7 @@ class ProfileScreen extends StatelessWidget {
                 );
               },
             ),
-
             SizedBox(height: 36.h),
-
             LogoutButton(
               onPressed: () {
                 Navigator.pushReplacement(

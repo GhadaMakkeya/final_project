@@ -10,6 +10,7 @@ class BottomControls extends StatelessWidget {
   final VoidCallback onGetStarted;
 
   const BottomControls({
+    super.key,
     required this.currentPage,
     required this.pageCount,
     required this.onNext,
@@ -39,7 +40,7 @@ class BottomControls extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: currentPage == index
                       ? colors.primary
-                      : colors.textTertiary.withOpacity(0.5),
+                      : colors.textTertiary.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(4.r),
                 ),
               ),
