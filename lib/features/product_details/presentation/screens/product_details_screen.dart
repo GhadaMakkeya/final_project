@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/services/secure_storage_services.dart';
+import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/product_details/data/add_review_remote_data_source.dart';
 import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
@@ -17,7 +18,11 @@ import '../widgets/review_card.dart';
 class ProductDetailsScreen extends StatefulWidget {
   final ProductModel product;
   final String? productId;
-  const ProductDetailsScreen({super.key, this.productId, required this.product});
+  const ProductDetailsScreen({
+    super.key,
+    this.productId,
+    required this.product,
+  });
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -28,8 +33,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   void initState() {
     super.initState();
 
-
-   context.read<ReviewsCubit>().getReviews(
+    context.read<ReviewsCubit>().getReviews(
       widget.productId ?? widget.product.id,
     );
   }
@@ -212,7 +216,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                       SizedBox(height: 50.h),
                       CustomPrimaryButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.read<CartCubit>().addToCart(product.id, 1);
+                        },
                         label: "ADD TO CART",
                         letterSpacing: 0,
                       ),
