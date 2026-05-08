@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/features/home/data/models/product_model.dart';
-import 'package:veloura/features/managment/data/models/product_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductManagementCard extends StatelessWidget {
   final ProductModel product;
@@ -13,14 +14,14 @@ class ProductManagementCard extends StatelessWidget {
     return ListTile(
       leading: Image.network(
         product.imageUrl,
-        width: 50,
-        height: 50,
+        width: 50.w,
+        height: 50.h,
         errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image),
       ),
       title: Text(product.name),
       subtitle: Text('\$${product.price}'),
       trailing: IconButton(
-        icon: const Icon(Icons.delete, color: Colors.red),
+        icon: const Icon(Icons.delete, color: BaseColors.alert),
         onPressed: onDelete,
       ),
     );

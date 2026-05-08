@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/features/products/presntation/widgets/product_model.dart';
+import 'package:veloura/features/home/data/models/product_model.dart';
+// removed local sample Product model import; using `ProductModel` from home data
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
 
 class CustomProductItem extends StatelessWidget {
-  final Product productModel;
-  const CustomProductItem({super.key, required this.productModel});
+  final ProductModel product;
+  const CustomProductItem({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
-    return Card(
-      elevation: 0.1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-      child: Column(
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailsScreen(product: product),
+          ),
+        );
+      },
+      child: Card(
+        elevation: 0.1,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -28,31 +39,12 @@ class CustomProductItem extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4.r),
                       image: DecorationImage(
-                        image: NetworkImage(productModel.imageUrl),
+                        image: NetworkImage(product.imageUrl),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 ),
-                if (productModel.label != null)
-                  Positioned(
-                    top: 8.h,
-                    left: 8.w,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 6.w,
-                        vertical: 3.h,
-                      ),
-                      color: _getLabelColor(productModel.label!),
-                      child: Text(
-                        productModel.label!,
-                        style: textTheme.labelSmall?.copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                const SizedBox(),
                 Positioned(
                   bottom: 8.h,
                   right: 16.w,
@@ -85,7 +77,7 @@ class CustomProductItem extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        productModel.name,
+                        product.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: textTheme.bodyLarge
@@ -95,18 +87,7 @@ class CustomProductItem extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 6.h),
-                Row(
-                  children: [
-                    Text(productModel.price, style: textTheme.bodySmall),
-                    SizedBox(width: 8.w),
-                    Text(
-                      productModel.originalPrice ?? "",
-                      style: textTheme.labelSmall?.copyWith(
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                    ),
-                  ],
-                ),
+                Text('\$${product.price.toStringAsFixed(2)}', style: textTheme.bodySmall),
                 SizedBox(height: 6.h),
                 Divider(height: 1.h, thickness: 0.5, color: colors.border),
                 const SizedBox(height: 10),
@@ -155,16 +136,7 @@ class CustomProductItem extends StatelessWidget {
           ),
         ],
       ),
+      ),
     );
-  }
-
-  Color _getLabelColor(String label) {
-    if (label == "NEW") {
-      return const Color(0xffD9534F);
-    } else if (label == "SOLD OUT") {
-      return Colors.grey;
-    } else {
-      return Colors.black;
-    }
   }
 }

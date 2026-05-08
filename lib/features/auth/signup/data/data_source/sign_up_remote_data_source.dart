@@ -16,6 +16,15 @@ class SignUpRemoteDataSource {
         'https://accessories-eshop.runasp.net/api/auth/register',
         data: model.toJson(),
       );
+      await secureStorageService.write(
+        key: 'firstName',
+        value: model.firstName,
+      );
+
+      await secureStorageService.write(key: 'lastName', value: model.lastName);
+
+      await secureStorageService.write(key: 'email', value: model.email);
+
       log('Sign Up Successful: ${response.data['message']}');
     } on DioException catch (e) {
       log('Status Code: ${e.response?.statusCode}');

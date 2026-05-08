@@ -28,9 +28,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   void initState() {
     super.initState();
 
-    final id = widget.productId;
 
-    context.read<ReviewsCubit>().getReviews(id.toString());
+   context.read<ReviewsCubit>().getReviews(
+      widget.productId ?? widget.product.id,
+    );
   }
 
   Widget build(BuildContext context) {

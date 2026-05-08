@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
 import 'package:veloura/features/profile/presentation/screens/contact_us_screen.dart';
 import 'package:veloura/features/managment/presentation/screens/add_product_screen.dart';
 import 'package:veloura/features/managment/presentation/screens/management_screen.dart';
@@ -15,11 +17,34 @@ import '../widgets/section_title.dart';
 import '../widgets/theme_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
   Widget build(BuildContext context) {
+    String? firstName;
+    String? lastName;
+    String? email;
+    final storage = SecureStorageServices();
+    Future<void> loadUserData() async {
+      firstName = await storage.read(key: 'firstName');
+      lastName = await storage.read(key: 'lastName');
+      email = await storage.read(key: 'email');
+
+      setState(() {});
+    }
+
+    @override
+    void initState() {
+      super.initState();
+      loadUserData();
+    }
+
     final colors = context.colors;
     final padding = MediaQuery.of(context).size.width * 0.05;
 
@@ -30,8 +55,10 @@ class ProfileScreen extends StatelessWidget {
           icon: Icon(Icons.menu, color: colors.primary),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
+         IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ShoppingCartScreen()));
+            },
             icon: Icon(Icons.shopping_bag_outlined, color: colors.primary),
           ),
         ],
@@ -43,8 +70,8 @@ class ProfileScreen extends StatelessWidget {
           children: [
             SizedBox(height: 20.h),
             ProfileHeader(
-              name: AppStrings.name,
-              email: AppStrings.email,
+              name: "${firstName ?? ''} ${lastName ?? ''}",
+              email: email ?? '',
               onEdit: () {},
             ),
             SizedBox(height: 30.h),

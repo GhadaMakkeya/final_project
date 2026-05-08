@@ -81,12 +81,18 @@ class ThemeSwitch extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected ? colors.primary : BaseColors.transparent,
           borderRadius: BorderRadius.circular(25.r),
+          border: Border.all(
+            color: selected ? colors.primary : colors.primary.withOpacity(0.3),
+          ),
         ),
+
         child: Text(
           text,
-          style: selected
-              ? textTheme.labelLarge?.copyWith(color: colors.chipSelectedText)
-              : textTheme.bodySmall?.copyWith(color: colors.chipUnSelectedText),
+          style: (selected ? textTheme.labelLarge : textTheme.bodySmall)
+              ?.copyWith(
+                color: selected ? Colors.white : colors.primary,
+                fontWeight: FontWeight.w600,
+              ),
         ),
       ),
     );

@@ -9,6 +9,7 @@ import 'package:veloura/core/theme/theme_states.dart';
 import 'package:veloura/features/app_starting/app_startup.dart';
 import 'package:veloura/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
+import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:veloura/features/auth/otp/data/data_sources/otp_remote_data_source.dart';
 import 'package:veloura/features/auth/otp/presentation/cubits/cubit/otp_cubit.dart';
 import 'package:veloura/features/auth/signup/data/data_source/sign_up_remote_data_source.dart';
@@ -23,6 +24,7 @@ import 'package:veloura/features/managment/presentation/cubits/management_cubit/
 import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:veloura/features/product_details/data/add_review_remote_data_source.dart';
 import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
+import 'package:veloura/features/profile/presentation/screens/profile_screen.dart';
 
 late double screenWidth;
 late double screenHeight;
@@ -30,7 +32,7 @@ late Widget startScreen;
 
 
 void main() async{
-    WidgetsFlutterBinding.ensureInitialized();
+     WidgetsFlutterBinding.ensureInitialized();
 
   startScreen = await getStartScreen();
   final Dio dio = Dio();
@@ -95,7 +97,7 @@ class MyApp extends StatelessWidget {
               theme: AppTheme.light,
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
-              home: OnboardingScreen(),
+              home: LoginScreen(),
             );
           },
         );

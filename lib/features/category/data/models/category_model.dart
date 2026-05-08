@@ -28,18 +28,10 @@ class CategoryModel {
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     return CategoryModel(
       id: json['id']?.toString() ?? '',
-
       name: json['name']?.toString() ?? '',
-
       description: json['description']?.toString() ?? '',
-
       coverPictureUrl: json['coverPictureUrl']?.toString() ?? '',
-
-      /// fake price because API
-      /// does not return price
       price: generateFakePrice(),
-
-      /// fake new badge
       isNew: true,
     );
   }
@@ -47,24 +39,17 @@ class CategoryModel {
   Map<String, dynamic> toJson() {
     return {
       "id": id,
-
       "name": name,
-
       "description": description,
-
       "coverPictureUrl": coverPictureUrl,
-
       "price": price,
-
       "isNew": isNew,
     };
   }
 
   static double generateFakePrice() {
     List<double> prices = [650, 890, 1250, 2100, 3400, 4800];
-
     prices.shuffle();
-
     return prices.first;
   }
 }

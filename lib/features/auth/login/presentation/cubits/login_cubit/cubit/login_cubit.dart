@@ -10,24 +10,19 @@ class LoginCubit extends Cubit<LoginState> {
   final LoginRemoteDataSource remoteDataSource;
   final SecureStorageServices secureStorage;
 
-  LoginCubit(
-    this.remoteDataSource,
-    this.secureStorage,
-  ) : super(LoginInitial());
+  LoginCubit(this.remoteDataSource, this.secureStorage) : super(LoginInitial());
 
   Future<void> login({
     required String email,
     required String password,
   }) async {
-    try {
-      emit(LoginLoading());
+    emit(LoginLoading());
 
+    try {
       final response = await remoteDataSource.login(
         email: email,
         password: password,
       );
-
-      log('Login Success Response Received');
 
       await secureStorage.saveAuthData(
         accessToken: response.accessToken,
@@ -36,28 +31,17 @@ class LoginCubit extends Cubit<LoginState> {
       );
 
       final token = await secureStorage.getAccessToken();
-
-      log('Saved Token: $token');
-
       if (token == null || token.isEmpty) {
-        emit(LoginFailure('Token was not saved properly'));
-        return;
+        throw Exception('Token not saved properly');
       }
 
       emit(LoginSuccess());
-    } catch (e, stackTrace) {
-      log(
-        'Login Error',
-        error: e,
-        stackTrace: stackTrace,
-      );
-
+    } catch (e) {
+      log('Login Error: $e');
       String message = e.toString();
-
       if (message.startsWith('Exception: ')) {
         message = message.replaceFirst('Exception: ', '');
       }
-
       emit(LoginFailure(message));
     }
   }

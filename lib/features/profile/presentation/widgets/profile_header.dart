@@ -30,8 +30,8 @@ class ProfileHeader extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 65.r,
                   backgroundColor: Colors.black26,
-                  backgroundImage: const NetworkImage(
-                    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop",
+                  backgroundImage: const AssetImage(
+                    "assets/images/profile.png",
                   ),
                 ),
               ),

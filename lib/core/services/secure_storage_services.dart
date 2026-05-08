@@ -17,7 +17,6 @@ class SecureStorageServices {
     );
   }
 
-  // ✅ FIX: async/await مضاف
   Future<String?> getAccessToken() async {
     return await _storage.read(key: SecureKeys.accessToken);
   }
@@ -35,5 +34,13 @@ class SecureStorageServices {
     await _storage.delete(key: SecureKeys.accessToken);
     await _storage.delete(key: SecureKeys.refreshToken);
     await _storage.delete(key: SecureKeys.expiresAt);
+  }
+
+  Future<void> write({required String key, required String value}) async {
+    await _storage.write(key: key, value: value);
+  }
+
+  Future<String?> read({required String key}) async {
+    return await _storage.read(key: key);
   }
 }
