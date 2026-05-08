@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/features/category/presentation/screens/category_screen.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({super.key});
@@ -15,37 +18,52 @@ class CategoryList extends StatelessWidget {
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
+      padding: EdgeInsets.symmetric(vertical: 15.h),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Row(
           children: categories.map((name) {
-            return _buildCategoryChip(name, isSelected: name == "COLLECTIONS");
+            return _buildCategoryChip(
+              context,
+              name,
+              isSelected: name == "COLLECTIONS",
+            );
           }).toList(),
         ),
       ),
     );
   }
 
-  Widget _buildCategoryChip(String label, {bool isSelected = false}) {
-    return Container(
-      margin: const EdgeInsets.only(right: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        color: isSelected ? const Color(0xff1A1A1A) : Colors.transparent,
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(
-          color: isSelected ? Colors.transparent : Colors.grey.shade300,
+  Widget _buildCategoryChip(
+    BuildContext context,
+    String label, {
+    bool isSelected = false,
+  }) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CategoryScreen()),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 12.w),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: isSelected ? colors.chipSelectedColor : Colors.transparent,
+          borderRadius: BorderRadius.circular(25.r),
+          border: Border.all(color: colors.border),
         ),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: isSelected ? Colors.white : Color(0xff4E4639),
-          fontSize: 11,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1,
+        child: Text(
+          label,
+          style: isSelected
+              ? textTheme.labelMedium?.copyWith(color: colors.chipSelectedText)
+              : textTheme.labelMedium?.copyWith(
+                  color: colors.chipUnSelectedText,
+                ),
         ),
       ),
     );

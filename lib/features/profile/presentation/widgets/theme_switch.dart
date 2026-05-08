@@ -1,56 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/theme_cubit.dart';
+import 'package:veloura/core/theme/theme_states.dart';
+
 import '../../../../core/theme/app_colors.dart';
 
-class ThemeSwitch extends StatefulWidget {
+class ThemeSwitch extends StatelessWidget {
   const ThemeSwitch({super.key});
 
   @override
-  State<ThemeSwitch> createState() => _ThemeSwitchState();
-}
-
-class _ThemeSwitchState extends State<ThemeSwitch> {
-  String selected = "Light";
-
-  @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
+    final isDark = context.watch<ThemeCubit>().state is DarkTheme;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.grey.shade200,
-          width: 1,
-        ),
+        color: colors.cardColor,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: colors.border, width: 1.w),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Icon(Icons.wb_sunny_outlined, size: 18, color: AppColors.primary),
-              const SizedBox(width: 8),
-              const Text(
-                "Theme",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87,
-                ),
+              Icon(
+                Icons.wb_sunny_outlined,
+                size: 18.sp,
+                color: colors.textSecondary,
               ),
+              SizedBox(width: 8.w),
+              Text("Theme", style: textTheme.bodyLarge),
             ],
           ),
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: Colors.grey.shade100,
-              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(25.r),
+              color: colors.cardColor,
+              border: Border.all(color: colors.border),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _item("Light"),
-                _item("Mark"),
+                _item(
+                  context: context,
+                  text: "Light",
+                  selected: !isDark,
+                  onTap: () => context.read<ThemeCubit>().setLight(),
+                ),
+                _item(
+                  context: context,
+                  text: "Dark",
+                  selected: isDark,
+                  onTap: () => context.read<ThemeCubit>().setDark(),
+                ),
               ],
             ),
           ),
@@ -59,29 +65,34 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
     );
   }
 
-  Widget _item(String text) {
-    final isSelected = selected == text;
-
+  Widget _item({
+    required BuildContext context,
+    required String text,
+    required bool selected,
+    required VoidCallback onTap,
+  }) {
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          selected = text;
-        });
-      },
+      onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : Colors.transparent,
-          borderRadius: BorderRadius.circular(25),
+          color: selected ? colors.primary : BaseColors.transparent,
+          borderRadius: BorderRadius.circular(25.r),
+          border: Border.all(
+            color: selected ? colors.primary : colors.primary.withOpacity(0.3),
+          ),
         ),
+
         child: Text(
           text,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: isSelected ? Colors.white : Colors.black54,
-          ),
+          style: (selected ? textTheme.labelLarge : textTheme.bodySmall)
+              ?.copyWith(
+                color: selected ? Colors.white : colors.primary,
+                fontWeight: FontWeight.w600,
+              ),
         ),
       ),
     );
