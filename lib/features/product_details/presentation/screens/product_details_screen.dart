@@ -217,7 +217,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       SizedBox(height: 50.h),
                       CustomPrimaryButton(
                         onPressed: () {
-                          context.read<CartCubit>().addToCart(product.id, 1);
+                          context.read<CartCubit>().addToCart(widget.product.id, 1);
                         },
                         label: "ADD TO CART",
                         letterSpacing: 0,
