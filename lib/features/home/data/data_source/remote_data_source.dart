@@ -1,5 +1,5 @@
-
 import 'package:dio/dio.dart';
+import 'package:veloura/features/home/data/models/category_model.dart';
 import 'package:veloura/features/home/data/models/offers_data.dart';
 import 'package:veloura/features/home/data/models/product_model.dart';
 
@@ -42,6 +42,26 @@ class RemoteDataSource {
     } on DioException catch (e) {
       final String errorMessage = e.response?.data;
       throw Exception("$errorMessage Error loading offers");
+    } on Exception catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  Future<List<CategoryModel>> getCategories() async {
+    try {
+      final response = await dio.get(
+        'https://accessories-eshop.runasp.net/api/categories',
+      );
+      List<CategoryModel> categories = [];
+      final data = response.data['categories'];
+
+      for (var item in data) {
+        categories.add(CategoryModel.fromJson(item));
+      }
+      return categories;
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data;
+      throw Exception("$errorMessage Error loading categories");
     } on Exception catch (e) {
       throw Exception('Error: $e');
     }
