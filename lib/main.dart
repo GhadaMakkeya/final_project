@@ -6,11 +6,7 @@ import 'package:veloura/core/theme/theme_cubit.dart';
 import 'package:veloura/core/theme/theme_states.dart';
 import 'package:veloura/core/widgets/bottom_nav_bar.dart';
 import 'package:veloura/features/app_starting/app_startup.dart';
-// استيراد ملف الراوتر والـ Cubit الخاص بالمنتجات
 import 'package:veloura/core/routing/app_router.dart'; 
-import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
-import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
-import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page_content.dart';
 
 late double screenWidth;
 late double screenHeight;
@@ -53,7 +49,7 @@ class MyApp extends StatelessWidget {
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
               onGenerateRoute: AppRouter.generateRoute,            
-              home: OnboardingScreen(),
+              home: startScreen,
             );
           },
         );

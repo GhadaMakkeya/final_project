@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
@@ -57,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
          IconButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ShoppingCartScreen()));
+              Navigator.pushNamed(context, AppRoutes.cart);
             },
             icon: Icon(Icons.shopping_bag_outlined, color: colors.primary),
           ),
@@ -90,63 +91,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ProfileTile(
               title: AppStrings.aboutUs,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => AboutScreen()),
-                );
+                Navigator.pushNamed(context, AppRoutes.aboutUs);
               },
             ),
             SizedBox(height: 8.h),
             ProfileTile(
               title: AppStrings.contactUs,
               onTap: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (_) => ContactUsScreen()),
+                  AppRoutes.contactUs,
                 );
               },
             ),
             SizedBox(height: 24.h),
             SectionTitle(title: 'Seller Tools'),
             SizedBox(height: 8.h),
-            ProfileTile(
-              title: AppStrings.privacyPolicy,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => PrivacyPolicyScreen()),
-                );
-              },
-            ),
-            SizedBox(height: 8.h),
-            ProfileTile(
-              title: AppStrings.aboutUs,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => AboutScreen()),
-                );
-              },
-            ),
-            SizedBox(height: 8.h),
-            ProfileTile(
-              title: AppStrings.contactUs,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => ContactUsScreen()),
-                );
-              },
-            ),
+           
             SizedBox(height: 20.h),
             ProfileTile(
               title: "Add Product",
               onTap: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => const AddNewProductScreen(),
-                  ),
+                  AppRoutes.addProduct,
                 );
               },
             ),
@@ -154,18 +122,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ProfileTile(
               title: 'Manage Products',
               onTap: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (context) => ManagementScreen()),
+                  AppRoutes.management,
                 );
               },
             ),
             SizedBox(height: 36.h),
             LogoutButton(
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.pushNamedAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  AppRoutes.login,
+                  (route) => false,
                 );
               },
             ),
