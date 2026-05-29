@@ -37,52 +37,55 @@ class _CustomProductItemState extends State<CustomProductItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8.w),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(4.r),
-                    child: Image.network(
-                      widget.product.imageUrl,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                      errorBuilder: (context, error, stackTrace) => Container(
-                        color: Colors.grey[200],
-                        child: const Icon(
-                          Icons.broken_image,
-                          color: Colors.grey,
+            AspectRatio(
+              aspectRatio: 1 / 0.9,
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.w),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(4.r),
+                      child: Image.network(
+                        widget.product.imageUrl,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          color: Colors.grey[200],
+                          child: const Icon(
+                            Icons.broken_image,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                Positioned(
-                  top: 10.h,
-                  right: 10.w,
-                  child: BlocBuilder<ProductsActionCubit, ProductsActionStates>(
-                    builder: (context, state) {
-                      final isFav = context
-                          .read<ProductsActionCubit>()
-                          .isProductFavorite(widget.product.id);
+                  Positioned(
+                    top: 10.h,
+                    right: 10.w,
+                    child:
+                        BlocBuilder<ProductsActionCubit, ProductsActionStates>(
+                          builder: (context, state) {
+                            final isFav = context
+                                .read<ProductsActionCubit>()
+                                .isProductFavorite(widget.product.id);
 
-                      return IconButton(
-                        icon: Icon(
-                          isFav ? Icons.favorite : Icons.favorite_border,
-                          color: isFav ? Colors.red : Colors.white,
+                            return IconButton(
+                              icon: Icon(
+                                isFav ? Icons.favorite : Icons.favorite_border,
+                                color: isFav ? Colors.red : Colors.white,
+                              ),
+                              onPressed: () {
+                                context
+                                    .read<ProductsActionCubit>()
+                                    .toggleFavorite(widget.product.id);
+                              },
+                            );
+                          },
                         ),
-                        onPressed: () {
-                          context.read<ProductsActionCubit>().toggleFavorite(
-                            widget.product.id,
-                          );
-                        },
-                      );
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
 
             Padding(
