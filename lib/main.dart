@@ -20,8 +20,6 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ThemeCubit()..loadTheme()),
-        //  حل مشكلة الـ Cubit: توفير ProductsCubit على مستوى التطبيق بالكامل
-        BlocProvider(create: (_) => ProductsCubit()), 
       ],
       child: const MyApp(),
     ),
@@ -49,7 +47,7 @@ class MyApp extends StatelessWidget {
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
               onGenerateRoute: AppRouter.generateRoute,            
-              home: startScreen,
+              home: MainNavigation(),
             );
           },
         );
