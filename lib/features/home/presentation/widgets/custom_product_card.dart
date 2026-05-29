@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/features/home/data/models/product_model.dart';
-import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
 
 class CustomProductCard extends StatelessWidget {
   const CustomProductCard({super.key, required this.product});
@@ -15,13 +15,10 @@ class CustomProductCard extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: InkWell(
         onTap: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute(
-              builder: (context) {
-                return ProductDetailsScreen(product: product);
-              },
-            ),
+            AppRoutes.productDetails,
+            arguments: product,
           );
         },
         child: Container(

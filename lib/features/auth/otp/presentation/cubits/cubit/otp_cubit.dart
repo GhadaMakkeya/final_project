@@ -5,12 +5,9 @@ import '../../../data/data_sources/otp_remote_data_source.dart';
 part 'otp_state.dart';
 
 class OtpCubit extends Cubit<OtpStates> {
-  final OtpRemoteDataSource otpRemoteDataSource;
+  final OtpRemoteDataSource otpRemoteDataSource = OtpRemoteDataSource();
 
-  OtpCubit(this.otpRemoteDataSource) : super(OtpInitialState());
-
-  /// [isPasswordReset] must be true when called from the Forgot Password flow
-  /// so that verify-email is skipped and the OTP remains valid for reset-password.
+  OtpCubit() : super(OtpInitialState());
   Future<void> validateOtp({
     required String email,
     required String otp,

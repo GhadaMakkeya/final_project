@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
+import 'package:veloura/features/home/presentation/cubits/categery_cubit/category_cubit.dart';
+import 'package:veloura/features/home/presentation/cubits/categery_cubit/category_state.dart';
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_states.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
@@ -10,11 +13,7 @@ import 'package:veloura/features/home/presentation/cubits/products_cubit/product
 import 'package:veloura/features/home/presentation/widgets/custom_category_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_offer_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_product_card.dart';
-import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
-import '../../../category/presentation/screens/category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<OffersCubit>(context).getOffers();
     final categoryCubit = context.read<CategoryCubit>();
     if (categoryCubit.categories.isEmpty) {
-      categoryCubit.getAllCategories();
+      categoryCubit.getCategories();
     }
   }
 
@@ -45,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: CustomAppBar(
         title: AppStrings.appName,
         leading: Padding(
-          padding:  EdgeInsets.only(left: 24.w),
+          padding: EdgeInsets.only(left: 24.w),
           child: IconButton(
             onPressed: () {},
             icon: Icon(Icons.search, color: colors.primary),
@@ -53,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           Padding(
-            padding:  EdgeInsets.only(right: 24.w),
+            padding: EdgeInsets.only(right: 24.w),
             child: IconButton(
               onPressed: () {},
               icon: Icon(Icons.notifications_none, color: colors.primary),
@@ -150,13 +149,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               context.read<CategoryCubit>().selectCategory(
                                 index,
                               );
-                              Navigator.push(
+                              Navigator.pushNamed(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return CategoryScreen();
-                                  },
-                                ),
+                                AppRoutes.productsFilteredByCategory,
+                                arguments: state.categories[index].name,
                               );
                             },
                           );
@@ -186,9 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       itemCount: products.length,
                       itemBuilder: (context, index) {
-                        return CustomProductCard(
-                          product: products[index],
-                        );
+                        return CustomProductCard(product: products[index]);
                       },
                     );
                   } else if (state is ProductsErrorState) {

@@ -1,76 +1,31 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/core/theme/app_theme.dart';
 import 'package:veloura/core/theme/theme_cubit.dart';
 import 'package:veloura/core/theme/theme_states.dart';
 import 'package:veloura/core/widgets/bottom_nav_bar.dart';
 import 'package:veloura/features/app_starting/app_startup.dart';
-import 'package:veloura/features/auth/login/data/data_sources/login_remote_data_source.dart';
-import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
-import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
-import 'package:veloura/features/auth/otp/data/data_sources/otp_remote_data_source.dart';
-import 'package:veloura/features/auth/otp/presentation/cubits/cubit/otp_cubit.dart';
-import 'package:veloura/features/auth/signup/data/data_source/sign_up_remote_data_source.dart';
-import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_cubit.dart';
-import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
+// استيراد ملف الراوتر والـ Cubit الخاص بالمنتجات
+import 'package:veloura/core/routing/app_router.dart'; 
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
-import 'package:veloura/features/managment/data/data_sources/add_product_remote_data_source.dart';
-import 'package:veloura/features/managment/data/services/product_service.dart';
-import 'package:veloura/features/managment/presentation/cubits/add_product_cubit.dart/cubit/add_product_cubit.dart';
-import 'package:veloura/features/managment/presentation/cubits/categery_cubit/cubit/category_cubit.dart';
-import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
-import 'package:veloura/features/product_details/data/add_review_remote_data_source.dart';
-import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
-import 'package:veloura/features/products/presntation/screens/products_screen.dart';
+import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page_content.dart';
 
 late double screenWidth;
 late double screenHeight;
 late Widget startScreen;
 
-
-void main() async{
-     WidgetsFlutterBinding.ensureInitialized();
-
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   startScreen = await getStartScreen();
-  final Dio dio = Dio();
-  final SecureStorageServices secureStorage = SecureStorageServices();
-
-  final AddProductRemoteDataSource productRemoteDataSource =
-      AddProductRemoteDataSource(dio, secureStorage);
-  final ProductService productService = ProductService(secureStorage);
 
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => ReviewsCubit(
-            AddReviewRemoteDataSource(Dio(), SecureStorageServices()),
-          ),
-        ),
-
         BlocProvider(create: (_) => ThemeCubit()..loadTheme()),
-        BlocProvider(create: (context) => ProductsCubit()),
-        BlocProvider(create: (context) => OffersCubit()),
-        BlocProvider(create: (context) => ManagementCubit(productService)),
-
-        BlocProvider(
-          create: (_) =>
-              SignUpCubit(SignUpRemoteDataSource(dio, secureStorage)),
-        ),
-
-        BlocProvider(create: (_) => OtpCubit(OtpRemoteDataSource(dio))),
-
-        BlocProvider(
-          create: (_) => LoginCubit(LoginRemoteDataSource(dio), secureStorage),
-        ),
-
-        BlocProvider(create: (_) => AddProductCubit(productRemoteDataSource)),
-
-        BlocProvider(create: (_) => CategoryCubit(productRemoteDataSource)),
+        //  حل مشكلة الـ Cubit: توفير ProductsCubit على مستوى التطبيق بالكامل
+        BlocProvider(create: (_) => ProductsCubit()), 
       ],
       child: const MyApp(),
     ),
@@ -94,11 +49,11 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-
               theme: AppTheme.light,
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
-              home: ProductScreen(),
+              onGenerateRoute: AppRouter.generateRoute,            
+              home: OnboardingScreen(),
             );
           },
         );

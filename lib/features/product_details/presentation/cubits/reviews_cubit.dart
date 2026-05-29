@@ -4,9 +4,9 @@ import 'package:veloura/features/product_details/data/add_review_remote_data_sou
 import 'package:veloura/features/product_details/presentation/cubits/reviews_state.dart';
 
 class ReviewsCubit extends Cubit<ReviewsStates> {
-  final AddReviewRemoteDataSource dataSource;
+  final AddReviewRemoteDataSource dataSource = AddReviewRemoteDataSource();
 
-  ReviewsCubit(this.dataSource) : super(ReviewsInitial());
+  ReviewsCubit() : super(ReviewsInitial());
 
   Future<void> getReviews(String productId) async {
     emit(ReviewsLoading());

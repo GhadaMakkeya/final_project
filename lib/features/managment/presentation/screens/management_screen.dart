@@ -213,7 +213,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
                         ),
                       );
                     }
-
+    
                     return AnimatedList(
                       key: _listKey,
                       initialItemCount: products.length,

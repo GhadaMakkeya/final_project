@@ -5,20 +5,20 @@ abstract class ProductsActionStates {}
 class ProductsActionInitial extends ProductsActionStates {}
 
 class ProductsActionFavoriteChanged extends ProductsActionStates {
-  final int productId;
+  final String productId;
   ProductsActionFavoriteChanged(this.productId);
 }
 
 class ProductsActionCubit extends Cubit<ProductsActionStates> {
   ProductsActionCubit() : super(ProductsActionInitial());
 
-  final Set<int> favoriteIds = {};
+  final Set<String> favoriteIds = {};
 
-  bool isProductFavorite(int productId) {
+  bool isProductFavorite(String productId) {
     return favoriteIds.contains(productId);
   }
 
-  void toggleFavorite(int productId) {
+  void toggleFavorite(String productId) {
     if (favoriteIds.contains(productId)) {
       favoriteIds.remove(productId);
     } else {

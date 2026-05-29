@@ -5,10 +5,10 @@ import 'package:veloura/features/managment/data/services/product_service.dart';
 part 'management_state.dart';
 
 class ManagementCubit extends Cubit<ManagementState> {
-  final ProductService _service;
+  final ProductService _service = ProductService();
   List<ProductModel> products = [];
 
-  ManagementCubit(this._service) : super(ManagementInitial());
+  ManagementCubit() : super(ManagementInitial());
 
   Future<void> fetchAllProducts() async {
     emit(ManagementLoading());

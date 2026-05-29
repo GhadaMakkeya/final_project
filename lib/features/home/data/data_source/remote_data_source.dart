@@ -1,10 +1,17 @@
 import 'package:dio/dio.dart';
+import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/features/home/data/models/category_model.dart';
 import 'package:veloura/features/home/data/models/offers_data.dart';
 import 'package:veloura/features/home/data/models/product_model.dart';
 
 class RemoteDataSource {
   final Dio dio = Dio();
+  final SecureStorageServices secureStorage = SecureStorageServices();
+
+  Future<Options> authOptions() async {
+    final token = await secureStorage.getAccessToken();
+    return Options(headers: {'Authorization': 'Bearer $token'});
+  }
 
   Future<List<ProductModel>> getProducts() async {
     try {
@@ -51,7 +58,10 @@ class RemoteDataSource {
     try {
       final response = await dio.get(
         'https://accessories-eshop.runasp.net/api/categories',
+         options: await authOptions(),
       );
+      print('Categories response: ${response.data}'); 
+
       List<CategoryModel> categories = [];
       final data = response.data['categories'];
 

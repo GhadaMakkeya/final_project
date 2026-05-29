@@ -3,12 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/routing/app_routes.dart';
 import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/utils/validators.dart';
 import '../../../../../core/widgets/custom_pass_text_field.dart';
 import '../../../../../core/widgets/custom_primary_button.dart';
-import '../../../login/presentation/screens/login_screen.dart';
 import '../../data/data_source/reset_pass_remote_data_source.dart';
 import '../cubits/reset_password_cubit.dart';
 import '../cubits/reset_password_states.dart';
@@ -55,8 +55,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
     _cubit = ResetPasswordCubit(ResetPassRemoteDataSource(dio));
 
-    log('ResetPasswordScreen.initState — '
-        'email: "${widget.email}" | otp: "${widget.otp}"');
+    log(
+      'ResetPasswordScreen.initState — '
+      'email: "${widget.email}" | otp: "${widget.otp}"',
+    );
   }
 
   @override
@@ -79,33 +81,32 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     if (!mounted) return;
     setState(() => _isSubmitting = true);
 
-    final email    = widget.email.trim();
-    final otp      = widget.otp.trim();
+    final email = widget.email.trim();
+    final otp = widget.otp.trim();
     final password = passController.text.trim();
 
-    log('ResetPasswordScreen — dispatching reset | '
-        'email: "$email" | otp: "$otp"');
-
-    _cubit.resetPassword(
-      email: email,
-      otp: otp,
-      newPassword: password,
+    log(
+      'ResetPasswordScreen — dispatching reset | '
+      'email: "$email" | otp: "$otp"',
     );
+
+    _cubit.resetPassword(email: email, otp: otp, newPassword: password);
   }
 
   // ── Navigation helper — always use root navigator after full removal ─────
   void _goToLogin() {
     if (!mounted) return;
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
-          (route) => false,
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutes.login,
+      (route) => false,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final colors    = context.colors;
+    final colors = context.colors;
 
     return BlocProvider<ResetPasswordCubit>.value(
       value: _cubit,
@@ -118,7 +119,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             // previous cached state if the widget is ever rebuilt, which
             // is the mechanism behind the phantom duplicate request.
             listenWhen: (previous, current) =>
-            current is ResetPasswordSuccessState ||
+                current is ResetPasswordSuccessState ||
                 current is ResetPasswordErrorState,
 
             listener: (context, state) {
@@ -137,7 +138,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   if (!mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Password reset successfully! Please sign in.'),
+                      content: Text(
+                        'Password reset successfully! Please sign in.',
+                      ),
                       backgroundColor: Colors.green,
                       duration: Duration(seconds: 3),
                     ),
@@ -164,9 +167,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
             // ── buildWhen: skip re-renders for non-UI states ─────────────
             buildWhen: (previous, current) =>
-            current is ResetPasswordLoadingState ||
+                current is ResetPasswordLoadingState ||
                 current is ResetPasswordSuccessState ||
-                current is ResetPasswordErrorState  ||
+                current is ResetPasswordErrorState ||
                 current is ResetPasswordInitialState,
 
             builder: (context, state) {
@@ -182,8 +185,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   return SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: ConstrainedBox(
-                      constraints:
-                      BoxConstraints(minHeight: constraints.maxHeight),
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
                       child: Form(
                         key: formKey,
                         child: Padding(
@@ -218,7 +222,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   borderRadius: BorderRadius.circular(24.r),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withValues(alpha: 0.05),
+                                      color: Colors.black.withValues(
+                                        alpha: 0.05,
+                                      ),
                                       blurRadius: 10,
                                       offset: const Offset(0, 4),
                                     ),
@@ -253,7 +259,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                       controller: passController,
                                       prefixIcon: Icons.lock_outline,
                                       validator: (value) =>
-                                          Validator.validatePassword(value ?? ''),
+                                          Validator.validatePassword(
+                                            value ?? '',
+                                          ),
                                     ),
 
                                     SizedBox(height: 18.h),

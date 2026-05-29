@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/utils/validators.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/widgets/custom_social_button.dart';
 import 'package:veloura/core/widgets/custom_text_field.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
-import 'package:veloura/features/auth/otp/presentation/screens/otp_screen.dart';
 import 'package:veloura/core/widgets/custom_pass_text_field.dart';
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_cubit.dart';
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_states.dart';
@@ -28,9 +28,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final confirmPasswordController = TextEditingController();
 
   final GlobalKey<FormState> myKey = GlobalKey<FormState>();
-
-  bool isPasswordHidden = true;
-  bool isConfirmPasswordHidden = true;
 
   @override
   void dispose() {
@@ -57,6 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -74,7 +72,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(height: 30.h),
-
                   Container(
                     padding: EdgeInsets.all(22.w),
                     decoration: BoxDecoration(
@@ -94,28 +91,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           style: textTheme.bodySmall,
                         ),
                         SizedBox(height: 30.h),
-
                         CustomTextField(
                           label: "FIRST NAME",
                           hintText: "Jane Doe",
                           prefixIcon: Icons.person,
                           controller: firstNameController,
-
-                          validator: (value) {
-                            return Validator.validateUserName(value ?? '');
-                          },
+                          validator: (value) =>
+                              Validator.validateUserName(value ?? ''),
                         ),
                         SizedBox(height: 14.h),
-
                         CustomTextField(
                           label: "LAST NAME",
                           hintText: "Jane Doe",
                           prefixIcon: Icons.person,
                           controller: lastNameController,
-
-                          validator: (value) {
-                            return Validator.validateUserName(value ?? '');
-                          },
+                          validator: (value) =>
+                              Validator.validateUserName(value ?? ''),
                         ),
                         SizedBox(height: 14.h),
                         CustomTextField(
@@ -123,54 +114,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hintText: "jane@example.com",
                           prefixIcon: Icons.email,
                           controller: emailController,
-                       //   validator: (value) {
-                       //     return Validator.validateEmail(value ?? '');
-                       //   },
                         ),
                         SizedBox(height: 14.h),
-
                         CustomPassTextField(
                           label: "PASSWORD",
                           hintText: "••••••••",
                           isPassword: true,
                           controller: passwordController,
-                          validator: (value) {
-                            return Validator.validatePassword(value ?? '');
-                          },
+                          validator: (value) =>
+                              Validator.validatePassword(value ?? ''),
                           prefixIcon: Icons.lock_outline,
                         ),
-
                         SizedBox(height: 14.h),
-
                         CustomPassTextField(
                           label: "CONFIRM NEW PASSWORD",
                           hintText: "••••••••",
                           isPassword: true,
                           controller: confirmPasswordController,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.isEmpty)
                               return AppStrings.fieldRequired;
-                            }
-                            if (value != passwordController.text) {
+                            if (value != passwordController.text)
                               return AppStrings.passwordNotTheSame;
-                            }
                             return null;
                           },
                           prefixIcon: Icons.lock_outline,
                         ),
-
                         SizedBox(height: 20.h),
-
                         BlocConsumer<SignUpCubit, SignUpStates>(
                           listener: (context, state) {
                             if (state is SignUpSuccessState) {
-                              Navigator.pushReplacement(
+                              Navigator.pushReplacementNamed(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (_) => OtpScreen(
-                                    email: emailController.text.trim(),
-                                  ),
-                                ),
+                                AppRoutes.otp,
+                                arguments: {
+                                  'email': emailController.text.trim(),
+                                  'isPasswordReset': false,
+                                },
                               );
                             } else if (state is SignUpFailureState) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -189,13 +169,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onPressed: state is SignUpLoadingState
                                   ? null
                                   : _onSubmit,
-
                               borderRadius: 16,
                             );
                           },
                         ),
                         SizedBox(height: 30.h),
-
                         Center(
                           child: Text(
                             'OR REGISTER WITH',
@@ -203,7 +181,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                         SizedBox(height: 20.h),
-
                         Row(
                           children: [
                             Expanded(
@@ -224,7 +201,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
                         SizedBox(height: 20.h),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -232,15 +208,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               "Already have an account?",
                               style: textTheme.bodySmall,
                             ),
-
                             TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const LoginScreen(),
-                                  ),
-                                );
+                                Navigator.pushNamed(context, AppRoutes.login);
                               },
                               child: Text(
                                 " Log in",

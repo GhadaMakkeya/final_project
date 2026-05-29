@@ -4,9 +4,9 @@ import 'package:veloura/features/category/data/services/products_filtered_by_cat
 import 'package:veloura/features/category/presentation/products_filtered_cubit/products_filtered_state.dart';
 
 class ProductsFilterByCategoryCubit extends Cubit<ProductsFilterByCategoryState> {
-  final ProductsFilteredByCategoryService productsFilteredByCategoryService;
+  final ProductsFilteredByCategoryService productsFilteredByCategoryService = ProductsFilteredByCategoryService();
 
-  ProductsFilterByCategoryCubit(this.productsFilteredByCategoryService) : super(ProductsInitial());
+  ProductsFilterByCategoryCubit() : super(ProductsInitial());
 
   Future<void> filterProducts({String? categoryName}) async {
     emit(ProductsFilterLoading());
