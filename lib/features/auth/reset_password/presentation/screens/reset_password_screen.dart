@@ -110,6 +110,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<ResetPasswordCubit, ResetPasswordStates>(
+            bloc: _cubit, 
           // ── listenWhen: only react to terminal states ────────────────
           // Without this guard, any intermediate state emission (e.g.
           // LoadingState) causes the listener to run again against the

@@ -29,10 +29,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   void initState() {
     super.initState();
-
-    context.read<ReviewsCubit>().getReviews(
-      widget.productId ?? widget.product.id,
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ReviewsCubit>().getReviews(widget.product.id);
+    });
   }
 
   Widget build(BuildContext context) {
@@ -175,20 +174,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                       SizedBox(height: 50.h),
                       CustomPrimaryButton(
-                        onPressed: () {
-                          showModalBottomSheet(
+                        onPressed: () async {
+                          final result = await showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
                             builder: (context) => AddReviewBottomSheet(
-                              productId:
-                                  widget.productId ??
-                                  "20aa5193-abe8-4111-9776-a798df1c4461",
+                              productId: widget.product.id,
                               parentContext: context,
                               addReviewRemoteDataSource:
                                   AddReviewRemoteDataSource(),
                             ),
                           );
+                          if (mounted && result == true) {
+                            context.read<ReviewsCubit>().getReviews(
+                              widget.product.id,
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Review Added")),
+                            );
+                          }
                         },
                         label: "ADD REVIEW",
                         letterSpacing: 0.5,

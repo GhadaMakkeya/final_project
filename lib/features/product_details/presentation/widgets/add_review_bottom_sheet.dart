@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/features/product_details/data/add_review_remote_data_source.dart';
-import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
 
 class AddReviewBottomSheet extends StatefulWidget {
   final String productId;
   final BuildContext parentContext;
-   final AddReviewRemoteDataSource addReviewRemoteDataSource;
+  final AddReviewRemoteDataSource addReviewRemoteDataSource;
   const AddReviewBottomSheet({
     super.key,
     required this.productId,
     required this.parentContext,
-     required this.addReviewRemoteDataSource,
-    
+    required this.addReviewRemoteDataSource,
   });
 
   @override
@@ -25,7 +22,7 @@ class AddReviewBottomSheet extends StatefulWidget {
 class _AddReviewBottomSheetState extends State<AddReviewBottomSheet> {
   int selectedRating = 0;
   final TextEditingController commentController = TextEditingController();
- 
+
   @override
   void dispose() {
     commentController.dispose();
@@ -123,20 +120,26 @@ class _AddReviewBottomSheetState extends State<AddReviewBottomSheet> {
                   comment: commentController.text,
                   rating: selectedRating,
                 );
-                widget.parentContext.read<ReviewsCubit>().getReviews(widget.productId);
-
-                Navigator.pop(context);
-                ScaffoldMessenger.of(
-                  widget.parentContext,
-                ).showSnackBar(const SnackBar(content: Text("Review Added ")));
+                Navigator.pop(context, true);
               } catch (e) {
                 print("FULL ERROR: $e");
                 if (!context.mounted) return;
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(e.toString())));
+
+                String message = 'Something went wrong';
+
+                if (e.toString().contains('UserAlreadyReviewed')) {
+                  message = 'You have already reviewed this product';
+                } else if (e.toString().contains('No valid token')) {
+                  message = 'Please login to add a review';
+                }
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(message),
+                    backgroundColor: Colors.red,
+                  ),
+                );
               }
-              ;
             },
             label: 'SUBMIT REVIEW',
             letterSpacing: 0.5,

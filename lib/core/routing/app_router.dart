@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/core/widgets/bottom_nav_bar.dart';
+import 'package:veloura/features/about_us/presentation/screens/about_screen.dart';
 import 'package:veloura/features/auth/forget_password/presentation/controller/forget_password_cubit.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
@@ -13,6 +14,7 @@ import 'package:veloura/features/auth/otp/presentation/screens/otp_screen.dart';
 import 'package:veloura/features/auth/forget_password/presentation/screens/forget_password.dart';
 import 'package:veloura/features/auth/reset_password/presentation/screens/reset_password_screen.dart';
 import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
+import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
 import 'package:veloura/features/category/presentation/products_filtered_cubit/products_filtered_cubit.dart';
 import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/home/presentation/cubits/categery_cubit/category_cubit.dart';
@@ -24,6 +26,9 @@ import 'package:veloura/features/managment/presentation/cubits/add_product_cubit
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
 import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
+import 'package:veloura/features/profile/presentation/screens/contact_us_screen.dart';
+import 'package:veloura/features/profile/presentation/screens/privacy_page.dart';
+import 'package:veloura/features/profile/presentation/screens/profile_screen.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -59,8 +64,7 @@ class AppRouter {
       case AppRoutes.forgotPassword:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) =>
-                ForgetPasswordCubit(),
+            create: (_) => ForgetPasswordCubit(),
             child: const ForgetPassword(),
           ),
         );
@@ -69,8 +73,7 @@ class AppRouter {
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) =>
-                ResetPasswordCubit(),
+            create: (_) => ResetPasswordCubit(),
             child: ResetPasswordScreen(email: args['email'], otp: args['otp']),
           ),
         );
@@ -128,6 +131,26 @@ class AppRouter {
             child: const ManagementScreen(),
           ),
         );
+
+      case AppRoutes.cart:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => CartCubit()..getCart(),
+            child: const ShoppingCartScreen(),
+          ),
+        );
+
+      case AppRoutes.profile:
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+
+      case AppRoutes.aboutUs:
+        return MaterialPageRoute(builder: (_) => const AboutScreen());
+
+      case AppRoutes.contactUs:
+        return MaterialPageRoute(builder: (_) => const ContactUsScreen());
+
+      case AppRoutes.privacyPolicy:
+        return MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen());
 
       default:
         return MaterialPageRoute(

@@ -8,19 +8,9 @@ class ProductsFilteredByCategoryService {
 
   Future<List<ProductModel>> getProductsByCategory({String? category}) async {
     try {
-      final response = await dio.post(
+      final response = await dio.get(
         "https://accessories-eshop.runasp.net/api/products",
-        data: {
-          "category": category,
-          "searchTerm": null,
-          "minPrice": null,
-          "maxPrice": null,
-          "isInStock": null,
-          "sortBy": null,
-          "sortOrder": null,
-          "page": 1,
-          "pageSize": 20,
-        },
+        queryParameters: {"category": category, "page": 1, "pageSize": 20},
       );
 
       if (response.statusCode == 200) {

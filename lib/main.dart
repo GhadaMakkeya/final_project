@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_theme.dart';
 import 'package:veloura/core/theme/theme_cubit.dart';
 import 'package:veloura/core/theme/theme_states.dart';
-import 'package:veloura/core/widgets/bottom_nav_bar.dart';
 import 'package:veloura/features/app_starting/app_startup.dart';
-import 'package:veloura/core/routing/app_router.dart'; 
+import 'package:veloura/core/routing/app_router.dart';
+import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
 
 late double screenWidth;
 late double screenHeight;
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
               darkTheme: AppTheme.dark,
               themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
               onGenerateRoute: AppRouter.generateRoute,            
-              home: MainNavigation(),
+              home: OnboardingScreen(),
             );
           },
         );

@@ -13,7 +13,7 @@ class AddReviewRemoteDataSource {
     required int rating,
   }) async {
     final token = await secureStorage.getAccessToken();
-    
+
     if (token == null) {
       throw Exception("No valid token found");
     }
@@ -21,21 +21,26 @@ class AddReviewRemoteDataSource {
     try {
       final response = await dio.post(
         'https://accessories-eshop.runasp.net/api/reviews/$productId',
-        data: { "comment": comment, "rating": rating},
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        }),
+        data: {
+          "productId": productId, // ← ضيفيه
+          "comment": comment,
+          "rating": rating,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+        ),
       );
       print("ADD REVIEW RESPONSE => ${response.data}");
     } on DioException catch (e) {
       print("ERROR => ${e.response?.data}");
       throw Exception("Failed to add review: ${e.response?.data}");
     }
-    
   }
-  
- Future<List<dynamic>> getReviews(String productId) async {
+
+  Future<List<dynamic>> getReviews(String productId) async {
     final token = await secureStorage.getAccessToken();
 
     if (token == null) {
@@ -45,24 +50,15 @@ class AddReviewRemoteDataSource {
     try {
       final response = await dio.get(
         'https://accessories-eshop.runasp.net/api/reviews/$productId',
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-        }),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       return response.data["reviews"]["items"];
-
     } on DioException catch (e) {
       throw Exception(e.response?.data.toString());
     }
   }
 }
-
-
-
-
-
-
 
 // import 'package:dio/dio.dart';
 
