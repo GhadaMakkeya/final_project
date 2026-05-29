@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/core/widgets/bottom_nav_bar.dart';
-import 'package:veloura/features/about_us/presentation/screens/about_screen.dart';
 import 'package:veloura/features/auth/forget_password/presentation/controller/forget_password_cubit.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
@@ -26,6 +25,7 @@ import 'package:veloura/features/managment/presentation/cubits/add_product_cubit
 import 'package:veloura/features/managment/presentation/cubits/management_cubit/management_cubit.dart';
 import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
 import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
+import 'package:veloura/features/profile/presentation/screens/about_us_screen.dart';
 import 'package:veloura/features/profile/presentation/screens/contact_us_screen.dart';
 import 'package:veloura/features/profile/presentation/screens/privacy_page.dart';
 import 'package:veloura/features/profile/presentation/screens/profile_screen.dart';

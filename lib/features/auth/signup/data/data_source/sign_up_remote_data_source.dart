@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:veloura/features/auth/signup/data/models/sign_up_requist_model.dart';
-
 import '../../../../../core/services/secure_storage_services.dart';
 
 class SignUpRemoteDataSource {
@@ -16,21 +15,15 @@ class SignUpRemoteDataSource {
         'https://accessories-eshop.runasp.net/api/auth/register',
         data: model.toJson(),
       );
-      await secureStorageService.write(
-        key: 'firstName',
-        value: model.firstName,
-      );
 
+      await secureStorageService.write(key: 'firstName', value: model.firstName);
       await secureStorageService.write(key: 'lastName', value: model.lastName);
-
       await secureStorageService.write(key: 'email', value: model.email);
 
       log('Sign Up Successful: ${response.data['message']}');
     } on DioException catch (e) {
-      log('Status Code: ${e.response?.statusCode}');
-      log('Error Data: ${e.response?.data}');
+      String errMessage = 'Something went wrong, please try again';
 
-      String errMessage = 'Something went wrong';
       try {
         final data = e.response?.data;
         if (data != null) {
@@ -43,15 +36,16 @@ class SignUpRemoteDataSource {
               errMessage = firstError.toString();
             }
           } else {
-            errMessage = data['message']?.toString() ?? 'Something went wrong';
+            errMessage = data['message']?.toString() ?? 'Something went wrong, please try again';
           }
         }
       } catch (_) {
-        errMessage = e.message ?? 'Something went wrong';
+        errMessage = 'Something went wrong, please try again';
       }
+
       throw Exception(errMessage);
-    } on Exception catch (e) {
-      throw Exception('Error: $e');
+    } on Exception {
+      throw Exception('Something went wrong, please try again');
     }
   }
 }
