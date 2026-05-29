@@ -155,11 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pushNamed(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (_) => const ForgetPassword(),
-                                    ),
+                                    AppRoutes.forgotPassword,
                                   );
                                 },
                                 style: TextButton.styleFrom(

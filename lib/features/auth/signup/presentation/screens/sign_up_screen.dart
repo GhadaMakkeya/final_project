@@ -8,7 +8,6 @@ import 'package:veloura/core/utils/validators.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/widgets/custom_social_button.dart';
 import 'package:veloura/core/widgets/custom_text_field.dart';
-import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:veloura/core/widgets/custom_pass_text_field.dart';
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_cubit.dart';
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_states.dart';
@@ -144,7 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         BlocConsumer<SignUpCubit, SignUpStates>(
                           listener: (context, state) {
                             if (state is SignUpSuccessState) {
-                              Navigator.pushReplacementNamed(
+                              Navigator.pushNamed(
                                 context,
                                 AppRoutes.otp,
                                 arguments: {

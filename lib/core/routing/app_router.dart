@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/core/widgets/bottom_nav_bar.dart';
+import 'package:veloura/features/auth/forget_password/presentation/controller/forget_password_cubit.dart';
 import 'package:veloura/features/auth/login/presentation/cubits/login_cubit/cubit/login_cubit.dart';
 import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:veloura/features/auth/otp/presentation/cubits/cubit/otp_cubit.dart';
+import 'package:veloura/features/auth/reset_password/presentation/cubits/reset_password_cubit.dart';
 import 'package:veloura/features/auth/signup/presentation/cubits/sign_up_cubit.dart';
 import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen.dart';
 import 'package:veloura/features/auth/otp/presentation/screens/otp_screen.dart';
@@ -44,22 +47,33 @@ class AppRouter {
       case AppRoutes.otp:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => OtpScreen(
-            email: args['email'],
-            isPasswordReset: args['isPasswordReset'] ?? false,
+          builder: (_) => BlocProvider(
+            create: (_) => OtpCubit(),
+            child: OtpScreen(
+              email: args['email'],
+              isPasswordReset: args['isPasswordReset'] ?? false,
+            ),
           ),
         );
 
       case AppRoutes.forgotPassword:
-        return MaterialPageRoute(builder: (_) => const ForgetPassword());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                ForgetPasswordCubit(),
+            child: const ForgetPassword(),
+          ),
+        );
 
       case AppRoutes.resetPassword:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) =>
-              ResetPasswordScreen(email: args['email'], otp: args['otp']),
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                ResetPasswordCubit(),
+            child: ResetPasswordScreen(email: args['email'], otp: args['otp']),
+          ),
         );
-
       // ─────────────── MAIN NAVIGATION ───────────────
       case AppRoutes.mainNavigation:
         return MaterialPageRoute(builder: (_) => const MainNavigation());

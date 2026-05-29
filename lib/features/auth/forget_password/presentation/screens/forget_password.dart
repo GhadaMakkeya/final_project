@@ -24,114 +24,112 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
     final colors = context.colors;
 
-    return BlocProvider(
-      create: (_) => ForgetPasswordCubit(),
+    return BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+      listener: (context, state) {
+        if (state is ForgetPasswordSuccess) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
+          Navigator.pushNamed(
+            context,
+            AppRoutes.otp,
+            arguments: {
+              'email': emailController.text.trim(),
+              'isPasswordReset': false,
+            },
+          );
+        }
 
-      child: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-        listener: (context, state) {
-          if (state is ForgetPasswordSuccess) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.message)));
+        if (state is ForgetPasswordFailure) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
+        }
+      },
 
-            Navigator.pushNamed(
-              context,
-              AppRoutes.otp,
-              arguments: emailController.text,
-            );
-          }
+      builder: (context, state) {
+        return AuthLayout(
+          bottomLink: TextButton.icon(
+            onPressed: () {
+              Navigator.pop(context);
+            },
 
-          if (state is ForgetPasswordFailure) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.message)));
-          }
-        },
+            icon: Icon(Icons.arrow_back, size: 16.sp, color: colors.gold),
 
-        builder: (context, state) {
-          return AuthLayout(
-            bottomLink: TextButton.icon(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+            label: Text(
+              'Return to Login',
 
-              icon: Icon(Icons.arrow_back, size: 16.sp, color: colors.gold),
+              style: textTheme.bodySmall?.copyWith(
+                color: colors.gold,
 
-              label: Text(
-                'Return to Login',
-
-                style: textTheme.bodySmall?.copyWith(
-                  color: colors.gold,
-
-                  fontWeight: FontWeight.w600,
-                ),
+                fontWeight: FontWeight.w600,
               ),
             ),
+          ),
 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
 
-              children: [
-                Text(
-                  'Forgot\nPassword',
+            children: [
+              Text(
+                'Forgot\nPassword',
 
-                  textAlign: TextAlign.center,
+                textAlign: TextAlign.center,
 
-                  style: textTheme.headlineLarge,
+                style: textTheme.headlineLarge,
+              ),
+
+              SizedBox(height: 16.h),
+
+              Text(
+                'Enter your email to receive a\npassword reset link.',
+
+                textAlign: TextAlign.center,
+
+                style: textTheme.bodyLarge?.copyWith(
+                  color: colors.textSecondary,
+
+                  height: 1.4,
                 ),
+              ),
 
-                SizedBox(height: 16.h),
+              SizedBox(height: 32.h),
+              CustomTextField(
+                controller: emailController,
 
-                Text(
-                  'Enter your email to receive a\npassword reset link.',
+                label: 'Email Address',
 
-                  textAlign: TextAlign.center,
+                hintText: 'name@example.com',
 
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: colors.textSecondary,
+                prefixIcon: Icons.mail_outline,
 
-                    height: 1.4,
-                  ),
-                ),
+                keyboardType: TextInputType.emailAddress,
+              ),
 
-                SizedBox(height: 32.h),
-                CustomTextField(
-                  controller: emailController,
+              SizedBox(height: 32.h),
+              CustomPrimaryButton(
+                label: state is ForgetPasswordLoading
+                    ? "Loading..."
+                    : 'Send Reset Link',
 
-                  label: 'Email Address',
+                trailingIcon: Icons.arrow_forward,
 
-                  hintText: 'name@example.com',
+                borderRadius: 16.r,
 
-                  prefixIcon: Icons.mail_outline,
+                letterSpacing: 0.5.w,
 
-                  keyboardType: TextInputType.emailAddress,
-                ),
-
-                SizedBox(height: 32.h),
-                CustomPrimaryButton(
-                  label: state is ForgetPasswordLoading
-                      ? "Loading..."
-                      : 'Send Reset Link',
-
-                  trailingIcon: Icons.arrow_forward,
-
-                  borderRadius: 16.r,
-
-                  letterSpacing: 0.5.w,
-
-                  onPressed: state is ForgetPasswordLoading
-                      ? null
-                      : () {
-                          context.read<ForgetPasswordCubit>().forgotPassword(
-                            email: emailController.text,
-                          );
-                        },
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+                onPressed: state is ForgetPasswordLoading
+                    ? null
+                    : () {
+                        context.read<ForgetPasswordCubit>().forgotPassword(
+                          email: emailController.text,
+                        );
+                      },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

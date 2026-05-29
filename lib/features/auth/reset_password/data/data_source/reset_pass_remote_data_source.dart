@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 class ResetPassRemoteDataSource {
-  final Dio dio;
+  final Dio dio = Dio();
 
-  ResetPassRemoteDataSource(this.dio);
+  ResetPassRemoteDataSource();
 
   Future<String> resetPassword({
     required String email,
