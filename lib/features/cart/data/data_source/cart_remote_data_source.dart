@@ -4,10 +4,10 @@ import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 
 class CartRemoteDataSource {
-  final Dio dio;
-  final SecureStorageServices secureStorage;
+  final Dio dio = Dio();
+  final SecureStorageServices secureStorage = SecureStorageServices();
 
-  CartRemoteDataSource(this.dio, this.secureStorage);
+  CartRemoteDataSource();
 
   Future<Options> get _authOptions async {
     final token = await secureStorage.getAccessToken();

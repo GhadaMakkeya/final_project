@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/utils/validators.dart';
-import 'package:veloura/core/widgets/bottom_nav_bar.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/core/widgets/custom_social_button.dart';
 import 'package:veloura/core/widgets/custom_text_field.dart';
@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isRememberMeChecked = false;
+  bool isRememberMeChecked = false;
 
   @override
   void dispose() {
@@ -33,34 +33,24 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _onSubmit() {
-    if (_formKey.currentState!.validate()) {
-      context.read<LoginCubit>().login(
-            email: _emailController.text.trim(),
-            password: _passwordController.text,
-          );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colors = context.colors;
-
     return Scaffold(
       body: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            Navigator.pushAndRemoveUntil(
+            Navigator.pushNamedAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => const MainNavigation()),
+              AppRoutes.mainNavigation,
               (route) => false,
             );
           } else if (state is LoginFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.errMessage),
-                backgroundColor: Colors.red,
+                backgroundColor: BaseColors.alert,
               ),
             );
           }
@@ -73,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Text(
                       AppStrings.appName,
                       style: textTheme.headlineLarge?.copyWith(
@@ -90,13 +80,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 40.h),
                     Container(
-                      padding: const EdgeInsets.all(30),
+                      padding: EdgeInsets.all(30.w),
                       decoration: BoxDecoration(
                         color: colors.authCardColor,
                         borderRadius: BorderRadius.circular(35.r),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
+                            color: Colors.black.withOpacity(0.05),
                             blurRadius: 20,
                           ),
                         ],
@@ -104,21 +94,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         children: [
                           Text('Sign In', style: textTheme.headlineMedium),
-                          const SizedBox(height: 30),
+                          SizedBox(height: 30.h),
                           CustomTextField(
                             label: 'EMAIL ADDRESS',
                             hintText: 'your@email.com',
                             prefixIcon: Icons.email_outlined,
                             controller: _emailController,
-                          //  validator: (value) =>
-                       //         Validator.validateEmail(value ?? ''),
+                            //  validator: (value) =>
+                            //       Validator.validateEmail(value ?? ''),
+                            //   )
                           ),
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           CustomPassTextField(
                             label: 'PASSWORD',
                             hintText: '••••••••',
-                            prefixIcon: Icons.lock_outline,
                             isPassword: true,
+                            prefixIcon: Icons.lock_outline,
                             controller: _passwordController,
                             validator: (value) =>
                                 Validator.validatePassword(value ?? ''),
@@ -128,27 +119,33 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               InkWell(
                                 onTap: () => setState(
-                                  () => _isRememberMeChecked =
-                                      !_isRememberMeChecked,
+                                  () => isRememberMeChecked =
+                                      !isRememberMeChecked,
                                 ),
-                                borderRadius: BorderRadius.circular(4.r),
+                                borderRadius: BorderRadius.circular(4),
                                 child: Row(
                                   children: [
                                     SizedBox(
-                                      height: 24,
-                                      width: 24,
+                                      height: 24.h,
+                                      width: 24.w,
                                       child: Checkbox(
-                                        value: _isRememberMeChecked,
+                                        value: isRememberMeChecked,
+                                        activeColor: const Color(0xFF061F3D),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4.r),
+                                          borderRadius: BorderRadius.circular(
+                                            4,
+                                          ),
+                                        ),
+                                        side: const BorderSide(
+                                          color: Colors.grey,
+                                          width: 1.5,
                                         ),
                                         onChanged: (value) => setState(
-                                          () => _isRememberMeChecked = value!,
+                                          () => isRememberMeChecked = value!,
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(width: 8),
+                                    SizedBox(width: 8.w),
                                     Text(
                                       'Remember me',
                                       style: textTheme.bodySmall,
@@ -158,11 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pushNamed(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (_) => const ForgetPassword(),
-                                    ),
+                                    AppRoutes.forgotPassword,
                                   );
                                 },
                                 style: TextButton.styleFrom(
@@ -178,11 +173,20 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 25),
+                          SizedBox(height: 25.h),
                           state is LoginLoading
-                              ? const CircularProgressIndicator()
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
                               : CustomPrimaryButton(
-                                  onPressed: _onSubmit,
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      context.read<LoginCubit>().login(
+                                        email: _emailController.text.trim(),
+                                        password: _passwordController.text,
+                                      );
+                                    }
+                                  },
                                   label: 'SIGN IN',
                                   letterSpacing: 2.0,
                                   borderRadius: 16,
@@ -192,8 +196,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               const Expanded(child: Divider(thickness: 1)),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w,
                                 ),
                                 child: Text(
                                   'Or',
@@ -240,10 +244,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const SignUpScreen(),
+                                builder: (context) {
+                                  return SignUpScreen();
+                                },
                               ),
                             );
                           },

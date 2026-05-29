@@ -4,12 +4,12 @@ import 'package:veloura/features/home/data/models/category_model.dart';
 import 'package:veloura/features/home/presentation/cubits/categery_cubit/category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
-  final RemoteDataSource remoteDataSource;
+  final RemoteDataSource remoteDataSource = RemoteDataSource();
   
   List<CategoryModel> categories = [];
   int selectedIndex = 0;
 
-  CategoryCubit(this.remoteDataSource) : super(CategoryInitial());
+  CategoryCubit() : super(CategoryInitial());
 
   Future<void> getCategories() async {
     emit(CategoryLoading());

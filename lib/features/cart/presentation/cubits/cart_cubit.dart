@@ -1,17 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:veloura/features/cart/data/data_source/cart_remote_data_source.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
 import 'package:veloura/features/cart/presentation/cubits/cart_state.dart';
 
-import '../../data/data_source/cart_remote_data_source.dart';
-
 class CartCubit extends Cubit<CartState> {
-  CartRemoteDataSource cartRemoteDataSource;
-  CartCubit(this.cartRemoteDataSource) : super(CartInitialState());
+  CartRemoteDataSource cartRemoteDataSource =CartRemoteDataSource();
+  CartCubit() : super(CartInitialState());
 
   List<CartItemModel> cartItems = [];
 

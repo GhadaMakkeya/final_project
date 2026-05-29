@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:veloura/core/services/secure_storage_services.dart';
 
 class AddReviewRemoteDataSource {
-  final Dio dio;
-  final SecureStorageServices secureStorage;
+  final Dio dio = Dio();
+  final SecureStorageServices secureStorage = SecureStorageServices();
 
-  AddReviewRemoteDataSource(this.dio, this.secureStorage);
+  AddReviewRemoteDataSource();
 
   Future<void> addReview({
     required String productId,

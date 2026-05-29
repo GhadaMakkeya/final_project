@@ -3,17 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_primary_button.dart';
-import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:veloura/features/auth/otp/presentation/cubits/cubit/otp_cubit.dart';
-import 'package:veloura/features/auth/reset_password/presentation/screens/reset_password_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   final String email;
-
-  /// true  => forgot-password flow (skips verify-email, keeps OTP valid)
-  /// false => registration flow (calls verify-email after validate-otp)
   final bool isPasswordReset;
 
   const OtpScreen({
@@ -29,8 +25,6 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   final otpController = TextEditingController();
 
-  // Captured before the async cubit call so it is available in the
-  // BlocConsumer listener even if the controller is disposed by then.
   String _submittedOtp = '';
 
   @override
@@ -62,11 +56,11 @@ class _OtpScreenState extends State<OtpScreen> {
       return;
     }
 
-    // ✅ Capture OTP NOW, before the async call, so it is safely available
-    // in the listener when OtpSuccessState fires.
     _submittedOtp = otp;
 
-    debugPrint('OtpScreen — submitting | email: "${widget.email.trim()}" | otp: "$otp" | isPasswordReset: ${widget.isPasswordReset}');
+    debugPrint(
+      'OtpScreen — submitting | email: "${widget.email.trim()}" | otp: "$otp" | isPasswordReset: ${widget.isPasswordReset}',
+    );
 
     context.read<OtpCubit>().validateOtp(
       email: widget.email.trim(),
@@ -96,34 +90,27 @@ class _OtpScreenState extends State<OtpScreen> {
         listener: (context, state) {
           /// SUCCESS
           if (state is OtpSuccessState) {
-            // ✅ Use _submittedOtp (captured before async call) — not
-            // otpController.text which may have changed or been cleared.
             final otp = _submittedOtp;
             final email = widget.email.trim();
-
-            debugPrint('OtpScreen — success | email: "$email" | otp: "$otp" | isPasswordReset: ${widget.isPasswordReset}');
-
+    
+            debugPrint(
+              'OtpScreen — success | email: "$email" | otp: "$otp" | isPasswordReset: ${widget.isPasswordReset}',
+            );
+    
             if (widget.isPasswordReset) {
-              /// FORGOT PASSWORD FLOW → go to ResetPasswordScreen
-              Navigator.pushReplacement(
+              Navigator.pushReplacementNamed(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => ResetPasswordScreen(
-                    email: email,
-                    otp: otp,
-                  ),
-                ),
+                AppRoutes.resetPassword,
+                arguments: {'email': email, 'otp': otp},
               );
             } else {
-              /// REGISTRATION FLOW → go to LoginScreen
-              Navigator.pushAndRemoveUntil(
+              Navigator.pushNamedAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()),
-                    (route) => false,
+                AppRoutes.login,
+                (route) => false,
               );
             }
           }
-
           /// OTP ERROR
           else if (state is OtpFailureState) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -133,7 +120,6 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
             );
           }
-
           /// RESEND SUCCESS
           else if (state is ResendOtpSuccessState) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -143,7 +129,6 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
             );
           }
-
           /// RESEND ERROR
           else if (state is ResendOtpFailureState) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -163,7 +148,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: Column(
                   children: [
                     SizedBox(height: 30.h),
-
+    
                     /// BACK
                     Align(
                       alignment: Alignment.centerLeft,
@@ -172,9 +157,9 @@ class _OtpScreenState extends State<OtpScreen> {
                         icon: Icon(Icons.arrow_back, color: colors.primary),
                       ),
                     ),
-
+    
                     SizedBox(height: 10.h),
-
+    
                     /// LOGO
                     Text(
                       AppStrings.appName,
@@ -183,9 +168,9 @@ class _OtpScreenState extends State<OtpScreen> {
                         letterSpacing: 6,
                       ),
                     ),
-
+    
                     SizedBox(height: 40.h),
-
+    
                     /// CARD
                     Container(
                       width: double.infinity,
@@ -209,17 +194,17 @@ class _OtpScreenState extends State<OtpScreen> {
                             color: colors.primary,
                             size: 40.sp,
                           ),
-
+    
                           SizedBox(height: 20.h),
-
+    
                           /// TITLE
                           Text(
                             'Verify your email',
                             style: textTheme.headlineMedium,
                           ),
-
+    
                           SizedBox(height: 10.h),
-
+    
                           /// SUBTITLE
                           Text(
                             'Enter the code sent to\n${widget.email}',
@@ -228,37 +213,39 @@ class _OtpScreenState extends State<OtpScreen> {
                               color: colors.textSecondary,
                             ),
                           ),
-
+    
                           SizedBox(height: 30.h),
-
+    
                           /// OTP INPUT
                           Pinput(
                             length: 6,
                             controller: otpController,
                             defaultPinTheme: defaultPinTheme,
                             focusedPinTheme: defaultPinTheme.copyWith(
-                              decoration: defaultPinTheme.decoration!.copyWith(
-                                border: Border.all(
-                                  color: colors.primary,
-                                  width: 2.w,
-                                ),
-                              ),
+                              decoration: defaultPinTheme.decoration!
+                                  .copyWith(
+                                    border: Border.all(
+                                      color: colors.primary,
+                                      width: 2.w,
+                                    ),
+                                  ),
                             ),
                           ),
-
+    
                           SizedBox(height: 30.h),
-
+    
                           /// VERIFY BUTTON
                           CustomPrimaryButton(
                             label: 'VERIFY',
                             isLoading: state is OtpLoadingState,
                             borderRadius: 16,
-                            onPressed:
-                            state is OtpLoadingState ? null : _submit,
+                            onPressed: state is OtpLoadingState
+                                ? null
+                                : _submit,
                           ),
-
+    
                           SizedBox(height: 20.h),
-
+    
                           /// RESEND
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -271,10 +258,10 @@ class _OtpScreenState extends State<OtpScreen> {
                                 onTap: state is ResendOtpLoadingState
                                     ? null
                                     : () {
-                                  context.read<OtpCubit>().resendOtp(
-                                    email: widget.email.trim(),
-                                  );
-                                },
+                                        context.read<OtpCubit>().resendOtp(
+                                          email: widget.email.trim(),
+                                        );
+                                      },
                                 child: Text(
                                   state is ResendOtpLoadingState
                                       ? 'Sending...'

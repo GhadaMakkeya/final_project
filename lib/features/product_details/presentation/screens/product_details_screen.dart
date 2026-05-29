@@ -1,15 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/product_details/data/add_review_remote_data_source.dart';
 import 'package:veloura/features/product_details/presentation/cubits/reviews_cubit.dart';
 import 'package:veloura/features/product_details/presentation/cubits/reviews_state.dart';
 import 'package:veloura/features/product_details/presentation/widgets/add_review_bottom_sheet.dart';
-
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_primary_button.dart';
 import '../widgets/product_features_list.dart';
@@ -170,20 +167,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           return SizedBox();
                         },
                       ),
-                      // const ReviewCard(
-                      //   name: 'Eleanor V.',
-                      //   date: 'Oct 12, 2023',
-                      //   rating: 5,
-                      //   comment:
-                      //       'Absolutely exquisite. The silk has a substantial weight to it that drapes beautifully, and the colors are even richer in person than in the photos.',
-                      // ),
-                      // const ReviewCard(
-                      //   name: 'Sophia L.',
-                      //   date: 'Sep 28, 2023',
-                      //   rating: 4,
-                      //   comment:
-                      //       'A lovely piece, though slightly smaller than I anticipated. The hand-rolled edges are a testament to the craftsmanship.',
-                      // ),
                       SizedBox(height: 16.h),
                       CustomPrimaryButton(
                         onPressed: () {},
@@ -197,17 +180,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             context: context,
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
-
                             builder: (context) => AddReviewBottomSheet(
                               productId:
                                   widget.productId ??
                                   "20aa5193-abe8-4111-9776-a798df1c4461",
                               parentContext: context,
                               addReviewRemoteDataSource:
-                                  AddReviewRemoteDataSource(
-                                    Dio(),
-                                    SecureStorageServices(),
-                                  ),
+                                  AddReviewRemoteDataSource(),
                             ),
                           );
                         },
@@ -217,7 +196,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       SizedBox(height: 50.h),
                       CustomPrimaryButton(
                         onPressed: () {
-                          context.read<CartCubit>().addToCart(widget.product.id, 1);
+                          context.read<CartCubit>().addToCart(
+                            widget.product.id,
+                            1,
+                          );
                         },
                         label: "ADD TO CART",
                         letterSpacing: 0,

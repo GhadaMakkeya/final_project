@@ -2,15 +2,10 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 class OtpRemoteDataSource {
-  final Dio dio;
+  final Dio dio = Dio();
 
-  OtpRemoteDataSource(this.dio);
+  OtpRemoteDataSource();
 
-  /// [isPasswordReset] must be true when coming from the Forgot Password flow.
-  /// In that case we ONLY call validate-otp and skip verify-email entirely,
-  /// because verify-email consumes/invalidates the OTP and is only meant for
-  /// the registration flow. Calling it before reset-password causes the
-  /// "Invalid OTP" 400 error.
   Future<void> validateOtp({
     required String email,
     required String otp,
@@ -22,7 +17,6 @@ class OtpRemoteDataSource {
     log('OTP validateOtp — email: "$trimmedEmail" | otp: "$trimmedOtp" | isPasswordReset: $isPasswordReset');
 
     try {
-      // Step 1: Always validate the OTP first.
       await dio.post(
         'https://accessories-eshop.runasp.net/api/auth/validate-otp',
         data: {"email": trimmedEmail, "otp": trimmedOtp},
@@ -30,9 +24,6 @@ class OtpRemoteDataSource {
       );
       log('OTP validated successfully');
 
-      // Step 2: Only call verify-email in the REGISTRATION flow.
-      // In the forgot-password flow, this endpoint consumes the OTP,
-      // making the subsequent reset-password call fail with "Invalid OTP".
       if (!isPasswordReset) {
         await dio.post(
           'https://accessories-eshop.runasp.net/api/auth/verify-email',

@@ -5,9 +5,9 @@ import 'package:veloura/features/home/data/models/product_model.dart';
 
 class ProductService {
   final Dio _dio;
-  final SecureStorageServices _secureStorage;
+  final SecureStorageServices _secureStorage = SecureStorageServices();
 
-  ProductService(this._secureStorage)
+  ProductService()
       : _dio = Dio(
           BaseOptions(
             baseUrl: 'https://accessories-eshop.runasp.net/api',

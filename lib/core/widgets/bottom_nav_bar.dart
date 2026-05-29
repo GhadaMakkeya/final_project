@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
+import 'package:veloura/features/home/presentation/cubits/categery_cubit/category_cubit.dart';
+import 'package:veloura/features/home/presentation/cubits/product_action_cubit/product_action_cubit.dart';
 import 'package:veloura/features/home/presentation/screens/home_screen.dart';
 import 'package:veloura/features/products/presntation/screens/products_screen.dart';
 import 'package:veloura/features/profile/presentation/screens/profile_screen.dart';
+import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
+import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
+import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -15,11 +21,29 @@ class MainNavigation extends StatefulWidget {
 
 class MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 0;
+
   final List<Widget> _screens = [
-    HomeScreen(),
-    ProductScreen(),
-    ShoppingCartScreen(),
-    ProfileScreen(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ProductsCubit()),
+        BlocProvider(create: (_) => OffersCubit()),
+        BlocProvider(create: (_) => CategoryCubit()),
+      ],
+      child: const HomeScreen(),
+    ),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ProductsCubit()),
+        BlocProvider(create: (_) => CategoryCubit()),
+        BlocProvider(create: (_) => ProductsActionCubit()),
+      ],
+      child: const ProductScreen(),
+    ),
+    BlocProvider(
+      create: (_) => CartCubit(),
+      child: const ShoppingCartScreen(),
+    ),
+    const ProfileScreen(),
   ];
 
   @override

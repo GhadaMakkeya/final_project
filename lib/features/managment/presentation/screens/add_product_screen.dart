@@ -7,7 +7,6 @@ import 'package:veloura/features/managment/presentation/cubits/add_product_cubit
 import 'package:veloura/features/managment/presentation/widgets/basic_info_section.dart';
 import 'package:veloura/features/managment/presentation/widgets/bottom_action_buttons.dart';
 import 'package:veloura/features/managment/presentation/widgets/inventory_section.dart';
-
 class AddNewProductScreen extends StatefulWidget {
   const AddNewProductScreen({super.key});
 
@@ -70,7 +69,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
           );
           _resetForm();
         }
-
+    
         if (state is AddProductError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -89,7 +88,8 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
               backgroundColor: Colors.red.shade800,
               duration: const Duration(seconds: 4),
               behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               action: SnackBarAction(
                 label: "DISMISS",
                 textColor: Colors.white,
@@ -110,7 +110,8 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
           body: Form(
             key: _formKey,
             child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
               child: Column(
                 children: [
                   SizedBox(height: 20.h),
@@ -131,9 +132,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                   else
                     BottomActionButtons(
                       onPublish: () {
-                        if (!_formKey.currentState!.validate()) {
-                          return;
-                        }
+                        if (!_formKey.currentState!.validate()) return;
                         context.read<AddProductCubit>().addProduct(
                           AddProductModel(
                             name: _productNameController.text.trim(),
@@ -141,7 +140,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                             price: double.tryParse(_priceController.text) ?? 0.0,
                             stock: int.tryParse(_stockController.text) ?? 0,
                             description: _descriptionController.text.trim(),
-                            descriptionArabic: "وصف المنتج", 
+                            descriptionArabic: "وصف المنتج",
                             categoryIds: [_selectedCategory!],
                             sellerId: "d051dbf3-f5d8-410d-0e50-08de06562562",
                             coverPictureUrl: _coverPictureUrlController.text.trim(),

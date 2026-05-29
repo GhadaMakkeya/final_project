@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
-import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
+import 'package:veloura/features/home/presentation/cubits/categery_cubit/category_cubit.dart';
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart'; 
 import 'package:veloura/features/home/presentation/cubits/products_cubit/products_states.dart';
 import 'package:veloura/features/products/presntation/widgets/categoey_list.dart';
@@ -23,6 +23,7 @@ class _ProductScreenState extends State<ProductScreen> {
     super.initState();
 
     context.read<ProductsCubit>().getProducts();
+    context.read<CategoryCubit>().getCategories();
   }
 
   @override
@@ -47,9 +48,7 @@ class _ProductScreenState extends State<ProductScreen> {
             icon: Icon(Icons.search, color: colors.primary),
           ),
           IconButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ShoppingCartScreen()));
-            },
+            onPressed: () {},
             icon: Icon(Icons.shopping_bag_outlined, color: colors.primary),
           ),
           SizedBox(width: 15.w),
@@ -60,7 +59,6 @@ class _ProductScreenState extends State<ProductScreen> {
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const CategoryList(),
               Padding(

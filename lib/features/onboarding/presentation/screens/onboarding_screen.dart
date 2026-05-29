@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
@@ -64,7 +65,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: CustomAppBar(
         actions: [
@@ -135,14 +135,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     await prefs.setBool('seen_onboarding', true);
 
     if (context.mounted) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return const SignUpScreen();
-          },
-        ),
-      );
+      Navigator.pushReplacementNamed(context, AppRoutes.signup);
     }
   }
 }

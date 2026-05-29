@@ -7,15 +7,12 @@ import '../../../../data/data_sources/login_remote_data_source.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  final LoginRemoteDataSource remoteDataSource;
-  final SecureStorageServices secureStorage;
+  final LoginRemoteDataSource remoteDataSource = LoginRemoteDataSource();
+  final SecureStorageServices secureStorage = SecureStorageServices();
 
-  LoginCubit(this.remoteDataSource, this.secureStorage) : super(LoginInitial());
+  LoginCubit() : super(LoginInitial());
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> login({required String email, required String password}) async {
     emit(LoginLoading());
 
     try {

@@ -5,10 +5,10 @@ import 'package:veloura/features/auth/signup/data/models/sign_up_requist_model.d
 import '../../../../../core/services/secure_storage_services.dart';
 
 class SignUpRemoteDataSource {
-  final Dio dio;
-  final SecureStorageServices secureStorageService;
+  final Dio dio = Dio();
+  final SecureStorageServices secureStorageService = SecureStorageServices();
 
-  SignUpRemoteDataSource(this.dio, this.secureStorageService);
+  SignUpRemoteDataSource();
 
   Future<void> signUp(SignUpRequistModel model) async {
     try {

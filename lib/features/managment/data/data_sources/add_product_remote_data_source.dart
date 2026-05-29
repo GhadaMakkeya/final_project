@@ -1,15 +1,14 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:veloura/features/home/data/models/category_model.dart';
 import 'package:veloura/features/managment/data/models/product_model.dart';
-
 import '../../../../core/services/secure_storage_services.dart';
-import '../../../category/data/models/category_model.dart';
 
 class AddProductRemoteDataSource {
-  final Dio dio;
-  final SecureStorageServices secureStorageService;
+  final Dio dio = Dio();
+  final SecureStorageServices secureStorageService = SecureStorageServices();
 
-  AddProductRemoteDataSource(this.dio, this.secureStorageService);
+  AddProductRemoteDataSource();
 
 
   Future<String?> getToken() async {
