@@ -22,7 +22,6 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch cart when the screen first loads
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CartCubit>().getCart();
     });

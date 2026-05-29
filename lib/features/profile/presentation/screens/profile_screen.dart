@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:veloura/core/routing/app_routes.dart';
 import 'package:veloura/core/services/secure_storage_services.dart';
 import 'package:veloura/core/widgets/custom_app_bar.dart';
-import 'package:veloura/features/auth/login/presentation/screens/login_screen.dart';
-import 'package:veloura/features/cart/presentation/screens/shopping_cart_screen.dart';
-import 'package:veloura/features/profile/presentation/screens/contact_us_screen.dart';
-import 'package:veloura/features/managment/presentation/screens/add_product_screen.dart';
-import 'package:veloura/features/managment/presentation/screens/management_screen.dart';
-import 'package:veloura/features/profile/presentation/screens/about_us_screen.dart';
-import 'package:veloura/features/profile/presentation/screens/privacy_page.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../widgets/logout_button.dart';
@@ -56,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           icon: Icon(Icons.menu, color: colors.primary),
         ),
         actions: [
-         IconButton(
+          IconButton(
             onPressed: () {
               Navigator.pushNamed(context, AppRoutes.cart);
             },
@@ -78,7 +71,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 30.h),
             SectionTitle(title: AppStrings.account),
             SizedBox(height: 8.h),
-            ProfileTile(title: AppStrings.changePassword, onTap: () {}),
+            ProfileTile(
+              title: AppStrings.changePassword,
+              onTap: () {
+                Navigator.pushNamed(context, AppRoutes.forgotPassword);
+              },
+            ),
             SizedBox(height: 24.h),
             SectionTitle(title: AppStrings.preferences),
             SizedBox(height: 8.h),
@@ -86,7 +84,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 24.h),
             SectionTitle(title: AppStrings.information),
             SizedBox(height: 8.h),
-            ProfileTile(title: AppStrings.privacyPolicy, onTap: () {}),
+            ProfileTile(
+              title: AppStrings.privacyPolicy,
+              onTap: () {
+                Navigator.pushNamed(context, AppRoutes.privacyPolicy);
+              },
+            ),
             SizedBox(height: 8.h),
             ProfileTile(
               title: AppStrings.aboutUs,
@@ -98,34 +101,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ProfileTile(
               title: AppStrings.contactUs,
               onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  AppRoutes.contactUs,
-                );
+                Navigator.pushNamed(context, AppRoutes.contactUs);
               },
             ),
             SizedBox(height: 24.h),
             SectionTitle(title: 'Seller Tools'),
             SizedBox(height: 8.h),
-           
+
             SizedBox(height: 20.h),
             ProfileTile(
               title: "Add Product",
               onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  AppRoutes.addProduct,
-                );
+                Navigator.pushNamed(context, AppRoutes.addProduct);
               },
             ),
             SizedBox(height: 8.h),
             ProfileTile(
               title: 'Manage Products',
               onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  AppRoutes.management,
-                );
+                Navigator.pushNamed(context, AppRoutes.management);
               },
             ),
             SizedBox(height: 36.h),

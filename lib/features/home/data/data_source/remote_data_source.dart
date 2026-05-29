@@ -8,7 +8,39 @@ class RemoteDataSource {
   final Dio dio = Dio();
   final SecureStorageServices secureStorage = SecureStorageServices();
 
+  Future<void> ensureValidToken() async {
+    final expiresAt = await secureStorage.getExpiresAt();
+    if (expiresAt == null) return;
+
+    if (DateTime.now().isAfter(expiresAt)) {
+      await _refreshToken();
+    }
+  }
+
+  Future<void> _refreshToken() async {
+    try {
+      final refreshToken = await secureStorage.getRefreshToken();
+      if (refreshToken == null) throw Exception('No refresh token');
+
+      final freshDio = Dio();
+      final response = await freshDio.post(
+        'https://accessories-eshop.runasp.net/api/auth/refresh',
+        data: {'refreshToken': refreshToken},
+      );
+
+      await secureStorage.saveAuthData(
+        accessToken: response.data['accessToken'],
+        refreshToken: response.data['refreshToken'],
+        expiresAt: DateTime.parse(response.data['expiresAt']),
+      );
+    } catch (e) {
+      await secureStorage.clearAuthData();
+      throw Exception('Session expired, please login again');
+    }
+  }
+
   Future<Options> authOptions() async {
+    await ensureValidToken();
     final token = await secureStorage.getAccessToken();
     return Options(headers: {'Authorization': 'Bearer $token'});
   }
@@ -39,6 +71,7 @@ class RemoteDataSource {
       final response = await dio.get(
         'https://accessories-eshop.runasp.net/api/offers',
       );
+
       List<OffersData> offers = [];
       final data = response.data['offers']['items'];
 
@@ -58,9 +91,8 @@ class RemoteDataSource {
     try {
       final response = await dio.get(
         'https://accessories-eshop.runasp.net/api/categories',
-         options: await authOptions(),
+        options: await authOptions(),
       );
-      print('Categories response: ${response.data}'); 
 
       List<CategoryModel> categories = [];
       final data = response.data['categories'];

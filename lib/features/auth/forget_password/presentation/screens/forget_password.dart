@@ -35,7 +35,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             AppRoutes.otp,
             arguments: {
               'email': emailController.text.trim(),
-              'isPasswordReset': false,
+              'isPasswordReset': true, //
             },
           );
         }

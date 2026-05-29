@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:veloura/features/home/data/models/product_model.dart';
 import 'package:veloura/features/home/presentation/cubits/product_action_cubit/product_action_cubit.dart';
-import 'package:veloura/features/product_details/presentation/screens/product_details_screen.dart';
 
 class CustomProductItem extends StatefulWidget {
   final ProductModel product;
@@ -22,22 +22,25 @@ class _CustomProductItemState extends State<CustomProductItem> {
 
     return InkWell(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetailsScreen(product: widget.product),
-          ),
+          '/product-details',
+          arguments: {
+            'product': widget.product,
+            'cartCubit': context.read<CartCubit>(),
+          },
         );
       },
       child: Card(
-        elevation: 0.5,
+        elevation: 0.1,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             AspectRatio(
-              aspectRatio: 1 / 1.1,
+              aspectRatio: 1 / 0.9,
               child: Stack(
                 children: [
                   Padding(
@@ -91,6 +94,7 @@ class _CustomProductItemState extends State<CustomProductItem> {
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
