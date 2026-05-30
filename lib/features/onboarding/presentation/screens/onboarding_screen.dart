@@ -1,12 +1,13 @@
-import 'package:veloura/core/theme/app_colors.dart';
-import 'package:veloura/features/home/presentation/screens/bottom_nav_bar.dart';
-import 'package:veloura/features/home/presentation/screens/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:veloura/core/routing/app_routes.dart';
+import 'package:veloura/features/auth/signup/presentation/screens/sign_up_screen.dart';
 import 'package:veloura/features/onboarding/domain/data/onboarding_data.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/bottom_controls.dart';
 import 'package:veloura/features/onboarding/presentation/widgets/onboarding_page_content.dart';
-import 'package:veloura/features/onboarding/presentation/widgets/onboarding_appbar.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -57,7 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _removeSplash() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 2));
 
     FlutterNativeSplash.remove();
   }
@@ -65,8 +66,24 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OnboardingAppBar(onSkip: _handleGetStarted),
-      backgroundColor: Color(0xFFF5EDE4),
+      appBar: CustomAppBar(
+        actions: [
+          TextButton(
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setBool('seen_onboarding', true);
+
+              if (context.mounted) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                );
+              }
+            },
+            child: const Text("Skip"),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -99,7 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               },
               onGetStarted: _handleGetStarted,
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h),
           ],
         ),
       ),
@@ -112,21 +129,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     _fadeController.forward();
   }
 
-  void _handleGetStarted() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return BottomNavBar();
-        },
-      ),
-    );
-    // TODO: navigation
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Welcome to VELOURA!'),
-        backgroundColor: Color(0xFF1A2233),
-      ),
-    );
+  void _handleGetStarted() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('seen_onboarding', true);
+
+    if (context.mounted) {
+      Navigator.pushReplacementNamed(context, AppRoutes.signup);
+    }
   }
 }

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/constants/app_font_families.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
+import 'package:veloura/core/widgets/custom_primary_button.dart';
 import 'package:veloura/features/cart/data/models/cart_item_model.dart';
+import 'package:veloura/features/cart/presentation/cubits/cart_cubit.dart';
+import 'package:veloura/features/cart/presentation/cubits/cart_state.dart';
 import 'package:veloura/features/cart/presentation/widgets/cart_item.dart';
-import 'package:veloura/features/onboarding/presentation/widgets/summary_row.dart';
+import 'package:veloura/features/cart/presentation/widgets/summary_row.dart';
 
 class ShoppingCartScreen extends StatefulWidget {
   const ShoppingCartScreen({super.key});
@@ -14,174 +21,231 @@ class ShoppingCartScreen extends StatefulWidget {
 class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    FlutterNativeSplash.remove();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<CartCubit>().getCart();
+    });
   }
 
-  final List<CartItemModel> cartItems = [
-    CartItemModel(
-      name: 'Cashmere & Silk Scarf',
-      subtitle: 'Midnight Navy',
-      price: 345.00,
-      quantity: 1,
-      image: 'assets/images/Silk Scarf.png',
-    ),
-    CartItemModel(
-      name: 'Eternity Band',
-      subtitle: '18k Yellow Gold, Size 7',
-      price: 1250.00,
-      quantity: 1,
-      image: 'assets/images/Gold Ring.png',
-    ),
-    CartItemModel(
-      name: 'Oud Bergamot',
-      subtitle: 'Eau de Parfum, 50ml',
-      price: 195.00,
-      quantity: 2,
-      image: 'assets/images/Perfume.png',
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffF8F6F2),
-      appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-        title: Text(
-          "VELOURA",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2,
-            color: Color(0xff061F3D),
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_bag_outlined)),
-        ],
-        backgroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
-              child: Text(
-                "Your Cart",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w400),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                "${cartItems.length} items ready for checkout.",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xff4E4639),
-                ),
-              ),
-            ),
-            SizedBox(height: 8),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: cartItems.length,
-              itemBuilder: (context, index) {
-                final item = cartItems[index];
-                return CartItem(
-                  name: item.name,
-                  subtitle: item.subtitle,
-                  image: item.image,
-                  price: item.price,
-                  quantity: item.quantity,
-                  onRemove: () => setState(() => cartItems.removeAt(index)),
-                  onIncrement: () => setState(() => item.quantity++),
-                  onDecrement: () => setState(() {
-                    if (item.quantity > 1) item.quantity--;
-                  }),
-                );
-              },
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 16),
-              width: double.infinity,
-              padding: EdgeInsets.fromLTRB(20, 24, 20, 32),
-              decoration: BoxDecoration(
-                color: Color(0xffFFFFFF),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-              ),
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
+
+    return BlocBuilder<CartCubit, CartState>(
+      builder: (context, state) {
+        final cubit = context.read<CartCubit>();
+
+        if (state is CartLoadingState) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        if (state is CartFailureState) {
+          return Scaffold(
+            body: Center(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 60.sp,
+                    color: colors.textTertiary,
+                  ),
+                  SizedBox(height: 16.h),
                   Text(
-                    "Summary",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 32,
-                      color: Color(0xff1B1C1C),
+                    'Failed to load cart',
+                    style: textTheme.headlineSmall,
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    state.errorMessage,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: colors.textSecondary,
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 16),
-                  Divider(height: 24),
-                  SizedBox(height: 16),
-                  SummaryRow(label: "Subtotal", value: "\$1,985.00"),
-                  SizedBox(height: 8),
-                  SummaryRow(label: "Shipping", value: "Complimentary"),
-                  SizedBox(height: 8),
-                  SummaryRow(label: "Estimated Tax", value: "\$158.80"),
-                  SizedBox(height: 16),
-                  Divider(height: 24),
-                  SizedBox(height: 16),
-                  SummaryRow(
-                    label: "Total",
-                    value: "\$2,143.80",
-                    isBold: true,
-                    labelFontSize: 24,
-                    valueFontSize: 32,
-                  ),
-                  SizedBox(height: 24),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff061F3D),
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(4),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        "PROCEED TO CHECKOUT",
-                        style: TextStyle(
-                          color: Color(0xffD9B36E),
-                          fontSize: 14,
-                          letterSpacing: 1.5,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.lock_outline, size: 14, color: Colors.grey),
-                      SizedBox(width: 4),
-                      Text(
-                        "SECURE CHECKOUT",
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
+                  SizedBox(height: 24.h),
+                  ElevatedButton(
+                    onPressed: () => context.read<CartCubit>().getCart(),
+                    child: const Text('Retry'),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
+          );
+        }
+
+        final List<CartItemModel> items =
+            state is CartSuccessState
+                ? state.cartItems
+                : state is CartitemUpdatingState
+                    ? state.cartItems
+                    : [];
+
+        return Scaffold(
+          backgroundColor: colors.background,
+          appBar: CustomAppBar(
+            leading: IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.menu, color: colors.textPrimary),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.shopping_bag_outlined,
+                  color: colors.textPrimary,
+                ),
+              ),
+            ],
+          ),
+          body: items.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart_outlined,
+                        size: 70.sp,
+                        color: colors.textTertiary,
+                      ),
+                      SizedBox(height: 20.h),
+                      Text(
+                        'Your cart is empty',
+                        style: textTheme.headlineSmall,
+                      ),
+                      SizedBox(height: 8.h),
+                      Text(
+                        'Add some luxury items to get started.',
+                        style: textTheme.bodySmall?.copyWith(
+                          color: colors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 4.h),
+                          child: Text(
+                            'Your Cart',
+                            style: textTheme.headlineLarge,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Text(
+                            '${items.length} item${items.length == 1 ? '' : 's'} ready for checkout.',
+                            style: textTheme.bodySmall?.copyWith(
+                              color: colors.textSecondary,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 48.h),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: items.length,
+                          itemBuilder: (context, index) {
+                            final item = items[index];
+                            return CartItem(items: item);
+                          },
+                        ),
+                        SizedBox(height: 40.h),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 50.h),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 16.w),
+                            width: double.infinity,
+                            padding: EdgeInsets.fromLTRB(
+                              20.w,
+                              24.h,
+                              20.w,
+                              32.h,
+                            ),
+                            decoration: BoxDecoration(
+                              color: colors.cardColor,
+                              borderRadius: BorderRadius.circular(8.r),
+                              border: Border.all(
+                                color: colors.border,
+                                width: 0.5,
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Summary',
+                                  style: textTheme.headlineSmall,
+                                ),
+                                SizedBox(height: 16.h),
+                                Divider(height: 24.h, color: colors.border),
+                                SizedBox(height: 16.h),
+                                SummaryRow(
+                                  label: 'Subtotal',
+                                  value:
+                                      '\$${cubit.subtotal.toStringAsFixed(2)}',
+                                ),
+                                SizedBox(height: 8.h),
+                                SummaryRow(
+                                  label: 'Shipping',
+                                  value: 'Complimentary',
+                                ),
+                                SizedBox(height: 8.h),
+                                SummaryRow(
+                                  label: 'Estimated Tax (8%)',
+                                  value: '\$${cubit.tax.toStringAsFixed(2)}',
+                                ),
+                                SizedBox(height: 16.h),
+                                Divider(height: 24.h, color: colors.border),
+                                SizedBox(height: 16.h),
+                                SummaryRow(
+                                  label: 'Total',
+                                  value: '\$${cubit.total.toStringAsFixed(2)}',
+                                  isBold: true,
+                                  labelFontSize: 24.sp,
+                                  valueFontSize: 32.sp,
+                                  fontFamily: AppFontFamilies.georgia,
+                                ),
+                                SizedBox(height: 24.h),
+                                CustomPrimaryButton(
+                                  onPressed: () {},
+                                  label: 'PROCEED TO CHECKOUT',
+                                  letterSpacing: 0,
+                                ),
+                                SizedBox(height: 12.h),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.lock_outline,
+                                      size: 14.sp,
+                                      color: colors.gold,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      'SECURE CHECKOUT',
+                                      style: textTheme.labelMedium,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+        );
+      },
     );
   }
 }

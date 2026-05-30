@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:veloura/core/theme/app_theme.dart';
+import 'package:veloura/core/theme/theme_cubit.dart';
+import 'package:veloura/core/theme/theme_states.dart';
+import 'package:veloura/features/app_starting/app_startup.dart';
+import 'package:veloura/core/routing/app_router.dart';
+import 'package:veloura/features/onboarding/presentation/screens/onboarding_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+late double screenWidth;
+late double screenHeight;
+late Widget startScreen;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  startScreen = await getStartScreen();
+
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ThemeCubit()..loadTheme()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -10,10 +31,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
-      home:  OnboardingScreen(),
+    return ScreenUtilInit(
+      designSize: const Size(360, 884),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        screenWidth = ScreenUtil().screenWidth;
+        screenHeight = ScreenUtil().screenHeight;
+
+        return BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, state) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.light,
+              darkTheme: AppTheme.dark,
+              themeMode: state is DarkTheme ? ThemeMode.dark : ThemeMode.light,
+              onGenerateRoute: AppRouter.generateRoute,            
+              home: OnboardingScreen(),
+            );
+          },
+        );
+      },
     );
   }
 }

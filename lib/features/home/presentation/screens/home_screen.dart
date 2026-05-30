@@ -1,156 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:veloura/core/constants/app_font_families.dart';
-import 'package:veloura/features/home/data/category_data.dart';
-import 'package:veloura/features/home/data/offers_data.dart';
-import 'package:veloura/features/home/data/product_data_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:veloura/core/constants/app_strings.dart';
+import 'package:veloura/core/routing/app_routes.dart';
+import 'package:veloura/core/theme/app_colors.dart';
+import 'package:veloura/core/widgets/custom_app_bar.dart';
+import 'package:veloura/features/home/presentation/cubits/categery_cubit/category_cubit.dart';
+import 'package:veloura/features/home/presentation/cubits/categery_cubit/category_state.dart';
+import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_cubit.dart';
+import 'package:veloura/features/home/presentation/cubits/offers_cubit/offers_states.dart';
+import 'package:veloura/features/home/presentation/cubits/products_cubit/products_cubit.dart';
+import 'package:veloura/features/home/presentation/cubits/products_cubit/products_states.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_category_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_offer_item.dart';
 import 'package:veloura/features/home/presentation/widgets/custom_product_card.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentPage = 0;
-  List<CategoryData> categories = [
-    CategoryData(categoryName: "All", isSelected: true),
-    CategoryData(categoryName: "Watches"),
-    CategoryData(categoryName: "Perfumes"),
-    CategoryData(categoryName: "Bags"),
-    CategoryData(categoryName: "Shoes"),
-  ];
-  void selectCategory(int index) {
-    for (var element in categories) {
-      element.isSelected = false;
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<ProductsCubit>(context).getProducts();
+    BlocProvider.of<OffersCubit>(context).getOffers();
+    final categoryCubit = context.read<CategoryCubit>();
+    if (categoryCubit.categories.isEmpty) {
+      categoryCubit.getCategories();
     }
-    categories[index].isSelected = true;
-
-    setState(() {});
   }
 
+  int currentPage = 0;
   @override
   Widget build(BuildContext context) {
-    List<OffersData> offers = [
-      OffersData(
-        imagePath:
-        "https://i.pinimg.com/736x/ef/5d/19/ef5d19d66d9fafecd3ff4d1c85f82c3c.jpg",
-        offerTitle: "Winter Collection",
-        offerDesc: "Exclusive 20% off for the next 24 hours",
-      ),
-      OffersData(
-        imagePath:
-        "https://i.pinimg.com/control1/1200x/2e/fd/67/2efd6797c8ef797666ffaa7cd9d473b8.jpg",
-        offerTitle: "Winter Collection",
-        offerDesc: "Exclusive 20% off for the next 24 hours",
-      ),
-      OffersData(
-        imagePath:
-        "https://i.pinimg.com/736x/ef/5d/19/ef5d19d66d9fafecd3ff4d1c85f82c3c.jpg",
-        offerTitle: "Winter Collection",
-        offerDesc: "Exclusive 20% off for the next 24 hours",
-      ),
-    ];
-    List<ProductDataModel> products = [
-      ProductDataModel(
-        imagePath:
-        "https://i.pinimg.com/736x/a7/42/24/a7422429694f5e1426ebaf85b5160d89.jpg",
-        productName: "Signature Chrono",
-        price: "\$1,250.00",
-      ),
-      ProductDataModel(
-        imagePath:
-        "https://i.pinimg.com/control1/736x/7d/d9/ed/7dd9edd6992dec26196227c59688ad24.jpg",
-        productName: "Essence No. 5",
-        price: "\$280.00",
-      ),
-      ProductDataModel(
-        imagePath:
-        "https://i.pinimg.com/736x/04/3e/d4/043ed498d9e5d1d3cddd2587283805b3.jpg",
-        productName: "Aviator Gilt",
-        price: "\$890.00",
-      ),
-      ProductDataModel(
-        imagePath:
-        "https://i.pinimg.com/736x/36/ce/79/36ce79b6407b7fc75cdfaaee1668a916.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-      ProductDataModel(
-        imagePath:
-        "https://i.pinimg.com/736x/6e/d6/be/6ed6be775c633f8f58d7fac15438917b.jpg",
-        productName: "Noir Envelope Bag",
-        price: "\$420.00",
-      ),
-    ];
+    final textTheme = Theme.of(context).textTheme;
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: Color(0xffFFF8F3),
       //-------------AppBar------------
-      appBar: AppBar(
-        toolbarHeight: 65,
-        backgroundColor: Color(0xffFBF9F8),
-        centerTitle: true,
-        title: Text(
-          "VELOURA",
-          style: TextStyle(
-            color: Color(0XFF061F3D),
-            fontSize: 20,
-            letterSpacing: 6,
-            fontFamily: AppFontFamilies.georgia,
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: AppStrings.appName,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 24),
+          padding: EdgeInsets.only(left: 24.w),
           child: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.search, color: Color(0xff1C1917)),
+            icon: Icon(Icons.search, color: colors.primary),
           ),
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 24),
+            padding: EdgeInsets.only(right: 24.w),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.notifications_none, color: Color(0xff1C1917)),
+              icon: Icon(Icons.notifications_none, color: colors.primary),
             ),
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -158,85 +69,127 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Featured Offers",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontFamily: AppFontFamilies.georgia,
-                    ),
-                  ),
+                  Text("Featured Offers", style: textTheme.headlineSmall),
                   TextButton(
                     onPressed: () {},
-                    child: Text(
-                      "SEE ALL",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
+                    child: Text("SEE ALL", style: textTheme.labelMedium),
                   ),
                 ],
               ),
+              SizedBox(height: 8),
+              BlocBuilder<OffersCubit, OffersStates>(
+                builder: (context, state) {
+                  if (state is OffersLoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if ((state is OffersSuccessState)) {
+                    final offers = state.offers;
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: 180.h,
+                          child: PageView.builder(
+                            onPageChanged: (index) {
+                              setState(() {
+                                currentPage = index;
+                              });
+                            },
+                            itemCount: offers.length,
+                            itemBuilder: (context, index) {
+                              return CustomOfferIteam(
+                                offersData: offers[index],
+                              );
+                            },
+                          ),
+                        ),
+
+                        SizedBox(height: 15.h),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(offers.length, (index) {
+                            return AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              margin: EdgeInsets.symmetric(horizontal: 4),
+                              width: currentPage == index ? 10 : 6,
+                              height: 6,
+                              decoration: BoxDecoration(
+                                color: currentPage == index
+                                    ? colors.chipSelectedColor
+                                    : colors.textTertiary,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            );
+                          }),
+                        ),
+                      ],
+                    );
+                  } else if (state is OffersErrorState) {
+                    return Center(child: Text(state.errorMessage));
+                  }
+                  return SizedBox();
+                },
+              ),
+
+              SizedBox(height: 30.h),
               SizedBox(
-                height: 180,
-                child: PageView.builder(
-                  onPageChanged: (index) {
-                    setState(() {
-                      currentPage = index;
-                    });
-                  },
-                  itemCount: offers.length,
-                  itemBuilder: (context, index) {
-                    return CustomOfferIteam(offersData: offers[index]);
+                height: 40.h,
+                child: BlocBuilder<CategoryCubit, CategoryState>(
+                  builder: (context, state) {
+                    if (state is CategoryLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is CategorySuccess) {
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.categories.length,
+                        itemBuilder: (context, index) {
+                          return CustomCategoryItem(
+                            categoryModel: state.categories[index],
+                            index: index,
+                            onTap: () {
+                              context.read<CategoryCubit>().selectCategory(
+                                index,
+                              );
+                              Navigator.pushNamed(
+                                context,
+                                AppRoutes.productsFilteredByCategory,
+                                arguments: state.categories[index].name,
+                              );
+                            },
+                          );
+                        },
+                      );
+                    } else {
+                      return SizedBox();
+                    }
                   },
                 ),
               ),
-              SizedBox(height: 15),
-              //----------offers section---------
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(offers.length, (index) {
-                  return AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
-                    margin: EdgeInsets.symmetric(horizontal: 4),
-                    width: currentPage == index ? 10 : 6,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: currentPage == index ? Colors.black : Colors.grey,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  );
-                }),
-              ),
-              SizedBox(height: 30),
-              //----------category---------
-              SizedBox(
-                height: 40,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return CustomCategoryItem(
-                      categoryData: categories[index],
-                      onTap: () {
-                        selectCategory(index);
+              SizedBox(height: 15.h),
+              //----------products--------
+              BlocBuilder<ProductsCubit, ProductsStates>(
+                builder: (context, state) {
+                  if (state is ProductsLoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is ProductsSuccessState) {
+                    final products = state.products;
+
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: .6,
+                      ),
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        return CustomProductCard(product: products[index]);
                       },
                     );
-                  },
-                ),
-              ),
-              SizedBox(height: 15),
-              //----------products--------
-              GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 2.6 / 3,
-                ),
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  return CustomProductCard(productDataModel: products[index]);
+                  } else if (state is ProductsErrorState) {
+                    return Center(child: Text(state.errorMessage));
+                  }
+
+                  return SizedBox();
                 },
               ),
             ],

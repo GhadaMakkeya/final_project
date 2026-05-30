@@ -1,0 +1,45 @@
+import 'dart:developer';
+import 'package:bloc/bloc.dart';
+
+import '../../../../../../../core/services/secure_storage_services.dart';
+import '../../../../data/data_sources/login_remote_data_source.dart';
+
+part 'login_state.dart';
+
+class LoginCubit extends Cubit<LoginState> {
+  final LoginRemoteDataSource remoteDataSource = LoginRemoteDataSource();
+  final SecureStorageServices secureStorage = SecureStorageServices();
+
+  LoginCubit() : super(LoginInitial());
+
+  Future<void> login({required String email, required String password}) async {
+    emit(LoginLoading());
+
+    try {
+      final response = await remoteDataSource.login(
+        email: email,
+        password: password,
+      );
+
+      await secureStorage.saveAuthData(
+        accessToken: response.accessToken,
+        refreshToken: response.refreshToken,
+        expiresAt: DateTime.parse(response.expiresAtUtc),
+      );
+
+      final token = await secureStorage.getAccessToken();
+      if (token == null || token.isEmpty) {
+        throw Exception('Token not saved properly');
+      }
+
+      emit(LoginSuccess());
+    } catch (e) {
+      log('Login Error: $e');
+      String message = e.toString();
+      if (message.startsWith('Exception: ')) {
+        message = message.replaceFirst('Exception: ', '');
+      }
+      emit(LoginFailure(message));
+    }
+  }
+}
