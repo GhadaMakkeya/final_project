@@ -70,7 +70,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         actions: [
           TextButton(
             onPressed: () async {
-              // حفظ الحالة عند الضغط على Skip
               final prefs = await SharedPreferences.getInstance();
               await prefs.setBool('seen_onboarding', true);
 
